@@ -5,4 +5,8 @@
     <RootNamespace>staj_r</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Neo4j.Driver" Version="5.0.0" />
+  </ItemGroup>
+
 </Project>
