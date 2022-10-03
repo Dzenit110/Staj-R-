@@ -1,0 +1,28 @@
+﻿@page "/stajR"
+@*Token kontrolleri yapılacak*@
+@if(isTokenValid == true)
+{
+	@*Login'e yönlendiriliyor*@
+	<Login/>
+}
+else if(isTokenValid == false)
+{
+	@*Dashboard'a yönlendiriliyor*@
+	<Dashboard/>
+}
+else
+{
+	@*Token kontrolü bekleniyor*@
+}
+
+
+
+@code {
+	public bool? isTokenValid = null;
+
+	protected override void OnInitialized()
+	{
+		//Token kontrolleri burada yapılacak...
+		base.OnInitialized();
+	}
+}
