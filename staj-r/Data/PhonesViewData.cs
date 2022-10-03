@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace staj_r.Data
 {
-    public class Phones
+    public class PhonesViewData
     {
         private PhoneControllers phoneControllers;
 
-        public Phones()
+        public PhonesViewData()
         {
             phoneControllers = new PhoneControllers();
         }
