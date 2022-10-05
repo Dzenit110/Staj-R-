@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace staj_r_backend.Models.Entities
 {
-    public class Token
+    public class TokenEntity
     {
         public long number { get; set; }
 
