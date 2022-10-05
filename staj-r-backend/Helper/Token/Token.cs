@@ -11,16 +11,13 @@ namespace staj_r_backend.Helper.Token
 
         private readonly byte[] secretKey = new byte[] { 3, 234, 131, 182, 25, 29, 145, 80, 73, 196, 31, 218, 82, 59, 105, 110, 3, 2, 90, 147, 100, 103, 156, 208, 86, 236, 187, 141, 94, 98, 59, 190};
         
-        public string encrypt(User user)
+        public string encrypt(TokenEntity user)
         {
             var payload = new Dictionary<string, object>
             {
                 { "number", user.number },
-                { "name", user.name },
-                { "surname", user.surname },
                 { "password", user.password },
-                { "roles", user.roles },
-                { "tokenExpiresOn", DateTime.Now.AddDays(1)}
+                { "tokenExpiresOn", DateTime.Now.AddHours(8)}
             };
             return JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
         }
@@ -34,9 +31,10 @@ namespace staj_r_backend.Helper.Token
             return JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
         }
 
-        public User decrypt(string token)
+        public TokenEntity decrypt(string token)
         {
-            return JsonConvert.DeserializeObject<User>(token);
+            var payload = JWT.Decode(token, secretKey, JwsAlgorithm.HS256);
+            return JsonConvert.DeserializeObject<TokenEntity>(payload);
         }
     }
 }
