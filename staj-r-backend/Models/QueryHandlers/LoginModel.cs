@@ -22,13 +22,13 @@ namespace staj_r_backend.Models.QueryHandlers
                 string query = $"MATCH (u:User) WHERE u.number = {number} AND u.password = {password}" +
                     $"RETURN u, COUNT(u) AS c";
                 IResultCursor cursor = await executor.execute(query);
-                List<string> res = await cursor.ToListAsync(record => record["u"].As<string>());
-                List<User> liste = new List<User>();
-                foreach (string item in res)
+                IRecord record = await cursor.SingleAsync();
+                if(record["c"].As<int>() == 0)
                 {
-                    liste.Add(JsonSerializer.Deserialize<User>(item));
+                    throw new Exception("User cannot find");
                 }
-                return liste;
+                List<string> res = await cursor.ToListAsync(record => record["u"].As<string>());
+                return JsonSerializer.Deserialize<User>(res[0]);
             }
             catch (Exception ex)
             {

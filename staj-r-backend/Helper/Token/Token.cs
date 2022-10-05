@@ -19,7 +19,6 @@ namespace staj_r_backend.Helper.Token
                 { "name", user.name },
                 { "surname", user.surname },
                 { "password", user.password },
-                { "registrationYear", user.registrationYear },
                 { "roles", user.roles },
                 { "tokenExpiresOn", DateTime.Now.AddDays(1)}
             };
