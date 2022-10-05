@@ -16,8 +16,4 @@
     <ProjectReference Include="..\staj-r-backend\staj-r-backend.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\dash\assets\img\favicon\" />
-  </ItemGroup>
-
 </Project>
