@@ -1,18 +1,22 @@
 ﻿@page "/stajR"
+@inject ILocalStorageService localStore
+
+
+
 @*Token kontrolleri yapılacak*@
 @if(isTokenValid == true)
-{
-	@*Login'e yönlendiriliyor*@
-	<Login/>
-}
-else if(isTokenValid == false)
 {
 	@*Dashboard'a yönlendiriliyor*@
 	<Dashboard/>
 }
+else if(isTokenValid == false)
+{
+	@*Login'e yönlendiriliyor*@
+	<Login/>
+}
 else
 {
-	@*Token kontrolü bekleniyor*@
+	<h1>Loading...</h1>
 }
 
 
@@ -20,9 +24,26 @@ else
 @code {
 	public bool? isTokenValid = null;
 
-	protected override void OnInitialized()
+	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		//Token kontrolleri burada yapılacak...
-		base.OnInitialized();
+		try
+		{
+			LoginViewData lvd = new LoginViewData();
+			isTokenValid = await lvd.tokenControl(await localStore.GetItemAsync<string>("token"));
+		}
+		catch
+		{
+			isTokenValid = false;
+		}
+		if(firstRender) this.StateHasChanged();
 	}
+
+	//////////////   TOKEN OLUŞTURMA    ////////////////////
+	/*
+	async Task butcli()
+	{
+		await localStore.SetItemAsync("token","frankfurt");
+	}
+	*/
+	///////////////////////////////////////////////////////
 }
