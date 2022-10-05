@@ -24,12 +24,15 @@ else
 @code {
 	public bool? isTokenValid = null;
 
+	public User user;
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		try
 		{
 			LoginViewData lvd = new LoginViewData();
-			isTokenValid = await lvd.tokenControl(await localStore.GetItemAsync<string>("token"));
+			user = await lvd.tokenControl(await localStore.GetItemAsync<string>("token"));
+			isTokenValid = true;
 		}
 		catch
 		{
