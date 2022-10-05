@@ -1,12 +1,4 @@
-﻿@page "/login"
-<h3>Login</h3>
-
-<head>
-
-</head>
-
-<body>
-    <!-- Content -->
+﻿    <!-- Content -->
 
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
@@ -75,7 +67,8 @@
                                        id="email"
                                        name="email-username"
                                        placeholder="Enter your email or username"
-                                       autofocus />
+                                       autofocus @onchange = "numberChanged"/>
+                                       <p>Number: @number</p>
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">
@@ -90,7 +83,7 @@
                                            class="form-control"
                                            name="password"
                                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                           aria-describedby="password" />
+                                           aria-describedby="password" @onchange = "passwordChanged" />
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
@@ -101,7 +94,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                                <button class="btn btn-primary d-grid w-100" type="submit" @onclick = "signinClicked">Sign in</button>
                             </div>
                         </form>
 
@@ -117,10 +110,38 @@
             </div>
         </div>
     </div>
-
-    <!-- / Content -->
-</body>
-
 @code {
+    public long number;
+    public string password;
+
+    private void numberChanged(ChangeEventArgs args)
+    {
+        try
+        {
+            number = Convert.ToInt64(args.Value);
+        }
+        catch{}
+    }
+
+    private void passwordChanged(ChangeEventArgs args)
+    {
+        try
+        {
+            password = args.Value.ToString();
+        }
+        catch{}
+    }
+
+    private void signinClicked()
+    {
+        try
+        {
+
+        }
+        catch
+        {
+            
+        }
+    }
 
 }
