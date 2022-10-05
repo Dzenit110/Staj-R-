@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="Neo4j.Driver" Version="5.0.0" />
     <PackageReference Include="Neo4j.Driver.Reactive" Version="5.0.0" />
     <PackageReference Include="Neo4j.Driver.Simple" Version="5.0.0" />

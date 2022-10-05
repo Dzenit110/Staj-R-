@@ -13,7 +13,7 @@ namespace staj_r_backend.Models.QueryHandlers
 {
     public class LoginModel
     {
-        public async Task<List<User>> login(long number, string password)
+        public async Task<User> login(long number, string password)
         {
             try
             {
