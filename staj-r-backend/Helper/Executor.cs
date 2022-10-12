@@ -46,6 +46,94 @@ namespace staj_r_backend.Helper
             }
         }
 
+        public async Task<List<string>> moreVariableOneNode(string query, List<string> variables)
+        {
+            List<string> jsons = new List<string>();
+            try
+            {
+                IResultCursor cursor = await session.RunAsync(query);
+                await cursor.FetchAsync();
+                List<object> currents = new List<object>();
+                foreach (string variable in variables)
+                {
+                    currents.Add(cursor.Current[variable]);
+                }
+                List<string> result = new List<string>();
+                foreach (object current in currents)
+                {
+                    result.Add(JsonSerializer.Serialize(current));
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Hata: ", ex);
+            }
+        }
+
+        public async Task<string> oneVariableOneNode(string query, string variable)
+        {
+            try
+            {
+
+                IResultCursor cursor = await session.RunAsync(query);
+                await cursor.FetchAsync();
+                var current = cursor.Current[variable];
+                string result = JsonSerializer.Serialize(current);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Executor/ExecuteOneJson metodunda hata: ", ex);
+            }
+        }
+
+        public async Task<List<string>> oneVariableMoreNodes(string query, string variable)
+        {
+            try
+            {
+                IResultCursor cursor = await session.RunAsync(query);
+                List<IRecord> records = await cursor.ToListAsync();
+                List<string> jsons = new List<string>();
+                foreach (IRecord record in records)
+                {
+                    jsons.Add(JsonSerializer.Serialize(record.Values[variable]));
+                }
+                return jsons;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Executor/ExecuteOneJson metodunda hata: ", ex);
+            }
+        }
+
+        public async Task<List<List<string>>> moreVariableMoreNodes(string query, List<string> variables)
+        {
+            try
+            {
+                IResultCursor cursor = await session.RunAsync(query);
+                List<IRecord> records = await cursor.ToListAsync();
+                List<List<string>> result = new List<List<string>>();
+                foreach (string variable in variables)
+                {
+                    List<string> jsons = new List<string>();
+                    foreach (IRecord record in records)
+                    {
+
+                        jsons.Add(JsonSerializer.Serialize(record.Values[variable]));
+
+                    }
+                    result.Add(jsons);
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Executor/ExecuteOneJson metodunda hata: ", ex);
+            }
+        }
+
+
         ~Executor()
         {
             session.CloseAsync();
