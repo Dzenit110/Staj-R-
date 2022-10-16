@@ -1,4 +1,4 @@
-﻿@page "/dashboard"
+﻿@page "/add_role"
 
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
@@ -22,7 +22,7 @@
 
             <ul class="menu-inner py-1">
 
-                <li class="menu-item active">
+                <li class="menu-item">
                     <a href=/dashboard class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
@@ -36,8 +36,8 @@
                     </a>
                 </li>
 
-                <li class="menu-item">
-                    <a href=/add_std class="menu-link menu-toggle">
+                <li class="menu-item active open">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
                     </a>
@@ -66,7 +66,7 @@
                             </a>
                         </li>
 
-                        <li class="menu-item">
+                        <li class="menu-item active">
                             <a href=/add_role class="menu-link">
                                 <div data-i18n="Yeni Rol Ekle">Yeni Rol Ekle</div>
                             </a>
@@ -181,9 +181,6 @@
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 <!-- / Layout wrapper -->
-
 @code {
-    [Parameter]
-    public User user { get; set; }
 
 }
