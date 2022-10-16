@@ -400,6 +400,42 @@
     }
 
 
+    async Task OnSingleCompleted(InputFileChangeEventArgs e)
+    { 
+        try
+        {
+            var buffer = new byte[500000];
+            foreach (var file in e.GetMultipleFiles(e.FileCount))
+            {
+                using var stream = file.OpenReadStream(maxAllowedSize: long.MaxValue);
+                while (true)
+                {
+                    var read = await stream.ReadAsync(buffer);
+                    if (read == 0)
+                        break;
+                }
+                await InvokeAsync(StateHasChanged);
+            }
+            string x = "";
+            foreach(var item in buffer)
+            {
+                if(item!=0)
+                {
+                    x += (char)item;
+                }
+            }
+            string[] arr = await Task<string[]>.Run(() =>
+            {
+                return x.Replace("\r\n", "**78541**").Split("**78541**");
+            });
+            var a = x;
+        }
+        catch (Exception ex)
+        {
+            await InvokeAsync(StateHasChanged);
+        }
+    }
+
 
 
 
