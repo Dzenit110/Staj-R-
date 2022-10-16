@@ -9,6 +9,7 @@ namespace staj_r_backend.Controllers
 {
     public class PhoneControllers
     {
+        /*
         public async Task<List<Phone>> getPhones()
         {
             
@@ -22,5 +23,6 @@ namespace staj_r_backend.Controllers
                 return new List<Phone> { new Phone() {brand = "Sonuçlar alınırken hata oluştu."} };
             }
         }
+        */
     }
 }

@@ -13,6 +13,7 @@ namespace staj_r_backend.Models.QueryHandlers
 {
     public class LoginModel
     {
+        /*
         public async Task<User> login(long number, string password)
         {
             try
@@ -35,5 +36,6 @@ namespace staj_r_backend.Models.QueryHandlers
                 throw new Exception("Hata: ", ex);
             }
         }
+        */
     }
 }

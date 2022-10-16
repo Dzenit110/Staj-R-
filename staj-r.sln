@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "staj-r", "staj-r\staj-r.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "staj-r-backend", "staj-r-backend\staj-r-backend.csproj", "{57EE6C70-DDA4-457F-9B6B-86325B567B57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "staj-r-backend-test", "staj-r-backend-test\staj-r-backend-test.csproj", "{C5EF4A9E-4306-46DF-BB29-C06DA634BF85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "staj-r-backend-test", "staj-r-backend-test\staj-r-backend-test.csproj", "{C5EF4A9E-4306-46DF-BB29-C06DA634BF85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

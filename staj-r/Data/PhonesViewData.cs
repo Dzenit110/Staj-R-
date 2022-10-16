@@ -14,9 +14,6 @@ namespace staj_r.Data
         {
             phoneControllers = new PhoneControllers();
         }
-        public async Task<List<Phone>> getPhones()
-        {
-            return await phoneControllers.getPhones();
-        }
+        
     }
 }

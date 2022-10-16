@@ -11,10 +11,10 @@ namespace staj_r.Data
 {
     public class LoginViewData
     {
-        public async Task<User> tokenControl(string token)
-        {
-            LoginContoller lc = new LoginContoller();
-            return await lc.checkTokenController(token);
-        }
+        //public async Task<User> tokenControl(string token)
+        //{
+        //    LoginContoller lc = new LoginContoller();
+        //    return await lc.checkTokenController(token);
+        //}
     }
 }

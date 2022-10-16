@@ -9,6 +9,7 @@ namespace staj_r_backend.Controllers
 {
     public class LoginContoller
     {
+        /*
         public async Task<User> checkTokenController(string token)
         {
             Helper.Token.Token tk = new Helper.Token.Token();
@@ -16,5 +17,6 @@ namespace staj_r_backend.Controllers
             LoginModel lm = new LoginModel();
             return await lm.login(decrypted.number, decrypted.password);
         }
+        */
     }
 }

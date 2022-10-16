@@ -6,4 +6,14 @@
     <RootNamespace>staj_r_backend_test</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\staj-r-backend\staj-r-backend.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SpassByMyurga">
+      <HintPath>..\staj-r-backend\Helper\SpassByMyurga.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

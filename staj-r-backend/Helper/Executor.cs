@@ -20,12 +20,119 @@ namespace staj_r_backend.Helper
             driver = GraphDatabase.Driver("neo4j+s://aa0402bf.databases.neo4j.io", AuthTokens.Basic("neo4j", "9C4fhCdcl0krjwTgb7vZNAvuW8FQrv4YsPN7cRfGOuE"));
             session = driver.AsyncSession(o => o.WithDatabase("neo4j"));
         }
-        public async Task<IResultCursor> execute(string query)
+        public async Task<string> execute1(string query)
         {
             try
             {
                 IResultCursor cursor = await session.RunAsync(query);
-                return cursor;
+                List<string> jsonsList = await cursor.ToListAsync(x =>JsonSerializer.Serialize(x.Values.Values.ToList()[0]));
+                return JsonSerializer.Serialize(jsonsList);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Hata: ", ex);
+            }
+        }
+        public async Task<IDictionary<string, List<string>>> execute2(string query, string[] variables)
+        {
+            try
+            {
+                IResultCursor cursor = await session.RunAsync(query);
+                List<IRecord> jsonsList1 = await cursor.ToListAsync();
+                IDictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
+                foreach(IRecord item in jsonsList1)
+                {
+                    foreach(string key in item.Keys)
+                    {
+                        if (!dictionary.ContainsKey(key))
+                        {
+                            dictionary.Add(key, new List<string>());
+                        }
+                    }
+                    foreach(var node in item.Values)
+                    {
+                        dictionary[node.Key].Add(JsonSerializer.Serialize(node.Value));
+                    }
+                }
+                return dictionary;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Hata: ", ex);
+            }
+        }
+
+        public async Task<IDictionary<string, string>> execute3(string query, string[] variables)
+        {
+            try
+            {
+                IResultCursor cursor = await session.RunAsync(query);
+                List<IRecord> jsonsList1 = await cursor.ToListAsync();
+                IDictionary<string, List<object>> primitive = new Dictionary<string, List<object>>();
+                foreach (IRecord item in jsonsList1)
+                {
+                    foreach (string key in item.Keys)
+                    {
+                        if (!primitive.ContainsKey(key))
+                        {
+                            primitive.Add(key, new List<object>());
+                        }
+                    }
+                    foreach (var node in item.Values)
+                    {
+                        primitive[node.Key].Add(node.Value);
+                    }
+                }
+                IDictionary<string, string> dictionary = new Dictionary<string, string>();
+                foreach (var item in primitive)
+                {
+                    dictionary.Add(item.Key, JsonSerializer.Serialize(item.Value));
+                }
+                return dictionary;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Hata: ", ex);
+            }
+        }
+
+        public async Task<IDictionary<string, List<object>>> execute(string query)
+        {
+            try
+            {
+                IResultCursor cursor = await session.RunAsync(query);
+                List<IRecord> jsonsList1 = await cursor.ToListAsync();
+                IDictionary<string, List<object>> dictionary = new Dictionary<string, List<object>>();
+                foreach (IRecord item in jsonsList1)
+                {
+                    foreach (string key in item.Keys)
+                    {
+                        if (!dictionary.ContainsKey(key))
+                        {
+                            dictionary.Add(key, new List<object>());
+                        }
+                    }
+                    foreach (var node in item.Values)
+                    {
+                        if (node.Value.GetType().ToString() == "Neo4j.Driver.Internal.Types.Node")
+                        {
+                            dictionary[node.Key].Add(new NodeEntities((INode)node.Value));
+                        }
+                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalDate" || node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime" 
+                            || node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime" || node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        {
+                            int year = ((LocalDate)node.Value).Year;
+                            int month = ((LocalDate)node.Value).Month;
+                            int day = ((LocalDate)node.Value).Day;
+                            dictionary[node.Key].Add(new DateTime(year, month, day));
+                        }
+                        else
+                        {
+                            dictionary[node.Key].Add(node.Value);
+                        }
+                    }
+                }
+                return dictionary;
             }
             catch (Exception ex)
             {

@@ -10,6 +10,7 @@ namespace staj_r_backend.Models.Entities
         public string email { get; set; }
         public string password { get; set; }
         public string department { get; set; }
-        public List<char> roles { get; set; }
+        public List<string> roles { get; set; }
+        public List<string> authorities { get; set; }
     }
 }

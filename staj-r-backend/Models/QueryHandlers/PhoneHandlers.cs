@@ -13,7 +13,7 @@ namespace staj_r_backend.Models.QueryHandlers
     public class PhoneHandlers
     {
         
-
+        /*
         public async Task<List<Phone>> getPhonesHandler(string query, string variable)
         {
             try
@@ -33,5 +33,6 @@ namespace staj_r_backend.Models.QueryHandlers
                 throw new Exception("Hata: ", ex);
             }
         }
+        */
     }
 }
