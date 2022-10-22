@@ -283,38 +283,13 @@
 
                                 <div class="card-body">
                                     <form id="formAccountSettings" method="POST" onsubmit="return false" style="text-align:center">
-                                        <div class="row">
-                                            <div class="mb-3 col-md-6">
-                                                <label for="firstName" class="form-label">Toplu Öğrenci Ekle</label>
+                                        <div style="align-content">
                                                 <div class="button-wrapper">
-
-                                                    <Upload accept=".csv" Action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                                            Name="files"
-                                                            OnSingleCompleted="OnSingleCompleted">
-                                                        <Button Icon="upload">
-                                                            <span>Dosya Yüklemek için Tıklanıyız</span>
-                                                        </Button>
-                                                    </Upload>
-
-
+                                                    <input accept=".csv" class="form-control" type="file" id="formFile">
+                                                    <br>
+                                                    <p style="color:red;" class="form-label">*YÜKLENECEK DOSYA .CSV UZANTILI OLMALIDIR!*</p>
+                                                    <p style="color:red;" class="form-label">*CSV DOSYANIZDA İSİM, SOYİSİM, E-MAİL VE NUMARA OLDUĞUNDAN EMİN OLUN*</p>
                                                 </div>
-                                            </div>
-
-                                            <div class="mb-3 col-md-6">
-                                                <Alert Banner>
-                                                    <MessageTemplate>
-                                                        <div id="loop-text">
-                                                            <ul>
-                                                                <li>Lütfen dikkat ediniz !</li>
-                                                                <li>Yükleceğiniz dosya .csv uzantılı olmak zorunda</li>
-                                                                <li>Lütfen dikkat ediniz !</li>
-                                                                <li>Yükleceğiniz dosya .csv uzantılı olmak zorunda</li>
-                                                            </ul>
-
-                                                        </div>
-                                                    </MessageTemplate>
-                                                </Alert>
-                                            </div>
                                         </div>
                                     </form>
                                 </div>
