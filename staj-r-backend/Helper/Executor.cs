@@ -20,6 +20,124 @@ namespace staj_r_backend.Helper
             driver = GraphDatabase.Driver("neo4j+s://aa0402bf.databases.neo4j.io", AuthTokens.Basic("neo4j", "9C4fhCdcl0krjwTgb7vZNAvuW8FQrv4YsPN7cRfGOuE"));
             session = driver.AsyncSession(o => o.WithDatabase("neo4j"));
         }
+        public async Task<IDictionary<string, List<object>>> execute(string query)
+        {
+            try
+            {
+                IResultCursor cursor = await session.RunAsync(query);
+                List<IRecord> jsonsList1 = await cursor.ToListAsync();
+                IDictionary<string, List<object>> dictionary = new Dictionary<string, List<object>>();
+                foreach (IRecord item in jsonsList1)
+                {
+                    foreach (string key in item.Keys)
+                    {
+                        if (!dictionary.ContainsKey(key))
+                        {
+                            dictionary.Add(key, new List<object>());
+                        }
+                    }
+                    foreach (var node in item.Values)
+                    {
+                        if (node.Value == null)
+                        {
+                            dictionary[node.Key].Add(null);
+                        }
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.Internal.Types.Node")
+                        {
+                            dictionary[node.Key].Add(new NodeEntities((INode)node.Value));
+                        }
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalDate" || node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime"
+                            || node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime" || node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        {
+                            int year = ((LocalDate)node.Value).Year;
+                            int month = ((LocalDate)node.Value).Month;
+                            int day = ((LocalDate)node.Value).Day;
+                            dictionary[node.Key].Add(new DateTime(year, month, day));
+                        }
+                        else
+                        {
+                            dictionary[node.Key].Add(node.Value);
+                        }
+                    }
+                }
+                return dictionary;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Hata: ", ex);
+            }
+        }
+        public async Task<IDictionary<string, object>> executeOneNode(string query)
+        {
+            try
+            {
+                IResultCursor cursor = await session.RunAsync(query);
+                List<IRecord> jsonsList1 = await cursor.ToListAsync();
+                IDictionary<string, object> dictionary = new Dictionary<string, object>();
+                foreach (IRecord item in jsonsList1)
+                {
+                    foreach (string key in item.Keys)
+                    {
+                        if (!dictionary.ContainsKey(key))
+                        {
+                            dictionary.Add(key, new List<object>());
+                        }
+                    }
+                    foreach (var node in item.Values)
+                    {
+                        if (node.Value == null)
+                        {
+                            dictionary[node.Key] = null;
+                        }
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.Internal.Types.Node")
+                        {
+                            dictionary[node.Key] = new NodeEntities((INode)node.Value);
+                        }
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalDate" || node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime"
+                            || node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime" || node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        {
+                            int year = ((LocalDate)node.Value).Year;
+                            int month = ((LocalDate)node.Value).Month;
+                            int day = ((LocalDate)node.Value).Day;
+                            dictionary[node.Key] = new DateTime(year, month, day);
+                        }
+                        else
+                        {
+                            dictionary[node.Key] = node.Value;
+                        }
+                    }
+                }
+                return dictionary;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Hata: ", ex);
+            }
+        }
+
+        public async Task<bool> executeReturnless(string query)
+        {
+            try
+            {
+                await (await session.RunAsync(query)).FetchAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+#region denemeler
+
+
+
+
         public async Task<string> execute1(string query)
         {
             try
@@ -93,63 +211,6 @@ namespace staj_r_backend.Helper
             catch (Exception ex)
             {
                 throw new Exception("Hata: ", ex);
-            }
-        }
-
-        public async Task<IDictionary<string, List<object>>> execute(string query)
-        {
-            try
-            {
-                IResultCursor cursor = await session.RunAsync(query);
-                List<IRecord> jsonsList1 = await cursor.ToListAsync();
-                IDictionary<string, List<object>> dictionary = new Dictionary<string, List<object>>();
-                foreach (IRecord item in jsonsList1)
-                {
-                    foreach (string key in item.Keys)
-                    {
-                        if (!dictionary.ContainsKey(key))
-                        {
-                            dictionary.Add(key, new List<object>());
-                        }
-                    }
-                    foreach (var node in item.Values)
-                    {
-                        if (node.Value.GetType().ToString() == "Neo4j.Driver.Internal.Types.Node")
-                        {
-                            dictionary[node.Key].Add(new NodeEntities((INode)node.Value));
-                        }
-                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalDate" || node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime" 
-                            || node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime" || node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
-                        {
-                            int year = ((LocalDate)node.Value).Year;
-                            int month = ((LocalDate)node.Value).Month;
-                            int day = ((LocalDate)node.Value).Day;
-                            dictionary[node.Key].Add(new DateTime(year, month, day));
-                        }
-                        else
-                        {
-                            dictionary[node.Key].Add(node.Value);
-                        }
-                    }
-                }
-                return dictionary;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Hata: ", ex);
-            }
-        }
-
-        public async Task<bool> executeReturnless(string query)
-        {
-            try
-            {
-                await session.RunAsync(query);
-                return true;
-            }
-            catch
-            {
-                return false;
             }
         }
 
@@ -239,7 +300,7 @@ namespace staj_r_backend.Helper
                 throw new Exception("Executor/ExecuteOneJson metodunda hata: ", ex);
             }
         }
-
+        #endregion
 
         ~Executor()
         {

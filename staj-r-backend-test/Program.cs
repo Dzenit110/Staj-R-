@@ -10,15 +10,23 @@ using staj_r_backend.Models;
 using staj_r_backend.Models.Queries;
 using staj_r_backend.Models.QueryHandlers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace staj_r_backend_test
 {
-    internal class Program
+    public class Program
     {
         static async Task Main(string[] args)
         {
-            //CREATE(b: Role{ name: "Kurum Yetkilisi", authorities: ["j","k"]})
-            await new UserModel().createRole("Kurum Yetkilisi", new List<string> { "j", "k" });
+            var y = new Token().encrypt(new TokenEntity()
+            {
+                number = "adanamerkez",
+                password = "5425454",
+                expiresOn = DateTime.Now,
+            });
+            var x = new Token().decrypt(y);
+            var z = (x.expiresOn - DateTime.Now);
+            string q = (x.expiresOn - DateTime.Now).Hours.ToString()+" : "+ (x.expiresOn - DateTime.Now).Minutes.ToString()+" : "+ (x.expiresOn - DateTime.Now).Seconds.ToString();
         }
     }
 }
