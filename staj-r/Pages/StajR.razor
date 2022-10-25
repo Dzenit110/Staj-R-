@@ -1,5 +1,6 @@
 ﻿@page "/stajR"
 @inject ILocalStorageService localStore
+@using staj_r.Dashboard
 
 
 
@@ -7,7 +8,7 @@
 @if(isTokenValid == true)
 {
 	@*Dashboard'a yönlendiriliyor*@
-	<Dashboard user="@user"/>
+	<Dashboard User="@user" Token="@token"/>
 }
 else if(isTokenValid == false)
 {
@@ -25,6 +26,7 @@ else
 	public bool? isTokenValid = null;
 
 	public User user;
+	public string token;
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
