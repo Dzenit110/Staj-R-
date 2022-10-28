@@ -33,15 +33,5 @@ namespace staj_r_backend_test
 
 
     }
-
-    class y
-    {
-        public string q { get; set; }
-        public string a { get; set; }
-        public yardakul c { get; set; }
-        public enum yardakul{
-            kuddus, yardak, fırusi, fuzuli
-        }
-    }
    
 }

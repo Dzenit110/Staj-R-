@@ -121,18 +121,23 @@ namespace staj_r_backend.Models
             public string message { get; set; }
             public string interviewDate { get; set; }
             //Staj Başvuru Durumu
-            public Apply apply { get; set; }
-            //Staj Bilgileri Bölümü
-            public InternInfo internInfo { get; set; }
-            //Staj Değerlendirmesi Bölümü
-            public InternRating rating { get; set; }
-            public IMERating IMERating { get; set; }
-        }
-        public record Apply
-        {
             public string applyStatusMessage { get; set; }
             public string applyDate { get; set; }
+            //Staj Bilgileri Bölümü
+            public string firm { get; set; }
+            public string InternDate { get; set; }
+            public int doesInternID { get; set; }
+            //public InternInfo internInfo { get; set; }
+            //Staj Değerlendirmesi Bölümü
+            //public InternRating rating { get; set; }
+            //public IMERating IMERating { get; set; }
         }
+        //public record Apply
+        //{
+        //    public string applyStatusMessage { get; set; }
+        //    public string applyDate { get; set; }
+        //}
+
         public async Task<Popup> getStudentDetails(string stdnumber, internships type)
         {
             string findStdQuery = $"MATCH(n:User)-[:DOES]->(s:{type.ToString()}) WHERE n.number = '{stdnumber}' RETURN " +
@@ -165,45 +170,43 @@ namespace staj_r_backend.Models
             {
                 applyStatusMessage = "Öğrencinin başvurusu onaylanmıştır.";
             }
-            Apply apply = new Apply
-            {
-                applyDate = applyDate.Day+"."+applyDate.Month+"."+applyDate.Year,
-                applyStatusMessage = applyStatusMessage,
-            }; ;
-            InternInfo internInfo = null;
-            InternRating rating = null;
-            IMERating IMERating = null;
+            string applyDateStr = applyDate.Day + "." + applyDate.Month + "." + applyDate.Year;
+            //InternInfo internInfo = null;
+            //InternRating rating = null;
+            //IMERating IMERating = null;
+            string internDate = "";
+            string firm = "";
             if(code == "c" || code == "d" || code == "e" || code == "f" || code == "g" || code == "h")
             {
-                string firm = (string)qres["firm"];
+                firm = (string)qres["firm"];
                 DateTime startingDate = (DateTime)qres["strDt"];
                 DateTime finishDate = (DateTime)qres["fnsDt"];
-                internInfo = new InternInfo
-                {
-                    firm = firm,
-                    date = "Staj Başlangıcı: " + startingDate.Day + "." + startingDate.Month + "." + startingDate.Year + "    Staj Bitişi: "
-                    + finishDate.Day + "." + finishDate.Month + "." + finishDate.Year
-                };
+                internDate = "Staj Başlangıcı: " + startingDate.Day + "." + startingDate.Month + "." + startingDate.Year + "    Staj Bitişi: "
+                  + finishDate.Day + "." + finishDate.Month + "." + finishDate.Year;
             }
-            if(code == "f" || code == "g" || code == "h")
-            {
-                if(type != internships.IME)
-                {
-                    rating = await getIRatingDetails(ID);
-                }
-                else
-                {
-                    IMERating = await getIMERatingDetails(ID);
-                }
-            }
+            //if(code == "f" || code == "g" || code == "h")
+            //{
+            //    if(type != internships.IME)
+            //    {
+            //        rating = await getIRatingDetails(ID);
+            //    }
+            //    else
+            //    {
+            //        IMERating = await getIMERatingDetails(ID);
+            //    }
+            //}
             Popup p = new Popup()
             {
+                statusCode = code,
                 message = message,
                 interviewDate = interview,
-                apply = apply,
-                internInfo = internInfo,
-                rating = rating,
-                IMERating = IMERating
+                InternDate = internDate,
+                firm = firm,
+                applyDate = applyDateStr,
+                applyStatusMessage = applyStatusMessage,
+                doesInternID = Convert.ToInt32(ID)
+                //rating = rating,
+                //IMERating = IMERating
             };
             return p;
         }
@@ -212,39 +215,98 @@ namespace staj_r_backend.Models
             public string firm { get; set; }
             public string date { get; set; }
         }
-        public record InternRating
-        {
-            public string documentStatusMessage { get; set; }
-            public string lastReportUpdateDate { get; set; }
-            public string lastRatingUpdateDate { get; set; }
-        }
-        public record IMERating
-        {
-            public string documentStatusMessage { get; set; }
-            public string lastAuditUpdateDate { get; set; }
-            public string lastRatingUpdateDate { get; set; }
-        }
-        private async Task<InternRating> getIRatingDetails(long id)
-        {
-            string query = $"MATCH(s)-[:DOC]->(d:Document) WHERE ID(s) = {id} AND d.documentCode =   RETURN ";
-            var res = await ex.executeOneNode(query);
-            return new InternRating
-            {
-                //documentStatusMessage = ,
+        //public record InternRating
+        //{
+        //    public string documentStatusMessage { get; set; }
+        //    public string lastReportUpdateDate { get; set; }
+        //    public string lastRatingUpdateDate { get; set; }
+        //}
+        //public record IMERating
+        //{
+        //    public string documentStatusMessage { get; set; }
+        //    public string lastAuditUpdateDate { get; set; }
+        //    public string lastRatingUpdateDate { get; set; }
+        //}
+        //private async Task<InternRating> getIRatingDetails(long id)
+        //{
+        //    string query = $"MATCH(s)-[:DOC]->(d:Document) WHERE ID(s) = {id} AND d.documentCode =   RETURN ";
+        //    var res = await ex.executeOneNode(query);
+        //    return new InternRating
+        //    {
+        //        //documentStatusMessage = ,
    
-            };
-        }
-        private async Task<IMERating> getIMERatingDetails(long id)
-        {
-            string query = $"MATCH(s) WHERE ID(s) = {id}";
-            var res = await ex.executeOneNode(query);
-            return new IMERating
-            {
-                //lastAuditUpdateDate = ,
-                //documentStatusMessage = ,
-                //lastRatingUpdateDate=
-            };
-        }
+        //    };
+        //}
+        //private async Task<IMERating> getIMERatingDetails(long id)
+        //{
+        //    string query = $"MATCH(s) WHERE ID(s) = {id}";
+        //    var res = await ex.executeOneNode(query);
+        //    return new IMERating
+        //    {
+        //        //lastAuditUpdateDate = ,
+        //        //documentStatusMessage = ,
+        //        //lastRatingUpdateDate=
+        //    };
+        //}
         #endregion
+
+        public async Task<bool> updateMessage(int doesInternID, string message)
+        {
+            string query = $"MATCH(s) WHERE ID(s)={doesInternID} SET s.message = '{message}'";
+            return await ex.executeReturnless(query);
+        }
+
+        //Başvuru kablulü ya da reddi için
+        public async Task<Popup> markApply(int doesInternID, bool isaccepting, string stdnumber, internships type)
+        {
+            string code = "";
+            string status = "";
+            if (isaccepting)
+            {
+                code = "c";
+                status = "Staj Başvurusu Onaylandı";
+            }
+            else
+            {
+                code = "b";
+                status = "Staj Başvurusu Onaylanmadı";
+            }
+            string query = $"MATCH(n) WHERE ID(n)={doesInternID} SET n.statusCode = '{code}', n.status = '{status}'";
+            if(!await ex.executeReturnless(query))
+            {
+                throw new Exception();
+            }
+            return await getStudentDetails(stdnumber, type);
+        }
+
+        public async Task<bool> setInterviewDate(int doesInternID, DateTime interviewDate)
+        {
+            string date = new ZonedDateTime(interviewDate).ToString();
+            string query = $"MATCH(n) WHERE ID(n)={doesInternID} SET n. = datetime('{date}')";
+            return await ex.executeReturnless(query);
+        }
+
+        //Stajın başarılı veya başarısız işaretlenmesi için
+        public async Task<Popup> markInternship(int doesInternID, bool isaccepting, string stdnumber, internships type)
+        {
+            string code = "";
+            string status = "";
+            if (isaccepting)
+            {
+                code = "g";
+                status = "Staj Başarılı";
+            }
+            else
+            {
+                code = "h";
+                status = "Staj Başarısız";
+            }
+            string query = $"MATCH(n) WHERE ID(n)={doesInternID} SET n.statusCode = '{code}', n.status = '{status}'";
+            if (!await ex.executeReturnless(query))
+            {
+                throw new Exception();
+            }
+            return await getStudentDetails(stdnumber, type);
+        }
     }
 }
