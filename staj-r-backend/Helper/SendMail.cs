@@ -29,7 +29,6 @@ namespace staj_r_backend.Helper
                             Subject = caption,
                             Body = message,
                             IsBodyHtml = true,
-                            BodyEncoding = System.Text.Encoding.UTF8,
                         });
                     }
                     catch

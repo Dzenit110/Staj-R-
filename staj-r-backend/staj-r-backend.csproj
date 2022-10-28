@@ -6,16 +6,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Schemas\**" />
+    <EmbeddedResource Remove="Schemas\**" />
+    <None Remove="Schemas\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AntDesign" Version="0.12.4" />
     <PackageReference Include="jose-jwt" Version="4.0.1" />
     <PackageReference Include="Neo4j.Driver" Version="5.0.0" />
     <PackageReference Include="Neo4j.Driver.Reactive" Version="5.0.0" />
     <PackageReference Include="Neo4j.Driver.Simple" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Schemas\" />
   </ItemGroup>
 
   <ItemGroup>

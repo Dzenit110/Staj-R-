@@ -11,14 +11,38 @@ namespace staj_r_backend.Models
 {
     public class UserModel
     {
-        public async Task<bool> registerModel(string number, string name, string surname, string email, string password, string department, int roleID)
+        public async Task<bool> registerModel(string number, string name, string surname, string email, string password, string department, int roleID, string uNumber)
         {
             try
             {
-                string query = $"CREATE(u:User{{number:'{number}', name:'{name}', surname: '{surname}', email:'{email}',password:'{password}', department:'{department}'}}) " +
+                string query = "";
+                bool isDepMan = false;
+                if(department == null)
+                { 
+                    query = $"MATCH(q:User) WHERE q.number='{uNumber}' WITH q.department AS q CREATE(u:User{{number:'{number}', name:'{name}', surname: '{surname}', email:'{email}',password:'{password}', department: q}}) " +
                     $"WITH u MATCH(r:Role) WHERE ID(r)={roleID} CREATE(u)-[:MEMBER]->(r)";
+                }
+                if(uNumber == null)
+                {
+                    query = $"CREATE(u:User{{number:'{number}', name:'{name}', surname: '{surname}', email:'{email}',password:'{password}', department:'{department}'}}) " +
+                    $"WITH u MATCH(r:Role) WHERE ID(r)={roleID} CREATE(u)-[:MEMBER]->(r)";
+                    isDepMan = true;
+                }
                 Executor ex = new Executor();
-                return await ex.executeReturnless(query);
+                bool res = await ex.executeReturnless(query);
+                if (isDepMan)
+                {
+                    string depQuery = $"MATCH(d:Department) WHERE d.number='{department}' RETURN COUNT(d) AS c";
+                    if((long)(await ex.executeOneNode(depQuery))["c"] == 0)
+                    {
+                        string addDepQuery = $"CREATE(d:Department{{number:'{department}', IlastApply: date(), IinternStart: date(), " +
+                            $"IinternFinish: date(), IlastDocument:date(), IIlastApply: date(), IIinternStart: date(), " +
+                            $"IIinternFinish: date(), IIlastDocument:date(),IMElastApply: date(), IMEinternStart: date(), " +
+                            $"IMEinternFinish: date(), IMElastDocument:date()}})";
+                        await ex.executeReturnless(addDepQuery);
+                    }
+                }
+                return res;
             }
             catch
             {

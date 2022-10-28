@@ -1,4 +1,5 @@
 ﻿using staj_r_backend.Helper;
+using staj_r_backend.Helper.Token;
 using staj_r_backend.Models;
 using staj_r_backend.Models.Entities;
 using System;
@@ -12,11 +13,12 @@ namespace staj_r_backend.Controllers
     public class UserController
     {
         //Departman bilgisi varsa kullanılır.
-        public async Task<bool> register(string number, string name, string surname, string email, string department, int roleID)
+        public async Task<bool> registerOther(string number, string name, string surname, string email, string token, int roleID)
         {
             try
             {
-                return await registerCommon(number, name, surname, email, department, roleID);
+                string uNumber = new Token().decrypt(token).number;
+                return await registerCommon(number, name, surname, email, null, roleID, uNumber);
             }
             catch
             {
@@ -24,19 +26,20 @@ namespace staj_r_backend.Controllers
             }
         }
         //Departman bilgisi yoksa kullanılır.
-        public async Task<bool> register(string number, string name, string surname, string email, int roleID)
+        public async Task<bool> registerDepManager(string number, string name, string surname, string department, string email, int roleID)
         {
             try
             {
-                string department = number.Substring(2, 4);
-                return await registerCommon(number, name, surname, email, department, roleID);
+                return await registerCommon(number, name, surname, email, department, roleID, null);
             }
             catch
             {
                 return false;
             }
         }
-        private async Task<bool> registerCommon(string number, string name, string surname, string email, string department, int roleID)
+
+        //uNumber: İşlemi gerçekleştiren kullanıcının numarasıdır. =>
+        private async Task<bool> registerCommon(string number, string name, string surname, string email, string department, int roleID, string uNumber)
         {
             PasswordHelper ph = new PasswordHelper();
             string password = ph.generatePass();
@@ -47,7 +50,7 @@ namespace staj_r_backend.Controllers
                 $"Hemen sisteme giriş yapmak için <a href=\"www.stajr.azurewebsites.net/stajR\">buraya</a> tıklayınız.";
             await SendMail.sendMail(email, "Staj-R Kullanıcı Kaydınız", message);
             UserModel um = new UserModel();
-            return await um.registerModel(number, name, surname, email, encrypted, department, roleID);
+            return await um.registerModel(number, name, surname, email, encrypted, department, roleID, uNumber);
         }
 
         public async Task<List<UserModel.role_auth>> getRoles()

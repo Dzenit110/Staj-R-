@@ -11,22 +11,37 @@ using staj_r_backend.Models.Queries;
 using staj_r_backend.Models.QueryHandlers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Net;
+using System.Reflection;
+using Neo4j.Driver;
 
 namespace staj_r_backend_test
 {
     public class Program
     {
+        enum varas
+        {
+            adana = 2, bursa = 3
+        }
         static async Task Main(string[] args)
         {
-            var y = new Token().encrypt(new TokenEntity()
-            {
-                number = "adanamerkez",
-                password = "5425454",
-                expiresOn = DateTime.Now,
-            });
-            var x = new Token().decrypt(y);
-            var z = (x.expiresOn - DateTime.Now);
-            string q = (x.expiresOn - DateTime.Now).Hours.ToString()+" : "+ (x.expiresOn - DateTime.Now).Minutes.ToString()+" : "+ (x.expiresOn - DateTime.Now).Seconds.ToString();
+            Executor ex = new Executor();
+            var y = await ex.executeOneNode($"RETURN false");
+        }
+        
+
+
+    }
+
+    class y
+    {
+        public string q { get; set; }
+        public string a { get; set; }
+        public yardakul c { get; set; }
+        public enum yardakul{
+            kuddus, yardak, fırusi, fuzuli
         }
     }
+   
 }

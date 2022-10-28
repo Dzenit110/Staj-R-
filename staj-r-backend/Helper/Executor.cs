@@ -46,13 +46,39 @@ namespace staj_r_backend.Helper
                         {
                             dictionary[node.Key].Add(new NodeEntities((INode)node.Value));
                         }
-                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalDate" || node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime"
-                            || node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime" || node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalDate")
                         {
                             int year = ((LocalDate)node.Value).Year;
                             int month = ((LocalDate)node.Value).Month;
                             int day = ((LocalDate)node.Value).Day;
                             dictionary[node.Key].Add(new DateTime(year, month, day));
+                        }
+                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        {
+                            int year = ((ZonedDateTime)node.Value).Year;
+                            int month = ((ZonedDateTime)node.Value).Month;
+                            int day = ((ZonedDateTime)node.Value).Day;
+                            int hour = ((ZonedDateTime)node.Value).Hour;
+                            int minute = ((ZonedDateTime)node.Value).Minute;
+                            int second = ((ZonedDateTime)node.Value).Second;
+                            dictionary[node.Key].Add(new DateTime(year, month, day, hour, minute, second));
+                        }
+                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime")
+                        {
+                            int hour = ((LocalTime)node.Value).Hour;
+                            int minute = ((LocalTime)node.Value).Minute;
+                            int second = ((LocalTime)node.Value).Second;
+                            dictionary[node.Key].Add(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hour, minute, second));
+                        }
+                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime")
+                        {
+                            int year = ((LocalDateTime)node.Value).Year;
+                            int month = ((LocalDateTime)node.Value).Month;
+                            int day = ((LocalDateTime)node.Value).Day;
+                            int hour = ((LocalDateTime)node.Value).Hour;
+                            int minute = ((LocalDateTime)node.Value).Minute;
+                            int second = ((LocalDateTime)node.Value).Second;
+                            dictionary[node.Key].Add(new DateTime(year, month, day, hour, minute, second));
                         }
                         else
                         {
@@ -93,14 +119,41 @@ namespace staj_r_backend.Helper
                         {
                             dictionary[node.Key] = new NodeEntities((INode)node.Value);
                         }
-                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalDate" || node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime"
-                            || node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime" || node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalDate")
                         {
                             int year = ((LocalDate)node.Value).Year;
                             int month = ((LocalDate)node.Value).Month;
                             int day = ((LocalDate)node.Value).Day;
                             dictionary[node.Key] = new DateTime(year, month, day);
                         }
+                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        {
+                            int year = ((ZonedDateTime)node.Value).Year;
+                            int month = ((ZonedDateTime)node.Value).Month;
+                            int day = ((ZonedDateTime)node.Value).Day;
+                            int hour = ((ZonedDateTime)node.Value).Hour;
+                            int minute = ((ZonedDateTime)node.Value).Minute;
+                            int second = ((ZonedDateTime)node.Value).Second;
+                            dictionary[node.Key]=new DateTime(year, month, day, hour, minute, second);
+                        }
+                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime")
+                        {
+                            int hour = ((LocalTime)node.Value).Hour;
+                            int minute = ((LocalTime)node.Value).Minute;
+                            int second = ((LocalTime)node.Value).Second;
+                            dictionary[node.Key]=new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hour, minute, second);
+                        }
+                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime")
+                        {
+                            int year = ((LocalDateTime)node.Value).Year;
+                            int month = ((LocalDateTime)node.Value).Month;
+                            int day = ((LocalDateTime)node.Value).Day;
+                            int hour = ((LocalDateTime)node.Value).Hour;
+                            int minute = ((LocalDateTime)node.Value).Minute;
+                            int second = ((LocalDateTime)node.Value).Second;
+                            dictionary[node.Key]=new DateTime(year, month, day, hour, minute, second);
+                        }
+
                         else
                         {
                             dictionary[node.Key] = node.Value;
