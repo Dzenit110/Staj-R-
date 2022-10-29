@@ -3,6 +3,178 @@
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
+        <!-- Bazı CSS'ler -->
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            * {
+                border: 0;
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+
+
+            button, input {
+                font: 1em Hind, sans-serif;
+                line-height: 1.5em;
+            }
+
+            .search-bar {
+                display: flex;
+            }
+
+                .search-bar input,
+                .search-btn,
+                .search-btn:before,
+                .search-btn:after {
+                    transition: all 0.25s ease-out;
+                }
+
+                .search-bar input,
+                .search-btn {
+                    width: 3em;
+                    height: 3em;
+                }
+
+                    .search-bar input:invalid:not(:focus),
+                    .search-btn {
+                        cursor: pointer;
+                    }
+
+                    .search-bar,
+                    .search-bar input:focus,
+                    .search-bar input:valid {
+                        width: 100%;
+                    }
+
+                        .search-bar input:focus,
+                        .search-bar input:not(:focus) + .search-btn:focus {
+                            outline: transparent;
+                        }
+
+            .search-bar {
+                margin: auto;
+                padding: 1.5em;
+                justify-content: center;
+                max-width: 30em;
+            }
+
+                .search-bar input {
+                    background: transparent;
+                    border-radius: 1.5em;
+                    box-shadow: 0 0 0 0.4em #171717 inset;
+                    padding: 0.75em;
+                    transform: translate(0.5em,0.5em) scale(0.5);
+                    transform-origin: 100% 0;
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                }
+
+                    .search-bar input::-webkit-search-decoration {
+                        -webkit-appearance: none;
+                    }
+
+                    .search-bar input:focus,
+                    .search-bar input:valid {
+                        background: #fff;
+                        border-radius: 0.375em 0 0 0.375em;
+                        box-shadow: 0 0 0 0.1em #d9d9d9 inset;
+                        transform: scale(1);
+                    }
+
+            .search-btn {
+                background: #171717;
+                border-radius: 0 0.75em 0.75em 0 / 0 1.5em 1.5em 0;
+                padding: 0.75em;
+                position: relative;
+                transform: translate(0.25em,0.25em) rotate(45deg) scale(0.25,0.125);
+                transform-origin: 0 50%;
+            }
+
+                .search-btn:before,
+                .search-btn:after {
+                    content: "";
+                    display: block;
+                    opacity: 0;
+                    position: absolute;
+                }
+
+                .search-btn:before {
+                    border-radius: 50%;
+                    box-shadow: 0 0 0 0.2em #f1f1f1 inset;
+                    top: 0.75em;
+                    left: 0.75em;
+                    width: 1.2em;
+                    height: 1.2em;
+                }
+
+                .search-btn:after {
+                    background: #f1f1f1;
+                    border-radius: 0 0.25em 0.25em 0;
+                    top: 51%;
+                    left: 51%;
+                    width: 0.75em;
+                    height: 0.25em;
+                    transform: translate(0.2em,0) rotate(45deg);
+                    transform-origin: 0 50%;
+                }
+
+                .search-btn span {
+                    display: inline-block;
+                    overflow: hidden;
+                    width: 1px;
+                    height: 1px;
+                }
+
+            /* Active state */
+            .search-bar input:focus + .search-btn,
+            .search-bar input:valid + .search-btn {
+                background: #2762f3;
+                border-radius: 0 0.375em 0.375em 0;
+                transform: scale(1);
+            }
+
+                .search-bar input:focus + .search-btn:before,
+                .search-bar input:focus + .search-btn:after,
+                .search-bar input:valid + .search-btn:before,
+                .search-bar input:valid + .search-btn:after {
+                    opacity: 1;
+                }
+
+                .search-bar input:focus + .search-btn:hover,
+                .search-bar input:valid + .search-btn:hover,
+                .search-bar input:valid:not(:focus) + .search-btn:focus {
+                    background: #0c48db;
+                }
+
+                .search-bar input:focus + .search-btn:active,
+                .search-bar input:valid + .search-btn:active {
+                    transform: translateY(1px);
+                }
+
+
+
+            .search-bar input {
+                box-shadow: 0 0 0 0.4em #171717 inset;
+            }
+
+                .search-bar input:focus,
+                .search-bar input:valid {
+                    background: #3d3d3d;
+                    box-shadow: 0 0 0 0.1em #3d3d3d inset;
+                }
+
+            .search-btn {
+                background: #171717;
+            }
+
+        </style>
+        <!-- /Bazı CSS'ler -->
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
@@ -184,195 +356,195 @@
                 <!-- Content -->
 
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    
-                    <!-- Basic Bootstrap Table -->
-                    <div class="card">
-                        <h5 class="card-header">Table Basic</h5>
-                        <div class="table-responsive text-nowrap">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Project</th>
-                                        <th>Client</th>
-                                        <th>Users</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-border-bottom-0">
-                                    <tr>
-                                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                                        <td>Albert Cook</td>
-                                        <td>
-                                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Lilian Fuller">
-                                                    <img src="../dash/assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Sophia Wilkerson">
-                                                    <img src="../dash/assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Christina Parker">
-                                                    <img src="../dash/assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                            </ul>
-                                        </td>
-                                        <td><span class="badge bg-label-primary me-1">Active</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-                                        <td>Barry Hunter</td>
-                                        <td>
-                                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Lilian Fuller">
-                                                    <img src="../dash/assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Sophia Wilkerson">
-                                                    <img src="../dash/assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Christina Parker">
-                                                    <img src="../dash/assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                            </ul>
-                                        </td>
-                                        <td><span class="badge bg-label-success me-1">Completed</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><i class="fab fa-vuejs fa-lg text-success me-3"></i> <strong>VueJs Project</strong></td>
-                                        <td>Trevor Baker</td>
-                                        <td>
-                                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Lilian Fuller">
-                                                    <img src="../dash/assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Sophia Wilkerson">
-                                                    <img src="../dash/assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Christina Parker">
-                                                    <img src="../dash/assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                            </ul>
-                                        </td>
-                                        <td><span class="badge bg-label-info me-1">Scheduled</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>Bootstrap Project</strong>
-                                        </td>
-                                        <td>Jerry Milton</td>
-                                        <td>
-                                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Lilian Fuller">
-                                                    <img src="../dash/assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Sophia Wilkerson">
-                                                    <img src="../dash/assets/img/avatars/6.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                                <li data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom"
-                                                    data-bs-placement="top"
-                                                    class="avatar avatar-xs pull-up"
-                                                    title="Christina Parker">
-                                                    <img src="../dash/assets/img/avatars/7.png" alt="Avatar" class="rounded-circle" />
-                                                </li>
-                                            </ul>
-                                        </td>
-                                        <td><span class="badge bg-label-warning me-1">Pending</span></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-2"></i> Edit</a>
-                                                    <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-2"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!--/ Basic Bootstrap Table -->
 
+                    <!-- TABLO -->
+                    
+                    <div class="card table-responsive text-nowrap">
+                        <br>
+                        <div class="demo-inline-spacing" style="text-align:center">
+                        <button type="button" class="btn rounded-pill btn-outline-primary">Öğrenci</button>
+                        <button type="button" class="btn rounded-pill btn-outline-secondary">Öğretim Görevlisi</button>
+                        <button type="button" class="btn rounded-pill btn-outline-success"> Kurulum Üyesi</button>
+                        <button type="button" class="btn rounded-pill btn-outline-danger"> Bölüm Sorumlusu</button>
+                    </div>
+
+                        <br> 
+                        <Modal Title="@title"
+                               Visible="@_visible"
+                               OnOk="@HandleOk"
+                               OnCancel="@HandleCancel" Style="width:780px">
+
+                            <div style="float:left; ">
+
+                                <form action="" method="post">
+                                    <label for="number">Öğrenci No:</label>
+                                    <input class="inp1" type="number" name="number" required="">
+                                    <label for="ilet,">Soyadınız:</label>
+                                    <input class="inp1" type="text" name="ileti" required="">
+                                    <label for="eposta">E-mail:</label>
+                                    <input class="inp1" type="email" name="eposta" required="">
+
+                                    <br /><br />
+
+                                    <Alert Type="@AlertType.Info"
+                                           Message="Bilgileri belirtilen öğrencimiz staj başvuru belgelerini göndermiştir."
+                                           Description="Additional description and information about copywriting."
+                                           ShowIcon="true" />
+
+                                    <br /><br />
+                                    <input type="submit" value="Gönder ">
+
+                                </form>
+                            </div>
+
+                        </Modal>
+                        
+                        <br> <br>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Rol</th>
+                                    <th>Numara</th>
+                                    <th>İsim</th>
+                                    <th>Soyisim</th>
+                                    <th>E-posta</th>
+                                    <th>Detay</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                <tr class="table-default">
+                                    <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>Sketch Project</strong></td>
+                                    <td>Ronnie Shane</td>
+                                    <td>
+                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                            <p>Burada bir şey var</p>
+                                        </ul>
+                                    </td>
+                                    <td><span class="badge bg-label-primary me-1">Active</span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <!--Burada ilk satırın son sütünü  başlıyor -->
+
+                                        <div class="mt-3">
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalToggle">Detay</button>
+
+                                            <!-- Modal 1-->
+                                            <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none;" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" style="text-align:left;">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalToggleLabel">Rolünün güncellenmesi</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+
+                                                        <!--DropBox-->
+                                                        <div class="btn-group">
+                                                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">İstediğiniz rolü seçiniz</button>
+                                                            <ul class="dropdown-menu" style="">
+                                                                <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
+                                                                <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
+                                                                <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
+                                                                <li>
+                                                                    <hr class="dropdown-divider">
+                                                                </li>
+                                                                <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <!--DropBox bitiyor-->
+                                                        <!--Button Yeni rolü onayla-->
+                                                        <div class="modal-footer" style="margin-right: 370px">
+                                                            <button class="btn btn-primary" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Yeni rolü onayla</button>
+                                                        </div>
+                                                        <!--Button Yeni rolü onayla bitiyor-->
+                                                        <div class="col mb-0">
+                                                            <label for="emailBasic" class="form-label">Email</label>
+                                                            <input type="text" id="emailBasic" class="form-control" placeholder="email@örnek">
+                                                        </div>
+
+
+
+                                                        <div class="col mb-0">
+                                                            <label for="emailBasic" class="form-label">Lütfen tekrar E-mail yazınız</label>
+                                                            <input type="text" id="emailBasic" class="form-control" placeholder="email@örnek">
+                                                        </div>
+                                                        <div class="modal-footer" style="text-align:left; margin-right:428px">
+                                                            <button class="btn btn-primary" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Onayla</button>
+                                                        </div>
+
+                                                        <!--Şifre sıfırla button-->
+                                                        <div class="modal-footer" style="text-align:left; margin-right:408px">
+                                                            <button class="btn btn-primary" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Şifre sıfırla</button>
+                                                        </div>
+
+                                                        <!--Şifre sıfırla button bitiyor-->
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Modal 2-->
+                                            <div class="modal fade" id="modalToggle2" aria-hidden="true" aria-labelledby="modalToggleLabel2" tabindex="-1">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="modalToggleLabel2">Uyarı</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body" style="text-align:center">
+                                                            <h4> İşlemi Onaylıyor musunuz?</h4>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">HAYIR</button>
+                                                            <button type="button" class="btn btn-primary">EVET</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+
+                                    <!--Burada bitiyor-->
+                                </tr>
+                                <tr class="table-active">
+                                    <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
+                                    <td>Barry Hunter</td>
+                                    <td>
+                                        Burada bir şey yaz
+                                    </td>
+                                    <td><span class="badge bg-label-success me-1">Completed</span></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                    <!--Burada ikinci satırın son sütü başlıyor-->
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalToggle">Detay</button>
+
+                                    </td>
+                                    <!--Burada bitiyor-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <!--/ Contextual Classes -->
+
+            </div> <!-- DIV BITIYOR-->
                 <!-- / Content -->
                 <div class="content-backdrop fade"></div>
             </div>
@@ -383,8 +555,26 @@
 
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
-</div>
 <!-- / Layout wrapper -->
 @code {
+    string title = "BasicModal";
+    bool _visible = false;
 
+    private void HandleOk(MouseEventArgs e)
+    {
+        Console.WriteLine(e);
+        _visible = false;
+    }
+
+    private void HandleCancel(MouseEventArgs e)
+    {
+        Console.WriteLine(e);
+        _visible = false;
+    }
+
+
+    void OnChange(string[] checkedValues)
+    {
+        Console.WriteLine($"checked = {JsonSerializer.Serialize(checkedValues)}");
+    }
 }
