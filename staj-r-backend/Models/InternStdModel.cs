@@ -51,7 +51,7 @@ namespace staj_r_backend.Models
             string neoDt = new LocalDateTime(new DateTime(2000, 01, 01)).ToString();
             string query1 = $"MATCH(u:User) WHERE u.number = '{number}' CREATE(u)-[:DOES]->(s:{label}{{" +
                 $"applyDate:date(), statusCode:'a', status: 'Başvuru Onayı Bekleniyor', startDate: date('{startDate}'), finishDate: date('{finishDate}'), firm:'{firm}', " +
-                $"message:'Başvurunuz onay bekliyor.', interview: datetime('{neoDt}')}}) " +
+                $"message:'', interview: datetime('{neoDt}')}}) " +
                 $"CREATE(s)-[:DOC]->(d:Document{{documentCode:'a', document:'Staj Başvuru Ve Kabul Formu', lastUpdate:date(), form:'{formstr}'}})";
             return await ex.executeReturnless(query1);
         }
@@ -253,7 +253,7 @@ namespace staj_r_backend.Models
             string formstr = JsonSerializer.Serialize(rc);
             string query = $"MATCH(u:User)-[:DOES]->(s:{intern}) WHERE u.number = '{number}' " +
                 $"OPTIONAL MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'c' WITH s, COUNT(r) AS ct " +
-                $"MERGE(s)-[:DOC]->(r:Document{{documentCode: 'c'}}) WITH  s, ct" +
+                $"MERGE(s)-[:DOC]->(r:Document{{documentCode: 'c'}}) WITH  s, ct " +
                 $"MATCH(s)-[:DOC]->(r:Document) WHERE ct = 0 AND r.documentCode = 'c' " +
                 $"SET r.document = 'Staj Raporu Kapak - Bilgiler', r.lastUpdate = date(), r.form = '{formstr}', r.pageNumber = 2 RETURN COUNT(r) AS c";
             long res = (long)(await ex.executeOneNode(query))["c"];
@@ -340,7 +340,7 @@ namespace staj_r_backend.Models
         public async Task<bool> deletePageOnReport(string number, internships intern, int pageNumber)
         {
             string query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
-                $"WITH {pageNumber} AS pn, s" +
+                $"WITH {pageNumber} AS pn, s " +
                 $"MATCH(s)-[:DOC]->(d:Document) WHERE d.pageNumber = pn " +
                 $"OPTIONAL MATCH(s)-[:DOC]->(d2:Document) WHERE d2.pageNumber > pn " +
                 $"DETACH DELETE d WITH d2 SET d2.pageNumber = d2.pageNumber-1";
@@ -349,7 +349,7 @@ namespace staj_r_backend.Models
         public async Task<bool> changeOrderOfTwoPage(string number, internships intern, int pageNumberOne, int pageNumberTwo)
         {
             string query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
-               $"WITH {pageNumberOne} AS pno, {pageNumberTwo} AS pnt, s" +
+               $"WITH {pageNumberOne} AS pno, {pageNumberTwo} AS pnt, s " +
                $"MATCH(s)-[:DOC]->(d:Document) WHERE d.pageNumber = pno " +
                $"MATCH(s)-[:DOC]->(d2:Document) WHERE d2.pageNumber = pnt " +
                $"SET d.pageNumber = pnt, d2.pageNumber = pno";
@@ -361,7 +361,7 @@ namespace staj_r_backend.Models
             if(currentPageNumber > newPageNumber)
             {
                 query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
-                    $"WITH {currentPageNumber} AS cpn, {newPageNumber} AS npn, s" +
+                    $"WITH {currentPageNumber} AS cpn, {newPageNumber} AS npn, s " +
                     $"MATCH(s)-[:DOC]->(d:Document) WHERE d.pageNumber = cpn " +
                     $"OPTIONAL MATCH(s)-[:DOC]->(d2:Document) WHERE d2.pageNumber < cpn AND d2.pageNumber >= npn " +
                     $"SET d2.pageNumber = d2.pageNumber+1, d.pageNumber = npn";
@@ -369,7 +369,7 @@ namespace staj_r_backend.Models
             else if (currentPageNumber < newPageNumber)
             {
                 query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
-                    $"WITH {currentPageNumber} AS cpn, {newPageNumber} AS npn, s" +
+                    $"WITH {currentPageNumber} AS cpn, {newPageNumber} AS npn, s " +
                     $"MATCH(s)-[:DOC]->(d:Document) WHERE d.pageNumber = cpn " +
                     $"OPTIONAL MATCH(s)-[:DOC]->(d2:Document) WHERE d2.pageNumber > cpn AND d2.pageNumber <= npn " +
                     $"SET d2.pageNumber = d2.pageNumber-1, d.pageNumber = npn";
@@ -382,63 +382,142 @@ namespace staj_r_backend.Models
         }
         #endregion
         #region rating
-        public async Task addIMEDenetim(string number, IMEDenetim ime)
+        public async Task<bool> addIMEDenetim(string number, IMEDenetim ime)
         {
-            //string formstr = JsonSerializer.Serialize(ime);
-            //string query = $"MATCH(u:User)-[:DOES]->(s:IME) WHERE u.number = '{number}' " +
-            //    $"OPTIONAL MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'c' WITH s, COUNT(r) AS ct " +
-            //    $"MERGE(s)-[:DOC]->(r:Document{{documentCode: 'c'}}) WITH  s, ct" +
-            //    $"MATCH(s)-[:DOC]->(r:Document) WHERE ct = 0 AND r.documentCode = 'c' " +
-            //    $"SET r.document = 'Staj Raporu Kapak-Bilgiler', r.lastUpdate = date(), r.form = '{formstr}', r.pageNumber = 2 RETURN COUNT(r) AS c";
-            //long res = (long)(await ex.executeOneNode(query))["c"];
-            //if (res == 0)
-            //{
-            //    return false;
-            //}
-            //else if (res == 1)
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
+            string form = JsonSerializer.Serialize(ime);
+            string query = $"MATCH(u:User)-[:DOES]->(s:IME) WHERE u.number = '{number}' " +
+                $"OPTIONAL MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'g' WITH s, COUNT(r) AS ct " +
+                $"MERGE(s)-[:DOC]->(r:Document{{documentCode:'g'}}) WITH  s, ct " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE ct = 0 AND r.documentCode = 'g' " +
+                $"SET r.document = 'IME Denetim Formu', r.lastUpdate = date(), r.form = '{form}' RETURN COUNT(r) AS c";
+            long res = (long)(await ex.executeOneNode(query))["c"];
+            if (res == 0)
+            {
+                return false;
+            }
+            else if (res == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        public async Task updateIMEDenetim()
+        public async Task<bool> updateIMEDenetim(string number, IMEDenetim imd)
         {
-
+            string formstr = JsonSerializer.Serialize(imd);
+            string query = $"MATCH(u:User)-[:DOES]->(s:IME) WHERE u.number = '{number}' " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'g' SET r.form = '{formstr}', r.lastUpdate = date()";
+            return await ex.executeReturnless(query);
         }
-        public async Task getIMEDenetim()
+        public async Task<IMEDenetim> getIMEDenetim(string number)
         {
-
+            string query = $"MATCH(u:User)-[:DOES]->(s:IME) WHERE u.number = '{number}' " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'g' RETURN r.form AS form";
+            var qres = await ex.executeOneNode(query);
+            string formJson = (string)qres["form"];
+            return JsonSerializer.Deserialize<IMEDenetim>(formJson);
         }
-        public async Task addIMERating()
+        public async Task<bool> addIMERating(string number, IMERating ime)
         {
-
+            string form = JsonSerializer.Serialize(ime);
+            string query = $"MATCH(u:User)-[:DOES]->(s:IME) WHERE u.number = '{number}' " +
+                $"OPTIONAL MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'h' WITH s, COUNT(r) AS ct " +
+                $"MERGE(s)-[:DOC]->(r:Document{{documentCode:'h'}}) WITH  s, ct " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE ct = 0 AND r.documentCode = 'h' " +
+                $"SET r.document = 'IME Değerlendirme Formu', r.lastUpdate = date(), r.form = '{form}' RETURN COUNT(r) AS c";
+            long res = (long)(await ex.executeOneNode(query))["c"];
+            if (res == 0)
+            {
+                return false;
+            }
+            else if (res == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        public async Task updateIMERating()
+        public async Task<bool> updateIMERating(string number, IMERating imd)
         {
-
+            string formstr = JsonSerializer.Serialize(imd);
+            string query = $"MATCH(u:User)-[:DOES]->(s:IME) WHERE u.number = '{number}' " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'h' SET r.form = '{formstr}', r.lastUpdate = date()";
+            return await ex.executeReturnless(query);
         }
-        public async Task getIMERating()
+        public async Task<IMERating> getIMERating(string number)
         {
-
+            string query = $"MATCH(u:User)-[:DOES]->(s:IME) WHERE u.number = '{number}' " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'h' RETURN r.form AS form";
+            var qres = await ex.executeOneNode(query);
+            string formJson = (string)qres["form"];
+            return JsonSerializer.Deserialize<IMERating>(formJson);
         }
-        public async Task addStajRating()
+        public async Task<bool> addStajRating(string number, internships intern, StajRating sr)
         {
-
+            string form = JsonSerializer.Serialize(sr);
+            string query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
+                $"OPTIONAL MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'b' WITH s, COUNT(r) AS ct " +
+                $"MERGE(s)-[:DOC]->(r:Document{{documentCode:'b'}}) WITH  s, ct " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE ct = 0 AND r.documentCode = 'b' " +
+                $"SET r.document = 'Staj Değerlendirme Formu', r.lastUpdate = date(), r.form = '{form}' RETURN COUNT(r) AS c";
+            long res = (long)(await ex.executeOneNode(query))["c"];
+            if (res == 0)
+            {
+                return false;
+            }
+            else if (res == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
-        public async Task updateStajRating()
+        public async Task<bool> updateStajRating(string number, internships intern, StajRating sr)
         {
-
+            string formstr = JsonSerializer.Serialize(sr);
+            string query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'b' SET r.form = '{formstr}', r.lastUpdate = date()";
+            return await ex.executeReturnless(query);
         }
-        public async Task getStajRating()
+        public async Task<StajRating> getStajRating(string number, internships intern)
         {
-
+            string query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
+                $"MATCH(s)-[:DOC]->(r:Document) WHERE r.documentCode = 'h' RETURN r.form AS form";
+            var qres = await ex.executeOneNode(query);
+            string formJson = (string)qres["form"];
+            return JsonSerializer.Deserialize<StajRating>(formJson);
         }
-        public async Task deliverDocuments()
+        public async Task<Status> deliverDocuments(string number, internships intern)
         {
-
+            string internType = "";
+            switch (intern)
+            {
+                case internships.StajI:
+                    internType = "I";
+                    break;
+                case internships.STAJII:
+                    internType = "II";
+                    break;
+                case internships.IME:
+                    internType = "IME";
+                    break;
+            }
+            string query = $"MATCH(u:User) WHERE u.number = '{number}' " +
+                $"MATCH(d:Department) WHERE d.number = u.department " +
+                $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE d.{internType}lastDocument > date() " +
+                $"SET s.statusCode = 'f', s.status = 'Değerlendirme Bekleniyor' RETURN COUNT(s) AS ct";
+            long count = (long)(await ex.executeOneNode(query))["ct"];
+            if (count == 0)
+            {
+                return null;
+            }
+            return await getStatus(number, intern);
         }
 
 
