@@ -79,6 +79,36 @@ namespace staj_r_backend.Models
             }
             return await ex.executeReturnless(query);
         }
+        public async Task<internDateForDeps> getApplyingDates(string number, internships en)
+        {
+            string type = "";
+            switch (en)
+            {
+                case internships.StajI: 
+                    type = "I";
+                    break;
+                case internships.STAJII:
+                    type = "II";
+                    break;
+                case internships.IME:
+                    type = "IME";
+                    break;
+            }
+            string query = $"MATCH(n:User) WHERE n.number= '{number}' WITH n.department AS dep " +
+                $"MATCH(d:Department) WHERE d.number = dep RETURN " +
+                $"d.{type}lastApply AS la, " +
+                $"d.{type}internStart AS is, " +
+                $"d.{type}internFinish AS if, " +
+                $"d.{type}lastDocument AS ld";
+            var qres = await ex.executeOneNode(query);
+            return new internDateForDeps
+            {
+                LastApply = (DateTime)qres["la"],
+                Start = (DateTime)qres["is"],
+                Finish = (DateTime)qres["if"],
+                LastDocument = (DateTime)qres["ld"],
+            };
+        }
         //https://github.com/BuyukAdamlar/staj-r/issues/36
 
         public record studentDetails
