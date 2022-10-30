@@ -10,24 +10,44 @@ namespace staj_r_backend.Helper.Token
     {
 
         private readonly byte[] secretKey = new byte[] { 3, 234, 131, 182, 25, 29, 145, 80, 73, 196, 31, 218, 82, 59, 105, 110, 3, 2, 90, 147, 100, 103, 156, 208, 86, 236, 187, 141, 94, 98, 59, 190};
-        public string encrypt(TokenEntity user)
+        public TokenResult encrypt(TokenEntity user)
         {
+            DateTime expire = DateTime.Now.AddHours(2);
             var payload = new Dictionary<string, object>
             {
                 { "number", user.number },
                 { "password", user.password },
-                { "expiresOn", DateTime.Now.AddHours(2)}
+                { "expiresOn", expire}
             };
-            return JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
+            string token = JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
+            user.expiresOn = expire;
+            return new TokenResult
+            {
+                token = token,
+                tokenEntity = user,
+                tokenExpiresOn = expire,
+            };
         }
-        public string encrypt(Dictionary<string, object> payload)
+        public TokenResult encrypt(Dictionary<string, object> payload)
         {
+            DateTime expire = DateTime.Now.AddHours(2);
             if (payload.ContainsKey("expiresOn"))
             {
                 payload.Remove("expiresOn");
             }
-            payload.Add("expiresOn", DateTime.Now.AddHours(2));
-            return JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
+            payload.Add("expiresOn", expire);
+            string token = JWT.Encode(payload, secretKey, JwsAlgorithm.HS256);
+            return new TokenResult
+            {
+                tokenEntity = new TokenEntity
+                {
+                    number = (string)payload["number"],
+                    password = (string)payload["password"],
+                    expiresOn = expire,
+                },
+                token = token,
+                tokenExpiresOn = expire,
+            };
         }
 
         public TokenEntity decrypt(string token)
@@ -35,5 +55,11 @@ namespace staj_r_backend.Helper.Token
             var payload = JWT.Decode(token, secretKey, JwsAlgorithm.HS256);
             return JsonConvert.DeserializeObject<TokenEntity>(payload);
         }
+    }
+    public record TokenResult
+    {
+        public TokenEntity tokenEntity { get; set; }
+        public string token { get; set; }
+        public DateTime tokenExpiresOn { get; set; }
     }
 }

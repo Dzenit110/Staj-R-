@@ -36,33 +36,6 @@ namespace staj_r_backend_test
         };
         static async Task Main(string[] args)
         {
-            var convertApi = new ConvertApi("stK35LEUnutFwJ0B");
-            var list = new List<string>()
-            {
-                @"C:\Users\CASPER\Desktop\SON DOCX\XML\DailyReport.xml",
-                @"C:\Users\CASPER\Desktop\SON DOCX\XML\IMEDenetim.xml",
-                @"C:\Users\CASPER\Desktop\SON DOCX\XML\IMEKabul.xml",
-                @"C:\Users\CASPER\Desktop\SON DOCX\XML\IMERating.xml",
-                @"C:\Users\CASPER\Desktop\SON DOCX\XML\ReportCover.xml",
-                @"C:\Users\CASPER\Desktop\SON DOCX\XML\StajKabul.xml",
-                @"C:\Users\CASPER\Desktop\SON DOCX\XML\WeekReport.xml",
-            };
-            var list2 = new List<string>()
-            {
-                "DailyReport.docx",
-                "IMEDenetim.docx",
-                "IMEKabul.docx",
-                "IMERating.docx",
-                "ReportCover.docx",
-                "StajKabul.docx",
-                "WeekReport.docx",
-            };
-            for(int j = 0; j<7; j++)
-            {
-                var convert = await convertApi.ConvertAsync("xml", "docx", new ConvertApiFileParam(list[j]));
-                var outputStream = await convert.Files[0].FileStreamAsync();
-                SaveStreamAsFile(@"C:\Users\CASPER\Desktop\SON DOCX\Converted", outputStream, list2[j]);
-            }            
         }
 
 

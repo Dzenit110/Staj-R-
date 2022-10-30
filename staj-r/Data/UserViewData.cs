@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using staj_r_backend.Models;
 using System.Threading.Tasks;
+using staj_r_backend.Models.Entities;
 
 namespace staj_r.Data
 {
@@ -19,13 +20,13 @@ namespace staj_r.Data
             uc = new UserController();
         }
 
-        public async Task<List<UserModel.userList>> getUsers(string token)
+        public async Task<List<userList>> getUsers(string token)
         {
             string number = getFromToken(token).number;
             return await uc.getUsers(number);
         }
         
-        public async Task<List<UserModel.role_auth>> getRoles()
+        public async Task<List<role_auth>> getRoles()
         {
             return await uc.getRoles();
         }
@@ -51,7 +52,7 @@ namespace staj_r.Data
 
         #endregion
         #region Ek Metotlar
-        private staj_r_backend.Models.Entities.TokenEntity getFromToken(string token)
+        private TokenEntity getFromToken(string token)
         {
             return new staj_r_backend.Helper.Token.Token().decrypt(token);
         }

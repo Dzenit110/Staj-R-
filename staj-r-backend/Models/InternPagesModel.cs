@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Neo4j.Driver;
 using staj_r_backend.Helper;
+using staj_r_backend.Models.Entities;
 
 namespace staj_r_backend.Models
 {
@@ -15,18 +16,6 @@ namespace staj_r_backend.Models
         public InternPagesModel()
         {
             ex = new Executor();
-        }
-        public enum internships
-        {
-            StajI = 1, STAJII = 2, IME = 3
-        }
-
-        public record internDateForDeps
-        {
-            public DateTime LastApply { get; set; }  //Son başvuru tarihidir
-            public DateTime Start { get; set; } //Staj aralığı başlangıcıdır
-            public DateTime Finish { get; set; }  //Staj aralığı sonudur
-            public DateTime LastDocument { get; set; } //Son belge teslim tarihidir
         }
 
         //Bu metot bölüm yöneticileri içindir
@@ -111,16 +100,6 @@ namespace staj_r_backend.Models
         }
         //https://github.com/BuyukAdamlar/staj-r/issues/36
 
-        public record studentDetails
-        {
-            public string number { get; set; }
-            public string name { get; set; }
-            public string surname { get; set; }
-            public string email { get; set; }
-            public string firm { get; set; }
-            public string status { get; set; }
-            public string statusCode { get; set; }
-        }
         public async Task<List<studentDetails>> getStudents(string number /*Kurul üyesi hocanın numarası*/, internships i)
         {
             string query = $"MATCH(u:User) WHERE u.number='{number}' WITH u.department AS d " +
@@ -144,24 +123,7 @@ namespace staj_r_backend.Models
             return students;
         }
         #region studentDetails________POPUP
-        public record Popup
-        {
-            //PUPUP EKRANI
-            public string statusCode { get; set; }
-            public string message { get; set; }
-            public string interviewDate { get; set; }
-            //Staj Başvuru Durumu
-            public string applyStatusMessage { get; set; }
-            public string applyDate { get; set; }
-            //Staj Bilgileri Bölümü
-            public string firm { get; set; }
-            public string InternDate { get; set; }
-            public int doesInternID { get; set; }
-            //public InternInfo internInfo { get; set; }
-            //Staj Değerlendirmesi Bölümü
-            //public InternRating rating { get; set; }
-            //public IMERating IMERating { get; set; }
-        }
+        
         //public record Apply
         //{
         //    public string applyStatusMessage { get; set; }
@@ -240,11 +202,7 @@ namespace staj_r_backend.Models
             };
             return p;
         }
-        public record InternInfo
-        {
-            public string firm { get; set; }
-            public string date { get; set; }
-        }
+        
         //public record InternRating
         //{
         //    public string documentStatusMessage { get; set; }

@@ -21,10 +21,6 @@ namespace staj_r_backend.Models
         }
 
         // Öğrenci başvuru yaptığında kullanılacak
-        public enum internships
-        {
-            StajI = 1, STAJII = 2, IME = 3
-        }
         public async Task<bool> applyInternship(string number, internships type, BasvuruFormu form)
         {
             form.ad_soyad_37CxVUq = (string)(await ex.executeOneNode($"MATCH(u:User) WHERE u.number = '{number}' RETURN u.name+' '+u.surname AS n"))["n"];
@@ -87,23 +83,9 @@ namespace staj_r_backend.Models
             return list;
         }
 
-        public record Status
-        {
-            public string status { get; set; }
-            public string message { get; set; }
-            public pages pageContent { get; set; }
-            public string statusCode { get; set; }
-        }
 
         //https://github.com/BuyukAdamlar/staj-r/issues/39
 
-        public enum pages
-        {
-            empty = 1,
-            apply = 2,
-            report = 3,
-            rating = 4
-        }
         public async Task<Status> getStatus(string number, internships type)
         {
             int year = DateTime.Now.Year-Convert.ToInt32("20" + number.Substring(0, 2));
@@ -218,13 +200,6 @@ namespace staj_r_backend.Models
         }
 
         #region report
-        public record ReportPages
-        {
-            public string pageCode {get; set;}
-            public string page {get; set;}
-            public int pageNumber {get; set;}
-            public string lastUpdate {get; set;}
-        }
         public async Task<List<ReportPages>> getReportList(string number, internships intern)
         {
             string query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
