@@ -36,14 +36,63 @@ namespace staj_r_backend_test
         };
         static async Task Main(string[] args)
         {
-            /*
-             
-            "stK35LEUnutFwJ0B"
-            @"C:\Users\CASPER\Desktop\DENEMELER\StajKabul.xml"
-            @"C:\Users\CASPER\Desktop\DENEMELER\"
+            var convertApi = new ConvertApi("stK35LEUnutFwJ0B");
+            var list = new List<string>()
+            {
+                @"C:\Users\CASPER\Desktop\SON DOCX\XML\DailyReport.xml",
+                @"C:\Users\CASPER\Desktop\SON DOCX\XML\IMEDenetim.xml",
+                @"C:\Users\CASPER\Desktop\SON DOCX\XML\IMEKabul.xml",
+                @"C:\Users\CASPER\Desktop\SON DOCX\XML\IMERating.xml",
+                @"C:\Users\CASPER\Desktop\SON DOCX\XML\ReportCover.xml",
+                @"C:\Users\CASPER\Desktop\SON DOCX\XML\StajKabul.xml",
+                @"C:\Users\CASPER\Desktop\SON DOCX\XML\WeekReport.xml",
+            };
+            var list2 = new List<string>()
+            {
+                "DailyReport.docx",
+                "IMEDenetim.docx",
+                "IMEKabul.docx",
+                "IMERating.docx",
+                "ReportCover.docx",
+                "StajKabul.docx",
+                "WeekReport.docx",
+            };
+            for(int j = 0; j<7; j++)
+            {
+                var convert = await convertApi.ConvertAsync("xml", "docx", new ConvertApiFileParam(list[j]));
+                var outputStream = await convert.Files[0].FileStreamAsync();
+                SaveStreamAsFile(@"C:\Users\CASPER\Desktop\SON DOCX\Converted", outputStream, list2[j]);
+            }            
+        }
 
-             */
 
+        public static void SaveStreamAsFile(string filePath, Stream inputStream, string fileName)
+        {
+            DirectoryInfo info = new DirectoryInfo(filePath);
+            if (!info.Exists)
+            {
+                info.Create();
+            }
+
+            string path = Path.Combine(filePath, fileName);
+            using (FileStream outputFileStream = new FileStream(path, FileMode.Create))
+            {
+                inputStream.CopyTo(outputFileStream);
+            }
+        }
+
+    }
+
+}
+
+
+/*
+ private static readonly HttpClient client = new()
+        {
+            BaseAddress = new Uri("https://back.onlineconvertfree.com/api/external/api/add-convert/"),
+        };
+        static async Task Main(string[] args)
+        {
             string file = File.ReadAllText(@"C:\Users\CASPER\Desktop\DENEMELER\StajKabul.xml");
             var stream = new MemoryStream(Encoding.UTF8.GetBytes(file));
             var convertApi = new ConvertApi("stK35LEUnutFwJ0B");
@@ -67,7 +116,4 @@ namespace staj_r_backend_test
                 inputStream.CopyTo(outputFileStream);
             }
         }
-
-    }
-
-}
+*/
