@@ -78,9 +78,15 @@
                        <div data-i18n="Yeni Rol Ekle">Yeni Rol Ekle</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                                <li class="menu-item">
                     <a href=/staj_1 class="menu-link"
                        <i class="menu-icon tf-icons bx bx-detail"></i>
+                       <div data-i18n="Staj-I">Staj-I</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href=/staj_1_acd class="menu-link"
+                       <i class="menu-icon tf-icons bx bx-file"></i>
                        <div data-i18n="Staj-I">Staj-I</div>
                     </a>
                 </li>
@@ -91,8 +97,20 @@
                     </a>
                 </li>
                 <li class="menu-item">
+                    <a href=/staj_2_acd class="menu-link"
+                       <i class="menu-icon tf-icons bx bx-file"></i>
+                       <div data-i18n="Staj-II">Staj-II</div>
+                    </a>
+                </li>
+                <li class="menu-item">
                     <a href=/ime class="menu-link"
                        <i class="menu-icon tf-icons bx bx-detail"></i>
+                       <div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href=/ime_acd class="menu-link"
+                       <i class="menu-icon tf-icons bx bx-file"></i>
                        <div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
                     </a>
                 </li>
@@ -277,7 +295,7 @@
 
 
                                             <div class="mb-3 col-md-6">
-                                                <label for="name" class="form-label">Rol Adı (Lütfen istediğniz role yazınız)</label>
+                                                <label for="name" class="form-label">Rol Adı (LÜTFEN İSTEDİĞİNİZ ROLÜ YAZINIZ)</label>
                                                 <input class="form-control"
                                                        type="text" name="name"
                                                        id="name" />
@@ -298,7 +316,7 @@
                                             </div>
 
                                             <div>
-                                                <p>Listenin ilk elemanı: @liststr</p>
+                                               
                                                 <CheckboxGroup Style="width:100%">
 
                                                     <Row>
@@ -342,7 +360,7 @@
                                                     </Row>
                                                     <Row>
                                                         <Col Span="8">
-                                                        <Checkbox OnChange="@(e => onchg8(e))" Label="H">Kurulu düzenleme</Checkbox>
+                                                        <Checkbox OnChange="@(e => onchg8(e))" Label="H">Kurul üyelerini düzenleme</Checkbox>
                                                         </Col>
 
                                                     </Row>
@@ -364,9 +382,6 @@
                                                     </Row>
                                                 </CheckboxGroup>
                                                 <br /><br />
-                                                <br /><br />
-
-
 
                                             </div>
 
