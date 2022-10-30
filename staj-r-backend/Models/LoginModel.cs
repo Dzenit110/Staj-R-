@@ -21,7 +21,7 @@ namespace staj_r_backend.Models
             string query = $"MATCH(u:User)-[:MEMBER]->(r:Role) WHERE u.number = '{number}' AND u.password= '{pass}' RETURN " +
                 $"COUNT(u) AS ct, " +
                 $"u.name AS nm, " +
-                $"u.surnae AS sn, " +
+                $"u.surname AS sn, " +
                 $"u.email AS em, " +
                 $"u.department AS dep, " +
                 $"ID(r) AS ri, " +
@@ -41,7 +41,7 @@ namespace staj_r_backend.Models
                     surname = (string)qres["sn"],
                     email = (string)qres["em"],
                     department = (string)qres["dep"],
-                    roleID = (string)qres["ri"],
+                    roleID = (long)qres["ri"],
                     role = (string)qres["role"],
                     authorities = ((List<object>)qres["auth"]).Select(e => (string)e).ToList(),
                 };

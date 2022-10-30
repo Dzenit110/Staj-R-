@@ -1,6 +1,6 @@
-﻿@page "/dashboard"
-
+﻿@namespace staj_r.Dashboard
 <!-- Layout wrapper -->
+<h1>@(User.user.name+" "+User.user.surname)</h1>
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
@@ -264,8 +264,6 @@
 
 @code {
     [Parameter]
-    public User User { get; set; }
-    [Parameter]
-    public string Token { get; set; }
+    public UserWToken User { get; set; }
 
 }

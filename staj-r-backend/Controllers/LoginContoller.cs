@@ -23,7 +23,8 @@ namespace staj_r_backend.Controllers
                     return new Result<UserWToken>();
                 }
                 LoginModel lm = new LoginModel();
-                User us = await lm.login(decrypted.number, decrypted.password);
+                string encrypted = new PasswordHelper().encrypt(decrypted.password);
+                User us = await lm.login(decrypted.number, encrypted);
                 if(us == null){
                     return new Result<UserWToken>();
                 }

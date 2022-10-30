@@ -1,0 +1,46 @@
+﻿<h3>LoginV2</h3>
+@inject ILocalStorageService localStore  
+<h2>Exception: @exception</h2>
+@if (isLogin == true)
+{
+    <staj_r.Dashboard.Dashboard User=uwt/>
+}
+@if(isLogin == false)
+{
+    <h1>Giriş Hatası</h1>
+}
+<Button @onclick="signinClicked">BUTON</Button>
+
+@code {
+    public string number = "456154854";
+    public string password = "L.NcDbKZ6Gce";
+    public UserWToken uwt { get; set; }
+    public bool isLogin = false;
+    public string exception = "";
+
+    private async void signinClicked()
+    {
+        try
+        {
+            if(number =="" || password == "")
+            {
+                throw new Exception();
+            }
+            var res = await LoginContoller.loginWithoutToken(number, password);
+            if (res.isSuccess)
+            {
+                uwt = res.value;
+                await localStore.SetItemAsStringAsync("token", res.value.token);
+                isLogin = true;
+            }
+            else
+            {
+                isLogin = false;
+            }
+        }
+        catch(Exception ex)
+        {
+            exception = ex.Message;
+        }
+    }
+}

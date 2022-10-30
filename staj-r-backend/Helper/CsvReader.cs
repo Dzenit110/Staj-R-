@@ -50,7 +50,7 @@ namespace staj_r_backend.Helper
                     number = arrrow[numberc],
                     department = arrrow[numberc].Substring(2, 4),
                     authorities = authorities,
-                    password = createPass()
+                    //password = createPass()
                 });
             }
             return liste;

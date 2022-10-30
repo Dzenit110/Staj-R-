@@ -26,11 +26,11 @@ namespace staj_r_backend.Controllers
             }
         }
         //Departman bilgisi yoksa kullanılır.
-        public static async Task<bool> registerDepManager(string number, string name, string surname, string department, string email, int roleID)
+        public static async Task<bool> registerDepManager(string number, string name, string surname, string department, string email)
         {
             try
             {
-                return await registerCommon(number, name, surname, email, department, roleID, null);
+                return await registerCommon(number, name, surname, email, department, 11, null);
             }
             catch
             {
@@ -42,8 +42,13 @@ namespace staj_r_backend.Controllers
         private static async Task<bool> registerCommon(string number, string name, string surname, string email, string department, int roleID, string uNumber)
         {
             PasswordHelper ph = new PasswordHelper();
-            string password = ph.generatePass();
-            string encrypted = ph.encrypt(password);
+            string password = "";
+            string encrypted = "";
+            do
+            {
+                password = ph.generatePass();
+                encrypted = ph.encrypt(password);
+            } while(encrypted.Contains('\'') || encrypted.Contains('"'));            
             string message = $"Merhaba {name}!<br>Staj-R kullanıcı kaydınız başarılı bir şekilde yapılmıştır. Sisteme okul numaranız ve bu e-postada yer alan " +
                 "parolanız ile giriş yapabilirsiniz.<br>" +
                 $"<br><br><b>PAROLANIZI KİMSEYLE PAYLAŞMAYINIZ!</b><br><br><br>Parolanız: {password}<br><br>" +
