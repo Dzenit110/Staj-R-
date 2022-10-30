@@ -12,7 +12,7 @@ namespace staj_r_backend.Controllers
 {
     public class LoginContoller
     {       
-        public static async Task<Result<UserWToken>> checkTokenController(string token)
+        public async Task<Result<UserWToken>> checkTokenController(string token)
         {
             try
             {
@@ -30,19 +30,13 @@ namespace staj_r_backend.Controllers
                 }
                 else
                 {
-                    TokenResult tokenres = tk.encrypt(new TokenEntity
-                    {
-                        number = decrypted.number,
-                        password = decrypted.password,
-                        expiresOn = DateTime.Now.AddHours(2),
-                    });
                     return new Result<UserWToken>()
                     {
                         isSuccess = true,
                         value = new UserWToken
                         {
-                            token = tokenres.token,
-                            tokenExpiresOn = tokenres.tokenExpiresOn,
+                            token = token,
+                            tokenExpiresOn = decrypted.expiresOn,
                             user = us,
                         },
                     };
@@ -53,7 +47,7 @@ namespace staj_r_backend.Controllers
                 return new Result<UserWToken>();
             }
         }
-        public static async Task<Result<UserWToken>> loginWithoutToken(string number, string password)
+        public async Task<Result<UserWToken>> loginWithoutToken(string number, string password)
         {
             try
             {

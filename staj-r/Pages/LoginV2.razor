@@ -26,7 +26,7 @@
             {
                 throw new Exception();
             }
-            var res = await LoginContoller.loginWithoutToken(number, password);
+            var res = await new LoginContoller().loginWithoutToken(number, password);
             if (res.isSuccess)
             {
                 uwt = res.value;

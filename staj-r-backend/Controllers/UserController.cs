@@ -13,7 +13,7 @@ namespace staj_r_backend.Controllers
     public class UserController
     {
         //Departman bilgisi varsa kullanılır.
-        public static async Task<bool> registerOther(string number, string name, string surname, string email, string token, int roleID)
+        public async Task<bool> registerOther(string number, string name, string surname, string email, string token, int roleID)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace staj_r_backend.Controllers
             }
         }
         //Departman bilgisi yoksa kullanılır.
-        public static async Task<bool> registerDepManager(string number, string name, string surname, string department, string email)
+        public async Task<bool> registerDepManager(string number, string name, string surname, string department, string email)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace staj_r_backend.Controllers
         }
 
         //uNumber: İşlemi gerçekleştiren kullanıcının numarasıdır. =>
-        private static async Task<bool> registerCommon(string number, string name, string surname, string email, string department, int roleID, string uNumber)
+        private async Task<bool> registerCommon(string number, string name, string surname, string email, string department, int roleID, string uNumber)
         {
             PasswordHelper ph = new PasswordHelper();
             string password = "";
@@ -58,7 +58,7 @@ namespace staj_r_backend.Controllers
             return await um.registerModel(number, name, surname, email, encrypted, department, roleID, uNumber);
         }
 
-        public static async Task<Result<List<role_auth>>> getRoles()
+        public async Task<Result<List<role_auth>>> getRoles()
         {
             try
             {
@@ -79,7 +79,7 @@ namespace staj_r_backend.Controllers
                 return new Result<List<role_auth>>();
             }
         }
-        public static async Task<bool> createRole(string name, List<string> authorities) 
+        public async Task<bool> createRole(string name, List<string> authorities) 
         {
             try
             {
@@ -91,7 +91,7 @@ namespace staj_r_backend.Controllers
                 return false;
             }
         }
-        public static async Task<Result<List<userList>>> getUsers(string number)
+        public async Task<Result<List<userList>>> getUsers(string number)
         {
             try
             {
@@ -116,7 +116,7 @@ namespace staj_r_backend.Controllers
             }
         }
         #region Kullanıcılar sayfası popup
-        public static async Task<Result<Dictionary<int,string>>> getRolesForDropdown(string number)
+        public async Task<Result<Dictionary<int,string>>> getRolesForDropdown(string number)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace staj_r_backend.Controllers
                 return new Result<Dictionary<int, string>>(false);
             }
         }  
-        public static async Task<bool> updateRole(string number, int roleID)
+        public async Task<bool> updateRole(string number, int roleID)
         {
             try
             {
@@ -153,7 +153,7 @@ namespace staj_r_backend.Controllers
                 return false;
             }
         }
-        public static async Task<bool> updateEmail(string number, string email)
+        public async Task<bool> updateEmail(string number, string email)
         {
             try
             {
@@ -165,7 +165,7 @@ namespace staj_r_backend.Controllers
                 return false;
             }
         }
-        public static async Task<bool> updatePassword(string number)
+        public async Task<bool> updatePassword(string number)
         {
             try
             {

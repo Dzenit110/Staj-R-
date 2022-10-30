@@ -33,8 +33,7 @@
 	{
 		try
 		{
-			await localStore.RemoveItemAsync("token");
-			Result<UserWToken> result = await LoginContoller.checkTokenController(await localStore.GetItemAsStringAsync("token"));
+			Result<UserWToken> result = await new LoginContoller().checkTokenController(await localStore.GetItemAsStringAsync("token"));
 			if (result.isSuccess)
 			{
 				uwt = result.value;

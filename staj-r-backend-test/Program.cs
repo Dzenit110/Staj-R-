@@ -36,7 +36,7 @@ namespace staj_r_backend_test
         };
         static async Task Main(string[] args)
         {
-            var res = await UserController.registerDepManager("456154854", "Deneme İsmi", "Deneme Soyismi", "4513", "kixede8546@ilusale.com");
+            //var res = await UserController.registerDepManager("456154854", "Deneme İsmi", "Deneme Soyismi", "4513", "kixede8546@ilusale.com");
         }
 
 
