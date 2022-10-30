@@ -1,4 +1,4 @@
-﻿@page "/add_councilor"
+﻿@page "/staj_1_acd"
 
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
@@ -36,7 +36,7 @@
                     </a>
                 </li>
 
-                <li class="menu-item active open">
+                <li class="menu-item">
                     <a href=/add_std class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
@@ -54,7 +54,7 @@
                             </a>
                         </li>
 
-                        <li class="menu-item active">
+                        <li class="menu-item">
                             <a href=/add_councilor class="menu-link">
                                 <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
                             </a>
@@ -79,13 +79,14 @@
                        <div data-i18n="Yeni Rol Ekle">Yeni Rol Ekle</div>
                     </a>
                 </li>
+
                 <li class="menu-item">
                     <a href=/staj_1 class="menu-link"
                        <i class="menu-icon tf-icons bx bx-detail"></i>
                        <div data-i18n="Staj-I">Staj-I</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                <li class="menu-item active">
                     <a href=/staj_1_acd class="menu-link"
                        <i class="menu-icon tf-icons bx bx-file"></i>
                        <div data-i18n="Staj-I">Staj-I</div>
@@ -215,211 +216,18 @@
                 </div>
             </nav>
             <!-- / Navbar -->
-            <!-- Content wrapper -->
-            <style>
-                #loop-text {
-                    height: 30px;
-                    overflow: hidden;
-                }
-
-                    #loop-text ul {
-                        height: 100%;
-                        width: 100%;
-                        -webkit-animation: scroll 8s infinite;
-                    }
-
-                    #loop-text li {
-                        line-height: 30px;
-                        height: 30px;
-                    }
-
-                @@keyframes scroll {
-                    0% {
-                        -webkit-transform: translateY(0px);
-                        transform: translateY(0px);
-                    }
-
-                    20% {
-                        -webkit-transform: translateY(0px);
-                        transform: translateY(0px);
-                    }
-
-                    25% {
-                        -webkit-transform: translateY(-30px);
-                        transform: translateY(-30px);
-                    }
-
-                    45% {
-                        -webkit-transform: translateY(-30px);
-                        transform: translateY(-30px);
-                    }
-
-                    50% {
-                        -webkit-transform: translateY(-60px);
-                        transform: translateY(-60px);
-                    }
-
-                    70% {
-                        -webkit-transform: translateY(-60px);
-                        transform: translateY(-60px);
-                    }
-
-                    75% {
-                        -webkit-transform: translateY(-90px);
-                        transform: translateY(-90px);
-                    }
-
-                    95% {
-                        -webkit-transform: translateY(-90px);
-                        transform: translateY(-90px);
-                    }
-
-                    100% {
-                        -webkit-transform: translateY(-120px);
-                        transform: translateY(-120px);
-                    }
-                }
-            </style>
-            <div class="content-wrapper">
-                <!-- Content  BUTTONLAR -->
-
-                <div class="container-xxl flex-grow-1 container-p-y">
-
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                                <li class="nav-item">
-                                    <a class="nav-link" href=/add_std><i class="bx bx-user me-1"></i>Öğrenci Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href=/add_academic><i class="bx bx-user me-1"></i>Öğretim Görevlisi Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" href=/add_councilor><i class="bx bx-user me-1"></i>Kurul Üyesi Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href=/add_dpthead><i class="bx bx-user me-1"></i>Bölüm Sorumlusu Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href=/diger><i class="bx bx-user me-1"></i>Diğer</a>
-                                </li>
-
-                            </ul>
-                            <div class="card mb-4">
-                                <h5 class="card-header">Çoklu Kurul Üyesi Ekle</h5>
-
-
-                                <div class="card-body">
-                                    <form id="formAccountSettings" method="POST" onsubmit="return false" style="text-align:center">
-                                        <div style="align-content">
-                                            <div class="button-wrapper">
-                                                <input accept=".csv" class="form-control" type="file" id="formFile">
-                                                <br>
-                                                <p style="color:red;" class="form-label">*YÜKLENECEK DOSYA .CSV UZANTILI OLMALIDIR!*</p>
-                                                <p style="color:red;" class="form-label">*CSV DOSYANIZDA İSİM, SOYİSİM, E-MAİL VE NUMARA OLDUĞUNDAN EMİN OLUN*</p>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>   <!-- ILK DIV BITTI -->
-
-
-                            <div class="card mb-4">
-                                <!-- ALTTAKI DIV -->
-                                <h5 class="card-header">Tek Kurul Üyesi Ekle</h5>
-                                <div class="card-body">
-                                    <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                        <div class="row">
-
-
-                                            <div class="mb-3 col-md-6">
-                                                <label for="name" class="form-label">Adı</label>
-                                                <input class="form-control" type="text" name="name" id="name" placeholder="Kurul üyesinin adını giriniz" />
-                                            </div>
-
-
-                                            <div class="mb-3 col-md-6">
-                                                <label for="lastName" class="form-label">Soyadı</label>
-                                                <input class="form-control" type="text" name="lastName" id="lastName" placeholder="Kurul üyesinin soyadını giriniz" />
-
-
-                                            </div>
-
-                                            <div class="mb-3 col-md-6">
-                                                <label for="email" class="form-label">E-mail</label>
-                                                <input placholder="E-mail" class="form-control"
-                                                       type="text"
-                                                       id="email"
-                                                       name="email"
-                                                       placeholder="Kurul üyesinin E-Mail adresini yazınız" />
-
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label" for="Number">Numarası</label>
-                                                <div class="input-group input-group-merge">
-                                                    <input type="number"
-                                                           name="phoneNumber"
-                                                           class="form-control"
-                                                           placeholder="Kurul üyesinin numarasını yazınız" />
-                                                </div>
-
-                                            </div>
-
-                                            <!-- KAYDET BUTTON -->
-                                            <div class="mt-2">
-                                                <button type="submit" class="btn btn-primary me-2">Kaydet</button>
-
-                                            </div>
-
-
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- / Content -->
-
-
-                <br /><br />
-
-            </div>  <!-- ALTAKKI DIV BITIYOR -->
-
-
-
         </div>
+        <!-- / Layout page -->
     </div>
+
+    <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
-
-
+<!-- / Layout wrapper -->
 @code {
-    void OnSingleCompleted(UploadInfo fileinfo)
+    [Parameter]
+    public User User { get; set; }
+    [Parameter]
+    public string Token { get; set; }
 
-    {
-
-        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
-        {
-            var result = fileinfo.File.GetResponse<ResponseModel>();
-            fileinfo.File.Url = result.url;
-        }
-
-    }
-
-
-
-
-
-    public class ResponseModel
-    {
-        public string name { get; set; }
-
-        public string status { get; set; }
-
-        public string url { get; set; }
-
-        public string thumbUrl { get; set; }
-    }
 }
