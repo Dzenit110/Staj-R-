@@ -11,6 +11,11 @@ namespace staj_r_backend.Models
 {
     public class UserModel
     {
+        //Departman (bölüm) gelirse, uNumber null gelirse bölüm yöneticisi ekleniyordur.
+        //Departman (bölüm) null gelirse diğer rollerden biri ekleniyordur.
+
+        //number parametresi eklenen kullanıcının numarasıdır.
+        //uNumber ekleyen kişinin numarasıdır.
         public async Task<bool> registerModel(string number, string name, string surname, string email, string password, string department, int roleID, string uNumber)
         {
             try
@@ -51,12 +56,6 @@ namespace staj_r_backend.Models
         }
 
         //İkililerden ilk string rol adı, ikinci string ise yetkilerdir
-        public record role_auth
-        {
-            public int roleID { get; set; }
-            public string role { get; set; }
-            public List<string> authories { get; set; }
-        }
         public async Task<List<role_auth>> getRoles()
         {
             Executor ex = new Executor();
@@ -107,15 +106,6 @@ namespace staj_r_backend.Models
 
         }
 
-        public record userList
-        {
-            public string roleName { get; set; }
-            public int roleID { get; set; }
-            public string number { get; set; }
-            public string name { get; set; }
-            public string surname { get; set; }
-            public string email { get; set; }
-        }
 
         #region Kullanıcılar sayfası popup
 
@@ -136,7 +126,7 @@ namespace staj_r_backend.Models
 
         public async Task<bool> updateRole(string number, int roleID) //Değişim yapılacak kullanıcının numarası
         {
-            string query = $"MATCH(u:User)-[m:MEMBER]->(:Role) WHERE u.number = '{number}' " +
+            string query = $"MATCH(u:User)-[m:MEMBER]->(q:Role) WHERE u.number = '{number}' " +
                 $"DELETE m MATCH(r:Role) WHERE ID(r)={roleID} CREATE(n)-[:MEMBER]->(r)";
             Executor ex = new Executor();
             return await ex.executeReturnless(query);

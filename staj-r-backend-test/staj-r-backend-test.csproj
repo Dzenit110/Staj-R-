@@ -4,7 +4,12 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>staj_r_backend_test</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ConvertApi" Version="3.0.8" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\staj-r-backend\staj-r-backend.csproj" />

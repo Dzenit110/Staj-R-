@@ -15,6 +15,11 @@ using System.Net.Mail;
 using System.Net;
 using System.Reflection;
 using Neo4j.Driver;
+using System.Net.Http;
+using System.IO;
+using ConvertApiDotNet;
+using ConvertApiDotNet.Model;
+using System.Text;
 
 namespace staj_r_backend_test
 {
@@ -24,14 +29,64 @@ namespace staj_r_backend_test
         {
             adana = 2, bursa = 3
         }
+
+        private static readonly HttpClient client = new()
+        {
+            BaseAddress = new Uri("https://back.onlineconvertfree.com/api/external/api/add-convert/"),
+        };
         static async Task Main(string[] args)
         {
-            Executor ex = new Executor();
-            var y = await ex.executeOneNode($"RETURN false");
         }
-        
 
+
+        public static void SaveStreamAsFile(string filePath, Stream inputStream, string fileName)
+        {
+            DirectoryInfo info = new DirectoryInfo(filePath);
+            if (!info.Exists)
+            {
+                info.Create();
+            }
+
+            string path = Path.Combine(filePath, fileName);
+            using (FileStream outputFileStream = new FileStream(path, FileMode.Create))
+            {
+                inputStream.CopyTo(outputFileStream);
+            }
+        }
 
     }
-   
+
 }
+
+
+/*
+ private static readonly HttpClient client = new()
+        {
+            BaseAddress = new Uri("https://back.onlineconvertfree.com/api/external/api/add-convert/"),
+        };
+        static async Task Main(string[] args)
+        {
+            string file = File.ReadAllText(@"C:\Users\CASPER\Desktop\DENEMELER\StajKabul.xml");
+            var stream = new MemoryStream(Encoding.UTF8.GetBytes(file));
+            var convertApi = new ConvertApi("stK35LEUnutFwJ0B");
+            var convertres = await convertApi.ConvertAsync("xml","doc", new ConvertApiFileParam(stream, "test.xml"));
+            var outputStream = await convertres.Files[0].FileStreamAsync();
+            SaveStreamAsFile(@"C:\Users\CASPER\Desktop\DENEMELER\", outputStream, "yenidoc");
+        }
+
+
+        public static void SaveStreamAsFile(string filePath, Stream inputStream, string fileName)
+        {
+            DirectoryInfo info = new DirectoryInfo(filePath);
+            if (!info.Exists)
+            {
+                info.Create();
+            }
+
+            string path = Path.Combine(filePath, fileName);
+            using (FileStream outputFileStream = new FileStream(path, FileMode.Create))
+            {
+                inputStream.CopyTo(outputFileStream);
+            }
+        }
+*/

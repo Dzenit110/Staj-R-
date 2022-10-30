@@ -13,7 +13,7 @@ namespace staj_r_backend.Controllers
     public class UserController
     {
         //Departman bilgisi varsa kullanılır.
-        public async Task<bool> registerOther(string number, string name, string surname, string email, string token, int roleID)
+        public static async Task<bool> registerOther(string number, string name, string surname, string email, string token, int roleID)
         {
             try
             {
@@ -26,7 +26,7 @@ namespace staj_r_backend.Controllers
             }
         }
         //Departman bilgisi yoksa kullanılır.
-        public async Task<bool> registerDepManager(string number, string name, string surname, string department, string email, int roleID)
+        public static async Task<bool> registerDepManager(string number, string name, string surname, string department, string email, int roleID)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace staj_r_backend.Controllers
         }
 
         //uNumber: İşlemi gerçekleştiren kullanıcının numarasıdır. =>
-        private async Task<bool> registerCommon(string number, string name, string surname, string email, string department, int roleID, string uNumber)
+        private static async Task<bool> registerCommon(string number, string name, string surname, string email, string department, int roleID, string uNumber)
         {
             PasswordHelper ph = new PasswordHelper();
             string password = ph.generatePass();
@@ -53,20 +53,28 @@ namespace staj_r_backend.Controllers
             return await um.registerModel(number, name, surname, email, encrypted, department, roleID, uNumber);
         }
 
-        public async Task<List<UserModel.role_auth>> getRoles()
+        public static async Task<Result<List<role_auth>>> getRoles()
         {
             try
             {
                 UserModel um = new UserModel();
                 var res = await um.getRoles();
-                return res;
+                if(res == null)
+                {
+                    return new Result<List<role_auth>>(false);
+                }
+                return new Result<List<role_auth>>()
+                {
+                    isSuccess = true,
+                    value = res,
+                };
             }
             catch
             {
-                return null;
+                return new Result<List<role_auth>>();
             }
         }
-        public async Task<bool> createRole(string name, List<string> authorities) 
+        public static async Task<bool> createRole(string name, List<string> authorities) 
         {
             try
             {
@@ -78,32 +86,57 @@ namespace staj_r_backend.Controllers
                 return false;
             }
         }
-        public async Task<List<UserModel.userList>> getUsers(string number)
+        public static async Task<Result<List<userList>>> getUsers(string number)
         {
             try
             {
                 UserModel um = new UserModel();
-                return await um.getUsers(number);
+                var qres = await um.getUsers(number);
+                if(qres == null)
+                {
+                    return new Result<List<userList>>(false);
+                }
+                else
+                {
+                    return new Result<List<userList>>()
+                    {
+                        isSuccess = true,
+                        value = qres,
+                    };
+                }
             }
             catch
             {
-                return null;
+                return new Result<List<userList>>(false);
             }
         }
         #region Kullanıcılar sayfası popup
-        public async Task<Dictionary<int,string>> getRolesForDropdown(string number)
+        public static async Task<Result<Dictionary<int,string>>> getRolesForDropdown(string number)
         {
             try
             {
                 UserModel um = new UserModel();
-                return await um.getRolesForDropDown(number);
+                var res = await um.getRolesForDropDown(number);
+                if (res == null)
+                {
+                    return new Result<Dictionary<int, string>>(false);
+                }
+                else
+                {
+                    return new Result<Dictionary<int, string>>
+                    {
+                        isSuccess = true,
+                        value = res,
+                    };
+
+                }                
             }
             catch
             {
-                return null;
+                return new Result<Dictionary<int, string>>(false);
             }
         }  
-        public async Task<bool> updateRole(string number, int roleID)
+        public static async Task<bool> updateRole(string number, int roleID)
         {
             try
             {
@@ -115,7 +148,7 @@ namespace staj_r_backend.Controllers
                 return false;
             }
         }
-        public async Task<bool> updateEmail(string number, string email)
+        public static async Task<bool> updateEmail(string number, string email)
         {
             try
             {
@@ -127,7 +160,7 @@ namespace staj_r_backend.Controllers
                 return false;
             }
         }
-        public async Task<bool> updatePassword(string number)
+        public static async Task<bool> updatePassword(string number)
         {
             try
             {
