@@ -1,4 +1,5 @@
-﻿using System;
+﻿using staj_r_backend.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers.Documents
 {
-    public class IMERatingXML
+    public class IMERatingXML:IDocument
     {
-        public string imeRating = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+		public IMERating imr { get; set; }
+		public string xml { get; set; }
+		public IMERatingXML(IMERating _imr)
+		{
+			imr = _imr;
+			xml = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <?mso-application progid='Word.Document'?>
 <w:wordDocument
 	xmlns:aml='http://schemas.microsoft.com/aml/2001/core'
@@ -13519,5 +13525,6 @@ BgDAGAMAYAwBgDAGAMAYAwBgDAGAMAYAwBgDAGAMAYB//9l=
 		</wx:sect>
 	</w:body>
 </w:wordDocument>";
+		}
     }
 }

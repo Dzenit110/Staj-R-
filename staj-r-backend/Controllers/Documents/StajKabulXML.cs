@@ -1,4 +1,5 @@
-﻿using System;
+﻿using staj_r_backend.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers.Documents
 {
-    public class StajKabulXML
+    public class StajKabulXML:IDocument
     {
-        public string stajKabulXML = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+		public string xml { get; set; }
+		public BasvuruFormu bf { get; set; }
+		public StajKabulXML(BasvuruFormu _bf)
+		{
+			bf = _bf;
+			xml = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <?mso-application progid='Word.Document'?>
 <w:wordDocument
 	xmlns:aml='http://schemas.microsoft.com/aml/2001/core'
@@ -11492,5 +11498,6 @@ n2XE7XGnmwdaMV+Im2aEJIv1KnXfk+mtU5Gfernffa7xC3L3C/mc7rCnkL3l9K/FegmVHj/pKrlt
 		</wx:sect>
 	</w:body>
 </w:wordDocument>";
+		}
     }
 }

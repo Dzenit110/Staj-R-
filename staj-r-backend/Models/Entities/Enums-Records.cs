@@ -95,5 +95,10 @@ namespace staj_r_backend.Models.Entities
         public string email { get; set; }
     }
 
+    public enum rolesDefault
+    {
+        Öğrenci = 7, Öğretim_Üyesi = 9, Kurul_Üyesi = 10, Bölüm_Yöneticisi = 11, Kurum_Yetkilisi = 15
+    }
+
 
 }

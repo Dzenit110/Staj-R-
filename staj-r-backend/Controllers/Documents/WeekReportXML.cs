@@ -1,4 +1,5 @@
-﻿using System;
+﻿using staj_r_backend.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers.Documents
 {
-    public class WeekReportXML
+    public class WeekReportXML:IDocument
     {
-        public string weekReport = @"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+		public string xml { get; set; }
+		public WeekReport wr { get; set; }
+		public WeekReportXML(WeekReport _wr)
+		{
+			wr = _wr;
+			xml = @"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <?mso-application progid='Word.Document'?>
 <w:wordDocument
 	xmlns:aml='http://schemas.microsoft.com/aml/2001/core'
@@ -3896,5 +3902,6 @@ namespace staj_r_backend.Controllers.Documents
 		</wx:sect>
 	</w:body>
 </w:wordDocument>";
+		}
     }
 }

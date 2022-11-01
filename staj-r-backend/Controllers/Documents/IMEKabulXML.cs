@@ -7,14 +7,14 @@ using staj_r_backend.Models.Entities;
 
 namespace staj_r_backend.Controllers.Documents
 {
-    public class IMEKabulXML
+    public class IMEKabulXML:IDocument
     {
         public BasvuruFormu bf { get; set; }
-        public string imeKabul { get; set; }
+        public string xml { get; set; }
         public IMEKabulXML(BasvuruFormu _bf)
         {
             bf = _bf;
-            imeKabul = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+			xml = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <?mso-application progid='Word.Document'?>
 <w:wordDocument
 	xmlns:aml='http://schemas.microsoft.com/aml/2001/core'
