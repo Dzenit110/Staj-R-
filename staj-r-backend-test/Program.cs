@@ -18,8 +18,8 @@ using Neo4j.Driver;
 using System.Net.Http;
 using System.IO;
 using ConvertApiDotNet;
-using ConvertApiDotNet.Model;
 using System.Text;
+using Microsoft.JSInterop;
 
 namespace staj_r_backend_test
 {
@@ -36,7 +36,17 @@ namespace staj_r_backend_test
         };
         static async Task Main(string[] args)
         {
+
+            
             //var res = await UserController.registerDepManager("456154854", "Deneme İsmi", "Deneme Soyismi", "4513", "kixede8546@ilusale.com");
+            DocumentController dc = new DocumentController();
+            DailyReport dr = new DailyReport()
+            {
+                aciklama_GT6ExY2 = "Önder ",
+                tarih_Rvt9hVm = new DateTime(2022, 10, 31),
+                yapilan_is_QHt6wvC = "ALPCAN İÇİN",
+            };
+            SaveStreamAsFile(@"C:\Users\CASPER\Desktop\SON DOCX\", await dc.getDailyReport(dr), "ALPCN.docx");
         }
 
 
