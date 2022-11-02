@@ -1,0 +1,363 @@
+﻿@page "/apply_ime"
+
+<style>
+    #loop-text {
+        height: 30px;
+        overflow: hidden;
+    }
+
+        #loop-text ul {
+            height: 100%;
+            width: 100%;
+            -webkit-animation: scroll 8s infinite;
+        }
+
+        #loop-text li {
+            line-height: 30px;
+            height: 30px;
+        }
+
+    @@keyframes scroll {
+        0% {
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        20% {
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        25% {
+            -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+        }
+
+        45% {
+            -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+        }
+
+        50% {
+            -webkit-transform: translateY(-60px);
+            transform: translateY(-60px);
+        }
+
+        70% {
+            -webkit-transform: translateY(-60px);
+            transform: translateY(-60px);
+        }
+
+        75% {
+            -webkit-transform: translateY(-90px);
+            transform: translateY(-90px);
+        }
+
+        95% {
+            -webkit-transform: translateY(-90px);
+            transform: translateY(-90px);
+        }
+
+        100% {
+            -webkit-transform: translateY(-120px);
+            transform: translateY(-120px);
+        }
+    }
+</style>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card mb-4">
+                                <!-- ALTTAKI DIV -->
+                                <div class="card-body">
+                                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                        <div class="row">
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="tcno" class="form-label">TC NO:</label>
+                                                <input class="form-control" type="number" name="tcno" id="tcno" placeholder="T.C. Numarasını yazınız" />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="iban" class="form-label">IBAN No ZİRAAT BANKASI: </label>
+                                                <input class="form-control" type="number" name="iban" id="iban" value="TR" placeholder="Ziraat bankası IBAN No'su yazınız" />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="adres" class="form-label">Adres</label>
+                                                <input class="form-control"
+                                                       type="text"
+                                                       id="adres"
+                                                       name="adres"
+                                                       placeholder="Adres yazınız" />
+
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="telno">Ev Tel/GSM</label>
+                                                <div class="input-group input-group-merge">
+                                                    <input type="number"
+                                                           name="telno"
+                                                           id="telno"
+                                                           class="form-control"
+                                                           placeholder="Telefonu numarası yazınız" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="il" class="form-label">İl:</label>
+                                                <input class="form-control" type="text" name="il" id="il" placeholder="Yaşadığınız ili yazınız" />
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="ilçe" class="form-label">İlçe</label>
+                                                <input class="form-control" type="text" name="ilçe" id="ilçe" placeholder="Yaşadığınız ilçe yazınız" />
+
+
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="posta" class="form-label">Posta Kodu: </label>
+                                                <input class="form-control" type="number" name="posta" id="posta" placeholder="Posta kodu yazınız" />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="baslama_tarih" class="form-label">Başlama Tarihi</label>
+                                                <input class="form-control" type="date" value="2021-06-18" id="baslama_tarih">
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="bitis_tarih" class="form-label">Bitiş Tarihi</label>
+                                                <input class="form-control" type="date" value="2021-06-18" id="bitis_tarih">
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="is_gun" class="form-label">İş Günü:</label>
+                                                <input class="form-control" type="number" name="is_gun" id="is_gun" placeholder="Çalışacağınız iş günü sayınız" />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="defaultRadio1" class="form-label">Ailemden, Kendimden veya Anne-Baba Üzarinden Genel Sağlık Sigortası Kapsamında Sağlık Hizmeti Alıyorum</label>
+                                                <div class="form-check mt-3">
+                                                    <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio1">
+                                                    <label class="form-check-label" for="defaultRadio1">
+                                                        Evet
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2" checked="">
+                                                    <label class="form-check-label" for="defaultRadio2">
+                                                        Hayır
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6">
+
+                                                <label for="default-radio-2" class="form-label">Genel Sağlık Sigortası (GSS) (Gelir Testi Yaptırdım Pirim Ödüyorum)</label>
+                                                <div class="form-check mt-3">
+                                                    <input name="default-radio-2" class="form-check-input" type="radio" value="" id="defaultRadio3">
+                                                    <label class="form-check-label" for="defaultRadio3">
+                                                        Evet
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input name="default-radio-2" class="form-check-input" type="radio" value="" id="defaultRadio4" checked="">
+                                                    <label class="form-check-label" for="defaultRadio4">
+                                                        Hayır
+                                                    </label>
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6">
+
+                                                <label for="default-radio-3" class="form-label">25 Yaşını Doldurdum</label>
+                                                <div class="form-check mt-3">
+                                                    <input name="default-radio-3" class="form-check-input" type="radio" value="" id="defaultRadio5">
+                                                    <label class="form-check-label" for="defaultRadio5">
+                                                        Evet
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input name="default-radio-3" class="form-check-input" type="radio" value="" id="defaultRadio6" checked="">
+                                                    <label class="form-check-label" for="defaultRadio6">
+                                                        Hayır
+                                                    </label>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div> <!--İLK DIV BITIYOR-->
+
+                            <div class="card mb-4">
+                                <div class="card-body">
+                                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                        <div class="row">
+                                            <h5 class="card-header" style="text-align:center">İşletmede Mesleki Eğitim Yapılacak Kurum Bilgileri</h5>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="resmi_name" class="form-label">RESMİ ADI</label>
+                                                <input class="form-control" type="text" name="resmi_name" id="resmi_name" placeholder="Resmi adı yazınız" />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="faaliyet" class="form-label">Faaliyet Alanı</label>
+                                                <input class="form-control" type="text" name="faaliyet" id="faaliyet" placeholder="Faaliyet alanı yazınız" />
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="kurum_adres" class="form-label">Adres</label>
+                                                <input class="form-control"
+                                                       type="text"
+                                                       id="kurum_adres"
+                                                       name="kurum_adres"
+                                                       placeholder="Adres yazınız" />
+
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="kurum_mail" class="form-label">E-Posta</label>
+                                                <input class="form-control"
+                                                       type="text"
+                                                       id="kurum_mail"
+                                                       name="kurum_mail"
+                                                       placeholder="E-posta yazınız" />
+
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label" for="kurum_tel">Kurum Tel/GSM</label>
+                                                <div class="input-group input-group-merge">
+                                                    <input type="number"
+                                                           name="kurum_tel"
+                                                           id="kurum_tel"
+                                                           class="form-control"
+                                                           placeholder="Kurum telefonunu yazınız" />
+                                                </div>
+
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="kurum_il" class="form-label">İl:</label>
+                                                <input class="form-control" type="text" name="kurum_il" id="kurum_il" placeholder="Kurumun bulunduğu ili yazınız" />
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="kurum_ilce" class="form-label">İlçe</label>
+                                                <input class="form-control" type="text" name="kurum_ilce" id="kurum_ilce" placeholder="Kurumun bulunduğu ilçeyi yazınız" />
+
+
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="kurum_posta" class="form-label">Posta Kodu</label>
+                                                <input class="form-control" type="number" name="kurum_posta" id="kurum_posta" placeholder="Posta kodunu yazınız" />
+
+
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="unvan" class="form-label">Staj Sorumlusunun Unvanı</label>
+                                                <input class="form-control" type="text" name="unvan" id="unvan" placeholder="Staj sorumlusunun unvanını yazınız" />
+
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+
+                                                <label for="default-radio-4" class="form-label">Kurum olarak 3308 sayılı kanundaki devlet katkısından yararlanmak istiyor musunuz?</label>
+                                                <div class="form-check mt-3">
+                                                    <input name="default-radio-4" class="form-check-input" type="radio" value="" id="defaultRadio7">
+                                                    <label class="form-check-label" for="defaultRadio7">
+                                                        Evet
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input name="default-radio-4" class="form-check-input" type="radio" value="" id="defaultRadio8" checked="">
+                                                    <label class="form-check-label" for="defaultRadio8">
+                                                        Hayır
+                                                    </label>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!--3 ALTTAKI DIV-->
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                    <div class="row">
+                                        <h5 class="card-header" style="text-align:center">Firma Yetkilisi</h5>
+
+                                        <div class="mb-3 col-md-6">
+                                            <label for="yetkili_isim" class="form-label">Adı Soyadı:</label>
+                                            <input class="form-control" type="text" name="yetkili_isim" id="yetkili_isim" placeholder="Adı ve Soyadı yazınız" />
+
+
+                                        </div>
+
+                                        <div class="mb-3 col-md-6">
+                                            <label for="yetkili_unvan" class="form-label">FİRMA YETKİLİSİNİN UNVANI</label>
+                                            <input class="form-control" type="text" name="yetkili_unvan" id="yetkili_unvan" placeholder="Firma yetkilisinin unvanını yazınız" />
+
+                                        </div>
+                                    </div>
+
+                                    <!-- KAYDET BUTTON -->
+                                    <div style="text-align:center" class="mt-2">
+                                        <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+
+                                    </div>
+
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+@code {
+    void OnSingleCompleted(UploadInfo fileinfo)
+
+    {
+
+        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
+        {
+            var result = fileinfo.File.GetResponse<ResponseModel>();
+            fileinfo.File.Url = result.url;
+        }
+
+    }
+
+
+
+
+
+    public class ResponseModel
+    {
+        public string name { get; set; }
+
+        public string status { get; set; }
+
+        public string url { get; set; }
+
+        public string thumbUrl { get; set; }
+    }
+}
