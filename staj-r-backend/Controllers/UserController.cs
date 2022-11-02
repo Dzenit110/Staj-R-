@@ -13,7 +13,7 @@ namespace staj_r_backend.Controllers
     public class UserController
     {
         //Departman bilgisi varsa kullanılır.
-        public async Task<bool> registerOther(string number, string name, string surname, string email, string token, int roleID)
+        public async Task<bool> registerOther(string token, string number, string name, string surname, string email, int roleID)
         {
             try
             {

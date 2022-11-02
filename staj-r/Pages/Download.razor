@@ -1,0 +1,24 @@
+﻿@page "/down"
+@using System.IO;
+@inject IJSRuntime JS
+<a href="/down2/@stree/@file">İndir</a>
+<Button @onclick=@(async()=>await bind())></Button>
+
+@code {
+    public string stree { get; set; }
+    public string file { get; set; }
+    public async Task bind()
+    {
+        file = "indir";
+        Stream strem = await new DocumentController().getDailyReport(new DailyReport()
+            {
+                aciklama_GT6ExY2 = "Önder ",
+                tarih_Rvt9hVm = new DateTime(2022, 10, 31),
+                yapilan_is_QHt6wvC = "ALPCAN İÇİN",
+            });
+        StreamReader reader = new StreamReader(strem);
+        stree = reader.ReadToEnd();
+    }
+
+    
+}

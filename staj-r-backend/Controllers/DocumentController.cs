@@ -43,5 +43,13 @@ namespace staj_r_backend.Controllers
             DailyReportXML drx = new DailyReportXML(dr);
             return await xmlToDocx(drx);
         }
+        public async Task<byte[]> getDailyReportBin(DailyReport dr)
+        {
+            DailyReportXML drx = new DailyReportXML(dr);
+           var stream=  await xmlToDocx(drx);
+            var memoryStream = new MemoryStream();
+            await memoryStream.CopyToAsync(stream);
+            return memoryStream.ToArray();
+        }
     }
 }

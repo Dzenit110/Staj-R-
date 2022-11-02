@@ -36,8 +36,14 @@ namespace staj_r_backend_test
         };
         static async Task Main(string[] args)
         {
-            UserController uc = new UserController();
-            //await uc.registerOther()
+            Stream stree = await new DocumentController().getDailyReport(new DailyReport()
+            {
+                aciklama_GT6ExY2 = "Önder ",
+                tarih_Rvt9hVm = new DateTime(2022, 10, 31),
+                yapilan_is_QHt6wvC = "ALPCAN İÇİN",
+            });
+            StreamReader reader = new StreamReader(stree);
+            string res = reader.ReadToEnd();
 
         }
 

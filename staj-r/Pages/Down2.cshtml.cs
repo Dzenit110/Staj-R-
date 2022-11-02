@@ -5,6 +5,7 @@ using staj_r_backend.Controllers;
 using staj_r_backend.Models.Entities;
 using System;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace staj_r.Pages
@@ -18,15 +19,11 @@ namespace staj_r.Pages
             _env = env;
         }
 
-        public async Task<IActionResult> OnGet()
+        public async Task<IActionResult> OnGet(string stree, string filename)
         {
-            Stream stree = await new DocumentController().getDailyReport(new DailyReport()
-            {
-                aciklama_GT6ExY2 = "Önder ",
-                tarih_Rvt9hVm = new DateTime(2022, 10, 31),
-                yapilan_is_QHt6wvC = "ALPCAN ÝÇÝN",
-            });
-            return File(stree, "application/force-download","indirilenDosya.docx");
+            byte[] byteArray = Encoding.ASCII.GetBytes(stree);
+            MemoryStream stream = new MemoryStream(byteArray);
+            return File(stream, "application/force-download", filename + ".docx");
         }
     }
 }

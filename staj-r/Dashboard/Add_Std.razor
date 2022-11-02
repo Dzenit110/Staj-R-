@@ -1,227 +1,275 @@
 ﻿@page "/add_std"
 
-                <div class="container-xxl flex-grow-1 container-p-y">
-                    <style>
-                        #loop-text {
-                            height: 30px;
-                            overflow: hidden;
-                        }
+<div class="container-xxl flex-grow-1 container-p-y">
+	<style>
+		#loop-text {
+			height: 30px;
+			overflow: hidden;
+		}
 
-                            #loop-text ul {
-                                height: 100%;
-                                width: 100%;
-                                -webkit-animation: scroll 8s infinite;
-                            }
+			#loop-text ul {
+				height: 100%;
+				width: 100%;
+				-webkit-animation: scroll 8s infinite;
+			}
 
-                            #loop-text li {
-                                line-height: 30px;
-                                height: 30px;
-                            }
+			#loop-text li {
+				line-height: 30px;
+				height: 30px;
+			}
 
-                        @@keyframes scroll {
-                            0% {
-                                -webkit-transform: translateY(0px);
-                                transform: translateY(0px);
-                            }
+		@@keyframes scroll {
+			0% {
+				-webkit-transform: translateY(0px);
+				transform: translateY(0px);
+			}
 
-                            20% {
-                                -webkit-transform: translateY(0px);
-                                transform: translateY(0px);
-                            }
+			20% {
+				-webkit-transform: translateY(0px);
+				transform: translateY(0px);
+			}
 
-                            25% {
-                                -webkit-transform: translateY(-30px);
-                                transform: translateY(-30px);
-                            }
+			25% {
+				-webkit-transform: translateY(-30px);
+				transform: translateY(-30px);
+			}
 
-                            45% {
-                                -webkit-transform: translateY(-30px);
-                                transform: translateY(-30px);
-                            }
+			45% {
+				-webkit-transform: translateY(-30px);
+				transform: translateY(-30px);
+			}
 
-                            50% {
-                                -webkit-transform: translateY(-60px);
-                                transform: translateY(-60px);
-                            }
+			50% {
+				-webkit-transform: translateY(-60px);
+				transform: translateY(-60px);
+			}
 
-                            70% {
-                                -webkit-transform: translateY(-60px);
-                                transform: translateY(-60px);
-                            }
+			70% {
+				-webkit-transform: translateY(-60px);
+				transform: translateY(-60px);
+			}
 
-                            75% {
-                                -webkit-transform: translateY(-90px);
-                                transform: translateY(-90px);
-                            }
+			75% {
+				-webkit-transform: translateY(-90px);
+				transform: translateY(-90px);
+			}
 
-                            95% {
-                                -webkit-transform: translateY(-90px);
-                                transform: translateY(-90px);
-                            }
+			95% {
+				-webkit-transform: translateY(-90px);
+				transform: translateY(-90px);
+			}
 
-                            100% {
-                                -webkit-transform: translateY(-120px);
-                                transform: translateY(-120px);
-                            }
-                        }
-                    </style>
+			100% {
+				-webkit-transform: translateY(-120px);
+				transform: translateY(-120px);
+			}
+		}
+	</style>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href=/add_std><i class="bx bx-user me-1"></i>Öğrenci Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href=/add_academic><i class="bx bx-user me-1"></i>Öğretim Görevlisi Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href=/add_councilor><i class="bx bx-user me-1"></i>Kurul Üyesi Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href=/add_dpthead><i class="bx bx-user me-1"></i>Bölüm Sorumlusu Ekle</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link " href=/diger><i class="bx bx-user me-1"></i>Diğer</a>
-                                </li>
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="nav nav-pills flex-column flex-md-row mb-3">
+				<li class="nav-item">
+					<a class="nav-link active" href=/add_std><i class="bx bx-user me-1"></i>Öğrenci Ekle</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href=/add_academic><i class="bx bx-user me-1"></i>Öğretim Görevlisi Ekle</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href=/add_councilor><i class="bx bx-user me-1"></i>Kurul Üyesi Ekle</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href=/add_dpthead><i class="bx bx-user me-1"></i>Bölüm Sorumlusu Ekle</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link " href=/diger><i class="bx bx-user me-1"></i>Diğer</a>
+				</li>
 
-                            </ul>
-                            <div class="card mb-4">
-                                <h5 class="card-header">Çoklu Öğrenci Ekle</h5>
-
-
-                                <div class="card-body">
-                                    <form id="formAccountSettings" method="POST" onsubmit="return false" style="text-align:center">
-                                        <div style="align-content">
-                                                <div class="button-wrapper">
-                                                    <input accept=".csv" class="form-control" type="file" id="formFile">
-                                                    <br>
-                                                    <p style="color:red;" class="form-label">*YÜKLENECEK DOSYA .CSV UZANTILI OLMALIDIR!*</p>
-                                                    <p style="color:red;" class="form-label">*CSV DOSYANIZDA İSİM, SOYİSİM, E-MAİL VE NUMARA OLDUĞUNDAN EMİN OLUN*</p>
-                                                </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>   <!-- ILK DIV BITTI -->
+			</ul>
+			<div class="card mb-4">
+				<h5 class="card-header">Çoklu Öğrenci Ekle</h5>
 
 
-                            <div class="card mb-4">
-                                <!-- ALTTAKI DIV -->
-                                <h5 class="card-header">Tek Öğrenci Ekle</h5>
-                                <div class="card-body">
-                                    <form id="formAccountSettings" method="POST" onsubmit="return false">
-                                        <div class="row">
+				<div class="card-body">
+					<form id="formAccountSettings" method="POST" onsubmit="return false" style="text-align:center">
+						<div style="align-content">
+							<div class="button-wrapper">
+								<input accept=".csv" class="form-control" type="file" id="formFile">
+								<br>
+								<p style="color:red;" class="form-label">*YÜKLENECEK DOSYA .CSV UZANTILI OLMALIDIR!*</p>
+								<p style="color:red;" class="form-label">*CSV DOSYANIZDA İSİM, SOYİSİM, E-MAİL VE NUMARA OLDUĞUNDAN EMİN OLUN*</p>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>   <!-- ILK DIV BITTI -->
 
 
-                                            <div class="mb-3 col-md-6">
-                                                <label for="name" class="form-label">Adı</label>
-                                                <input class="form-control" type="text" name="name" id="name" placeholder="Öğrencinin adını giriniz" />
-                                            </div>
+			<div class="card mb-4">
+				<!-- ALTTAKI DIV -->
+				<h5 class="card-header">Tek Öğrenci Ekle</h5>
+				<div class="card-body">
+					<form id="formAccountSettings" method="POST" onsubmit="return false">
+						<div class="row">
 
 
-                                            <div class="mb-3 col-md-6">
-                                                <label for="lastName" class="form-label">Soyadı</label>
-                                                <input class="form-control" type="text" name="lastName" id="lastName" placeholder="Öğrencinin soyadını giriniz" />
+							<div class="mb-3 col-md-6">
+								<label for="name" class="form-label">Adı</label>
+								<input class="form-control" type="text" name="name" id="name" placeholder="Öğrencinin adını giriniz" @onchange=@((e)=>inputText(e,"name")) />
+							</div>
 
 
-                                            </div>
-
-                                            <div class="mb-3 col-md-6">
-                                                <label for="email" class="form-label">E-mail</label>
-                                                <input placholder="E-mail" class="form-control"
-                                                       type="text"
-                                                       id="email"
-                                                       name="email"
-                                                       placeholder="Öğrencinin E-Mail adresini yazınız" />
-
-                                            </div>
-                                            <div class="mb-3 col-md-6">
-                                                <label class="form-label" for="Number">Numarası</label>
-                                                <div class="input-group input-group-merge">
-                                                    <input type="number"
-                                                           name="phoneNumber"
-                                                           class="form-control"
-                                                           placeholder="Öğrencinin numarasını yazınız" />
-                                                </div>
-
-                                            </div>
-
-                                            <!-- KAYDET BUTTON -->
-                                            <div class="mt-2">
-                                                <button type="submit" class="btn btn-primary me-2">Kaydet</button>
-
-                                            </div>
+							<div class="mb-3 col-md-6">
+								<label for="lastName" class="form-label">Soyadı</label>
+								<input class="form-control" type="text" name="lastName" id="lastName" placeholder="Öğrencinin soyadını giriniz" @onchange=@((e)=>inputText(e,"surname")) />
 
 
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               
+							</div>
+
+							<div class="mb-3 col-md-6">
+								<label for="email" class="form-label">E-mail</label>
+								<input placholder="E-mail" class="form-control"
+									   type="text"
+									   id="email"
+									   name="email"
+									   placeholder="Öğrencinin E-Mail adresini yazınız" @onchange=@((e)=>inputText(e,"email")) />
+
+							</div>
+							<div class="mb-3 col-md-6">
+								<label class="form-label" for="Number">Numarası</label>
+								<div class="input-group input-group-merge">
+									<input type="number"
+										   name="phoneNumber"
+										   class="form-control"
+										   placeholder="Öğrencinin numarasını yazınız" @onchange=@((e)=>inputText(e,"number")) />
+								</div>
+
+							</div>
+
+							<!-- KAYDET BUTTON -->
+							<div class="mt-2">
+								<button type="submit" class="btn btn-primary me-2" @onclick=@(async()=>await submitSingle())>Kaydet</button>
+								<h6 class="card-header">@submitMessage</h6>
+							</div>
+
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 @code {
-    void OnSingleCompleted(UploadInfo fileinfo)
+	[Parameter]
+	public UserWToken User { get; set; }
+	UserController uc = new UserController();
+	string submitMessage = "";
+	public Dictionary<string, string> inputs = new Dictionary<string, string>()
+	{
+		{"number",""},
+		{"name",""},
+		{"surname",""},
+		{"email",""}
+	};
 
-    {
+	private EventCallback inputText(ChangeEventArgs e, string element)
+	{
+		inputs[element] = e.Value.ToString().Trim();
+		return new EventCallback();
+	}
 
-        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
-        {
-            var result = fileinfo.File.GetResponse<ResponseModel>();
-            fileinfo.File.Url = result.url;
-        }
+	private async Task submitSingle()
+	{
+		bool cansubmit = true;
+		foreach(string val in inputs.Values)
+		{
+			if (val.Trim() == "")
+			{
+				cansubmit = false;
+			}
+		}
+		if (cansubmit)
+			{
+				
+				bool res = await uc.registerOther(User.token, inputs["number"], inputs["name"], inputs["surname"], inputs["email"], (int)rolesDefault.Öğrenci);
+				if (res)
+				{
+					submitMessage = "Kullanıcı başarılı şekilde eklendi";
+				}
+				else
+				{
+					submitMessage = "Kullanıcı ekleme başarısız oldu.";
+				}
+				await InvokeAsync(StateHasChanged);
+				await Task.Delay(5000);
+				submitMessage = "";
+				await InvokeAsync(StateHasChanged);
+			}
+	}
 
-    }
+	//void OnSingleCompleted(UploadInfo fileinfo)
+	//{
 
+	//    if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
+	//    {
+	//        var result = fileinfo.File.GetResponse<ResponseModel>();
+	//        fileinfo.File.Url = result.url;
+	//    }
 
-    async Task OnSingleCompleted(InputFileChangeEventArgs e)
-    { 
-        try
-        {
-            var buffer = new byte[500000];
-            foreach (var file in e.GetMultipleFiles(e.FileCount))
-            {
-                using var stream = file.OpenReadStream(maxAllowedSize: long.MaxValue);
-                while (true)
-                {
-                    var read = await stream.ReadAsync(buffer);
-                    if (read == 0)
-                        break;
-                }
-                await InvokeAsync(StateHasChanged);
-            }
-            string x = "";
-            foreach(var item in buffer)
-            {
-                if(item!=0)
-                {
-                    x += (char)item;
-                }
-            }
-            string[] arr = await Task<string[]>.Run(() =>
-            {
-                return x.Replace("\r\n", "**78541**").Split("**78541**");
-            });
-            var a = x;
-        }
-        catch
-        {
-            await InvokeAsync(StateHasChanged);
-        }
-    }
-
+	//}
 
 
 
-    public class ResponseModel
-    {
-        public string name { get; set; }
 
-        public string status { get; set; }
+	//async Task OnSingleCompleted(InputFileChangeEventArgs e)
+	//{
+	//    try
+	//    {
+	//        var buffer = new byte[500000];
+	//        foreach (var file in e.GetMultipleFiles(e.FileCount))
+	//        {
+	//            using var stream = file.OpenReadStream(maxAllowedSize: long.MaxValue);
+	//            while (true)
+	//            {
+	//                var read = await stream.ReadAsync(buffer);
+	//                if (read == 0)
+	//                    break;
+	//            }
+	//            await InvokeAsync(StateHasChanged);
+	//        }
+	//        string x = "";
+	//        foreach(var item in buffer)
+	//        {
+	//            if(item!=0)
+	//            {
+	//                x += (char)item;
+	//            }
+	//        }
+	//        string[] arr = await Task<string[]>.Run(() =>
+	//        {
+	//            return x.Replace("\r\n", "**78541**").Split("**78541**");
+	//        });
+	//        var a = x;
+	//    }
+	//    catch
+	//    {
+	//        await InvokeAsync(StateHasChanged);
+	//    }
+	//}
 
-        public string url { get; set; }
 
-        public string thumbUrl { get; set; }
-    }
+
+
+	public class ResponseModel
+	{
+		public string name { get; set; }
+
+		public string status { get; set; }
+
+		public string url { get; set; }
+
+		public string thumbUrl { get; set; }
+	}
 }
