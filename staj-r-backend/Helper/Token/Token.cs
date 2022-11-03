@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using Jose;
 using Newtonsoft.Json;
+using System.Text.Json;
 using staj_r_backend.Models.Entities;
 
 namespace staj_r_backend.Helper.Token
@@ -27,6 +30,16 @@ namespace staj_r_backend.Helper.Token
                 tokenEntity = user,
                 tokenExpiresOn = expire,
             };
+        }
+        public string encryptUserWToken(UserWToken uwt)
+        {
+            //var payload = uwt.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public).ToDictionary(prop => prop.Name, prop => (string)prop.GetValue(uwt, null));
+            return JWT.Encode(System.Text.Json.JsonSerializer.Serialize(uwt), secretKey, JwsAlgorithm.HS256);
+        }
+        public UserWToken decryptUserWToken(string token)
+        {
+            var payload = JWT.Decode(token, secretKey, JwsAlgorithm.HS256);
+            return System.Text.Json.JsonSerializer.Deserialize<UserWToken>(payload);
         }
         public TokenResult encrypt(Dictionary<string, object> payload)
         {

@@ -12,6 +12,16 @@ namespace staj_r_backend.Controllers
 {
     public class UserController
     {
+        public static string tokenizeUserWToken(UserWToken uwt)
+        {
+            Token tk = new Token();
+            return tk.encryptUserWToken(uwt);
+        }
+        public static UserWToken detokenizeUserWToken(string uwtStr)
+        {
+            Token tk = new Token();
+            return tk.decryptUserWToken(uwtStr);
+        }
         //Departman bilgisi varsa kullanılır.
         public async Task<bool> registerOther(string token, string number, string name, string surname, string email, int roleID)
         {

@@ -1,6 +1,6 @@
 ﻿@page "/users"
+@layout Dashboard
 
-<div class="container-xxl flex-grow-1 container-p-y">
 
     <!-- TABLO -->
 
@@ -186,11 +186,7 @@
             </tbody>
         </table>
     </div>
-</div>
-
 @code {
-    [Parameter]
-    public UserWToken User { get; set; }
     string title = "BasicModal";
     bool _visible = false;
 

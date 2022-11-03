@@ -1,7 +1,17 @@
-﻿@using staj_r_backend.Models
-
-
+﻿@page "/karadenizliUsak"
+@layout Dashboard
+@if(uwt != null)
+{
+	<h1>GELDİ @uwt.user.roleID</h1>
+}
+@inject ILocalStorageService localStore
 @code {
 	[Parameter]
-	public string token { get; set; }
+	public UserWToken uwt { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		await InvokeAsync(StateHasChanged);
+		return base.OnAfterRenderAsync(firstRender);
+	}
 }

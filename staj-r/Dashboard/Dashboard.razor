@@ -1,7 +1,11 @@
 ﻿@namespace staj_r.Dashboard
-@page "/dashboard"
+@inherits LayoutComponentBase
+<a href="/karadenizliUsak">KAREDENİZLİ İÇİN BASSSS</a>
+<div class="page">
+        <div class="main">
+            <div style="background-color:rgb(242, 242, 242)">
+
 <!-- Layout wrapper -->
-<h1>Kalan oturum süresi: @session</h1>
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
         <!-- Menu -->
@@ -22,561 +26,93 @@
 
             <div class="menu-inner-shadow"></div>
 
-            <ul class="menu-inner py-1">
+             <ul class="menu-inner py-1">
 
-                @if(selectedPage == dashPages.Main)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Dashboard</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.Main)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.Main)) class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Dashboard</div>
-                        </a>
-                    </li>
-                }
-
-                @if(selectedPage == dashPages.Users)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link" ><i class="menu-icon tf-icons bx bx-dock-top"></i>
-                            <div data-i18n="Kullanıcılar">Kullanıcılar</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.Users)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.Users)) class="menu-link" ><i class="menu-icon tf-icons bx bx-dock-top"></i>
-                            <div data-i18n="Kullanıcılar">Kullanıcılar</div>
-                        </a>
-                    </li>
-                } 
-
-                @if(selectedPage == dashPages.Add_Std)
-                {
                 <li class="menu-item active">
-                    <a class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
+                    <a href=/dashboard class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                        <div data-i18n="Analytics">Dashboard</div>
                     </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item active">
-                            <a class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                }
-                @if(selectedPage != dashPages.Add_Std)
-                {
+
                 <li class="menu-item">
-                    <a @onclick=@(async()=>await changePage(dashPages.Add_Std)) class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
+                    <a href=/users class="menu-link" <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                        <div data-i18n="Kullanıcılar">Kullanıcılar</div>
                     </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a @onclick=@(async()=>await changePage(dashPages.Add_Std)) class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                }
 
-                @if(selectedPage == dashPages.AddAcademic)
-                {
-                <li class="menu-item active">
-                    <a class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item active">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                }
-                @if(selectedPage != dashPages.AddAcademic)
-                {
                 <li class="menu-item">
-                    <a @onclick=@(async()=>await changePage(dashPages.AddAcademic)) class="menu-link menu-toggle">
+                    <a href=/add_std class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-dock-top"></i>
                         <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
                     </a>
                     <ul class="menu-sub">
                         <li class="menu-item">
-                            <a class="menu-link">
+                            <a href=/add_std class="menu-link">
                                 <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
                             </a>
                         </li>
 
                         <li class="menu-item">
-                            <a @onclick=@(async()=>await changePage(dashPages.AddAcademic)) class="menu-link">
+                            <a href=/add_academic class="menu-link">
                                 <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
                             </a>
                         </li>
 
                         <li class="menu-item">
-                            <a class="menu-link">
+                            <a href=/add_councilor class="menu-link">
                                 <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
                             </a>
                         </li>
 
                         <li class="menu-item">
-                            <a class="menu-link">
+                            <a href=/add_dpthead class="menu-link">
                                 <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
                             </a>
                         </li>
 
                         <li class="menu-item">
-                            <a class="menu-link">
+                            <a href=/diger class="menu-link">
                                 <div data-i18n="Diğer">Diğer</div>
                             </a>
                         </li>
                     </ul>
                 </li>
-                }
-
-                @if(selectedPage == dashPages.AddCouncilor)
-                {
-                <li class="menu-item active">
-                    <a class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
+                    <li class="menu-item">
+                        <a href ="/add_role" class="menu-link"> <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                        <div data-i18n="Yeni Rol Ekle">Yeni Rol Ekle</div>
                     </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item active">
-                            <a class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                }
-                @if(selectedPage != dashPages.AddCouncilor)
-                {
                 <li class="menu-item">
-                    <a @onclick=@(async()=>await changePage(dashPages.AddCouncilor)) class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
+                    <a class="menu-link"> <i class="menu-icon tf-icons bx bx-detail"></i>
+                        <div data-i18n="Staj-I">Staj-I</div>
                     </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a @onclick=@(async()=>await changePage(dashPages.AddCouncilor)) class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                }
-
-                @if(selectedPage == dashPages.Add_DptHead)
-                {
-                <li class="menu-item active">
-                    <a class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item active">
-                            <a class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                }
-                @if(selectedPage != dashPages.Add_DptHead)
-                {
                 <li class="menu-item">
-                    <a @onclick=@(async()=>await changePage(dashPages.Add_DptHead)) class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
+                    <a href=/staj_1_acd class="menu-link" <i class="menu-icon tf-icons bx bx-file"></i>
+                        <div data-i18n="Staj-I">Staj-I</div>
                     </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a @onclick=@(async()=>await changePage(dashPages.Add_DptHead)) class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                }
-
-                @if(selectedPage == dashPages.Other)
-                {
-                <li class="menu-item active">
-                    <a class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item active">
-                            <a class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                }
-                @if(selectedPage != dashPages.Other)
-                {
                 <li class="menu-item">
-                    <a @onclick=@(async()=>await changePage(dashPages.Other)) class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                        <div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
+                    <a href=/staj_2 class="menu-link" <i class="menu-icon tf-icons bx bx-detail"></i>
+                        <div data-i18n="Staj-II">Staj-II</div>
                     </a>
-                    <ul class="menu-sub">
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a class="menu-link">
-                                <div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
-                            </a>
-                        </li>
-
-                        <li class="menu-item">
-                            <a @onclick=@(async()=>await changePage(dashPages.Other)) class="menu-link">
-                                <div data-i18n="Diğer">Diğer</div>
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                }
-
-                @if(selectedPage == dashPages.Add_Role)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link"> <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                            <div data-i18n="Yeni Rol Ekle">Yeni Rol Ekle</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.Add_Role)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.Add_Role)) class="menu-link"><i class="menu-icon tf-icons bx bx-dock-top"></i>
-                            <div data-i18n="Yeni Rol Ekle">Yeni Rol Ekle</div>
-                        </a>
-                    </li>
-                } 
-                @if(selectedPage == dashPages.StajI_Std)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link"> <i class="menu-icon tf-icons bx bx-detail"></i>
-                             <div data-i18n="Staj-I">Staj-I</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.StajI_Std)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.StajI_Std)) class="menu-link"> <i class="menu-icon tf-icons bx bx-detail"></i>
-                             <div data-i18n="Staj-I">Staj-I</div>
-                        </a>
-                    </li>
-                } 
-                @if(selectedPage == dashPages.StajI)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link"> <i class="menu-icon tf-icons bx bx-file"></i>
-                            <div data-i18n="Staj-I">Staj-I</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.StajI)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.StajI)) class="menu-link" ><i class="menu-icon tf-icons bx bx-file"></i>
-                            <div data-i18n="Staj-I">Staj-I</div>
-                        </a>
-                    </li>
-                } 
-                @if(selectedPage == dashPages.StajII_Std)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link"><i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Staj-II">Staj-II</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.StajII_Std)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.StajII_Std)) class="menu-link" ><i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Staj-II">Staj-II</div>
-                        </a>
-                    </li>
-                } 
-                @if(selectedPage == dashPages.StajII)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link" ><i class="menu-icon tf-icons bx bx-file"></i>
-                            <div data-i18n="Staj-II">Staj-II</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.StajII)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.StajII)) class="menu-link" ><i class="menu-icon tf-icons bx bx-file"></i>
-                            <div data-i18n="Staj-II">Staj-II</div>
-                        </a>
-                    </li>
-                } 
-                @if(selectedPage == dashPages.IME_Std)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link"> <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.IME_Std)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.IME_Std)) class="menu-link" ><i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
-                        </a>
-                    </li>
-                } 
-                @if(selectedPage == dashPages.IME)
-                {
-                    <li class="menu-item active">
-                        <a class="menu-link" ><i class="menu-icon tf-icons bx bx-file"></i>
-                            <div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
-                        </a>
-                    </li>
-                }
-                @if(selectedPage != dashPages.IME)
-                {
-                    <li class="menu-item">
-                        <a @onclick=@(async()=>await changePage(dashPages.IME)) class="menu-link"> <i class="menu-icon tf-icons bx bx-file"></i>
-                            <div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
-                        </a>
-                    </li>
-                } 
+                <li class="menu-item">
+                    <a href=/staj_2_acd class="menu-link" <i class="menu-icon tf-icons bx bx-file"></i>
+                        <div data-i18n="Staj-II">Staj-II</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href=/ime class="menu-link" <i class="menu-icon tf-icons bx bx-detail"></i>
+                        <div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href=/ime_acd class="menu-link" <i class="menu-icon tf-icons bx bx-file"></i>
+                        <div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
+                    </a>
+                </li>
             </ul>
         </aside>
         <!-- / Menu -->
@@ -604,10 +140,7 @@
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
                         <!-- Place this tag where you want the button to render. -->
                         <li class="nav-item lh-1 me-3">
-                            <a class="github-button"
-                                href="https://github.com/themeselection/sneat-html-admin-template-free"
-                                data-icon="octicon-star" data-size="large" data-show-count="true"
-                                aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
+                            <h5>@session</h5>
                         </li>
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -677,239 +210,7 @@
             </nav>
             <!-- / Navbar -->
             <div class="container-xxl flex-grow-1 container-p-y">
-                @switch (selectedPage)
-                {
-                    case dashPages.Main:
-                    //ana sayfa komutları girilecek
-                        break;
-                    case dashPages.Users:
-                        <Users User="@User"/>
-                        break;
-                    case dashPages.Add_Std:
-                        <Add_Std User="@User"/>
-                        break;
-                    case dashPages.AddAcademic :
-                        <Add_Academic User="@User"/>
-                        break;
-                    case dashPages.AddCouncilor :
-                        <Add_Councilor User="@User"/>
-                        break;
-                    case dashPages.Add_DptHead :
-                        <Add_DptHead User="@User"/>
-                        break;
-                    case dashPages.Add_Role :
-                        <Add_Role User="@User"/>
-                        break;
-                    case dashPages.Other :
-                        <Add_Std User="@User"/>
-                        break;
-                    case dashPages.StajI_Std :
-                        <Staj_I User="@User"/>
-                        break;
-                    case dashPages.StajI :
-                        <Staj_I_Acd User="@User"/>
-                        break;
-                    case dashPages.StajII_Std :
-                        <Staj_II User="@User"/>
-                        break;
-                    case dashPages.StajII :
-                        <Staj_II_Acd User="@User"/>
-                        break;
-                    case dashPages.IME_Std :
-                        <IME User="@User"/>
-                        break;
-                    case dashPages.IME :
-                        <IME_Acd User="@User"/>
-                        break;
-                }
-                <div class="card table-responsive text-nowrap">
-                    <br>
-                    <div class="demo-inline-spacing" style="text-align:center">
-                        <button type="button" class="btn rounded-pill btn-outline-primary">Öğrenci</button>
-                        <button type="button" class="btn rounded-pill btn-outline-secondary">Öğretim Görevlisi</button>
-                        <button type="button" class="btn rounded-pill btn-outline-success"> Kurul Üyesi</button>
-                        <button type="button" class="btn rounded-pill btn-outline-danger"> Bölüm Sorumlusu</button>
-                    </div>
-
-                    <Modal Title="@title"
-                           Visible="@_visible"
-                           OnOk="@HandleOk"
-                           OnCancel="@HandleCancel" Style="width:780px">
-
-                        <div style="float:left; ">
-
-                            <form action="" method="post">
-                                <label for="number">Öğrenci No:</label>
-                                <input class="inp1" type="number" name="number" required="">
-                                <label for="ilet,">Soyadınız:</label>
-                                <input class="inp1" type="text" name="ileti" required="">
-                                <label for="eposta">E-mail:</label>
-                                <input class="inp1" type="email" name="eposta" required="">
-
-                                <br /><br />
-
-                                <Alert Type="@AlertType.Info"
-                                       Message="Bilgileri belirtilen öğrencimiz staj başvuru belgelerini göndermiştir."
-                                       Description="Additional description and information about copywriting."
-                                       ShowIcon="true" />
-
-                                <br /><br />
-                                <input type="submit" value="Gönder ">
-
-                            </form>
-                        </div>
-
-                    </Modal>
-
-                    <br> <br>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Rol</th>
-                                <th>Numara</th>
-                                <th>İSİM</th>
-                                <th>SOYİSİM</th>
-                                <th>E-posta</th>
-                                <th>Detay</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                            <tr class="table-default">
-                                <td><i class="fab fa-sketch fa-lg text-warning me-3"></i> <strong>Sketch Project</strong></td>
-                                <td>Ronnie Shane</td>
-                                <td>
-                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                        <p>Burada bir şey var</p>
-                                    </ul>
-                                </td>
-                                <td><span class="badge bg-label-primary me-1">Active</span></td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <!--Burada ilk satırın son sütünü  başlıyor -->
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalToggle">Detay</button>
-                                    <div class="mt-3">
-
-
-                                        <!-- Modal 1-->
-                                        <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none;" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" style="text-align:left;">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="modalToggleLabel">Rolünün güncellenmesi</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-
-                                                    <!--DropBox-->
-                                                    <div class="btn-group">
-                                                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">İstediğiniz rolü seçiniz</button>
-                                                        <ul class="dropdown-menu" style="">
-                                                            <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
-                                                            <li>
-                                                                <hr class="dropdown-divider">
-                                                            </li>
-                                                            <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <!--DropBox bitiyor-->
-                                                    <!--Button Yeni rolü onayla-->
-                                                    <div class="modal-footer" style="margin-right: 370px">
-                                                        <button class="btn btn-primary" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Yeni rolü onayla</button>
-                                                    </div>
-                                                    <!--Button Yeni rolü onayla bitiyor-->
-                                                    <div class="col mb-0">
-                                                        <label for="emailBasic" class="form-label">Email</label>
-                                                        <input type="text" id="emailBasic" class="form-control" placeholder="email@örnek">
-                                                    </div>
-
-
-
-                                                    <div class="col mb-0">
-                                                        <label for="emailBasic" class="form-label">Lütfen tekrar E-mail yazınız</label>
-                                                        <input type="text" id="emailBasic" class="form-control" placeholder="email@örnek">
-                                                    </div>
-                                                    <div class="modal-footer" style="text-align:left; margin-right:428px">
-                                                        <button class="btn btn-primary" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Onayla</button>
-                                                    </div>
-
-                                                    <!--Şifre sıfırla button-->
-                                                    <div class="modal-footer" style="text-align:left; margin-right:408px">
-                                                        <button class="btn btn-primary" data-bs-target="#modalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Şifre sıfırla</button>
-                                                    </div>
-
-                                                    <!--Şifre sıfırla button bitiyor-->
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Modal 2-->
-                                        <div class="modal fade" id="modalToggle2" aria-hidden="true" aria-labelledby="modalToggleLabel2" tabindex="-1">
-                                            <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="modalToggleLabel2">Uyarı</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body" style="text-align:center">
-                                                        <h4> İşlemi Onaylıyor musunuz?</h4>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">HAYIR</button>
-                                                        <button type="button" class="btn btn-primary">EVET</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </td>
-
-                                <!--Burada bitiyor-->
-                            </tr>
-                            <tr class="table-active">
-                                <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-                                <td>Barry Hunter</td>
-                                <td>
-                                    Burada bir şey yaz
-                                </td>
-                                <td><span class="badge bg-label-success me-1">Completed</span></td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <!--Burada ikinci satırın son sütü başlıyor-->
-                                <td>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalToggle">Detay</button>
-
-                                </td>
-                                <!--Burada bitiyor-->
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-
-
-
-
-
+                    @Body                
             </div>
         <!-- / Layout page -->
     </div>
@@ -919,30 +220,28 @@
 </div>
 </div>
 <!-- / Layout wrapper -->
+ </div>
+        </div>
+</div>
 
+@inject ILocalStorageService localStore
 @code {
     [Parameter]
     public UserWToken User { get; set; }
+    public static Dictionary<string,UserWToken> userDc {get;set;} = new Dictionary<string,UserWToken>();
     public string session { get; set; } = "";
-    public dashPages selectedPage = dashPages.Main;
 
-
-    public async Task<EventCallback> changePage(dashPages _select)
+    protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
     {
-        selectedPage = _select;
-        await InvokeAsync(StateHasChanged);
-        return new EventCallback();
-    }
-    protected override void OnAfterRender(bool firstRender)
-    {
+        if(User==null)
+        {
+            User = UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+        }
+        await localStore.SetItemAsStringAsync("user", UserController.tokenizeUserWToken(User));
         changeState();
-        InvokeAsync(StateHasChanged);
+        await InvokeAsync(StateHasChanged);
         base.OnAfterRender(firstRender);
-    }
-
-    public enum dashPages
-    {
-        Main, Users, AddAcademic, AddCouncilor, Add_DptHead, Add_Role, Add_Std, AddOther, Other, StajI_Std, StajI, StajII_Std, StajII, IME_Std, IME
+        return base.OnAfterRenderAsync(firstRender);
     }
     public async Task changeState()
     {
@@ -953,26 +252,6 @@
             await InvokeAsync(StateHasChanged);
             await Task.Delay(100);
         } while(true);
-    }
-    string title = "BasicModal";
-    bool _visible = false;
-
-    private void HandleOk(MouseEventArgs e)
-    {
-        Console.WriteLine(e);
-        _visible = false;
-    }
-
-    private void HandleCancel(MouseEventArgs e)
-    {
-        Console.WriteLine(e);
-        _visible = false;
-    }
-
-
-    void OnChange(string[] checkedValues)
-    {
-        Console.WriteLine($"checked = {JsonSerializer.Serialize(checkedValues)}");
     }
 
 }

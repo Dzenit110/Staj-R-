@@ -36,14 +36,36 @@ namespace staj_r_backend_test
         };
         static async Task Main(string[] args)
         {
-            Stream stree = await new DocumentController().getDailyReport(new DailyReport()
+            //Stream stree = await new DocumentController().getDailyReport(new DailyReport()
+            //{
+            //    aciklama_GT6ExY2 = "Önder ",
+            //    tarih_Rvt9hVm = new DateTime(2022, 10, 31),
+            //    yapilan_is_QHt6wvC = "ALPCAN İÇİN",
+            //});
+            //StreamReader reader = new StreamReader(stree);
+            //string res = reader.ReadToEnd();
+            Token tkn = new Token();
+            UserWToken uwt = new UserWToken()
             {
-                aciklama_GT6ExY2 = "Önder ",
-                tarih_Rvt9hVm = new DateTime(2022, 10, 31),
-                yapilan_is_QHt6wvC = "ALPCAN İÇİN",
-            });
-            StreamReader reader = new StreamReader(stree);
-            string res = reader.ReadToEnd();
+                token = "eykodfsjıdjsfjsdljdlckjlvdf",
+                tokenExpiresOn = DateTime.Now,
+                user = new User()
+                {
+                    authorities = new List<string>
+                    {
+                        "a", "b", "c", "d"
+                    },
+                    department = "dsıfdsf",
+                    email = "fdksfjdopsjfsd",
+                    surname = "sdklfdjsdf",
+                    name = "djsfhsfdfdsf",
+                    number = "547456165",
+                    role = "dlfjsdjfpsodf",
+                    roleID = 74,
+                }
+            };
+            var a = tkn.encryptUserWToken(uwt);
+            var b = tkn.decryptUserWToken(a);
 
         }
 
