@@ -1,0 +1,338 @@
+﻿@namespace staj_r.Dashboard
+
+@inherits LayoutComponentBase
+@page "/dashboard"
+<div class="page">
+	<div class="main">
+		<div style="background-color:rgb(242, 242, 242)">
+
+			<!-- Layout wrapper -->
+			<div class="layout-wrapper layout-content-navbar">
+				<div class="layout-container">
+					<!-- Menu -->
+					<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+						<div class="app-brand demo">
+							<a href=/dashboard class="app-brand-link">
+								<span class="app-brand-logo demo">
+									<img src="../dash/assets/img/icons/brands/logo1.png" alt="Staj-R" class="staj-r_logo" width="50"
+										 height="50" />
+								</span>
+								<span class="app-brand-text demo menu-text fw-bolder ms-2" style="color:black">Staj-R</span>
+							</a>
+
+							<a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+								<i class="bx bx-chevron-left bx-sm align-middle"></i>
+							</a>
+						</div>
+
+						<div class="menu-inner-shadow"></div>
+
+						<ul class="menu-inner py-1">
+
+							<li class="menu-item @isActive["dashboard"]">
+								<a href=/dashboard class="menu-link" @onclick=@(()=>setActiveButton("dashboard"))>
+									<i class="menu-icon tf-icons bx bx-home-circle"></i>
+									<div data-i18n="Analytics">Dashboard</div>
+								</a>
+							</li>
+							@if (User != null && User.user != null)
+							{
+								@if (User.user.roleID != (int)rolesDefault.Öğrenci)
+								{
+									<li class="menu-item @isActive["users"]">
+										<a href="/users" class="menu-link" @onclick=@(()=>setActiveButton("users"))>
+											<i class="menu-icon tf-icons bx bx-dock-top"></i>
+											<div data-i18n="Kullanıcılar">Kullanıcılar</div>
+										</a>
+									</li>
+								}
+								@if (User.user.authorities.Contains("d") || User.user.authorities.Contains("f") || User.user.authorities.Contains("h") || User.user.authorities.Contains("j"))
+								{
+									<li class="menu-item @isActive["add_std"]">
+										<a href="/add_std" class="menu-link menu-toggle" @onclick=@(()=>setActiveButton("add_std"))>
+											<i class="menu-icon tf-icons bx bx-dock-top"></i>
+											<div data-i18n="Kullanıcı Ekle">Kullanıcı Ekle</div>
+										</a>
+										<ul class="menu-sub">
+											@if (User.user.authorities.Contains("d"))
+											{
+												<li class="menu-item @isActive["add_std"]">
+													<a href="/add_std" class="menu-link" @onclick=@(()=>setActiveButton("add_std"))>
+														<div data-i18n="Öğrenci Ekle">Öğrenci Ekle</div>
+													</a>
+												</li>
+											}
+											@if (User.user.authorities.Contains("f"))
+											{
+												<li class="menu-item @isActive["add_academic"]">
+													<a href="/add_academic" class="menu-link" @onclick=@(()=>setActiveButton("add_academic"))>
+														<div data-i18n="Öğretim Görevlisi Ekle">Öğretim Görevlisi Ekle</div>
+													</a>
+												</li>
+
+
+											}
+											@if (User.user.authorities.Contains("h"))
+											{
+												<li class="menu-item @isActive["add_councilor"]">
+													<a href="/add_councilor" class="menu-link" @onclick=@(()=>setActiveButton("add_councilor"))>
+														<div data-i18n="Kurul Üyesi Ekle">Kurul Üyesi Ekle</div>
+													</a>
+												</li>
+
+
+											}
+											@if (User.user.authorities.Contains("j"))
+											{
+												<li class="menu-item @isActive["add_dpthead"]">
+													<a href="/add_dpthead" class="menu-link" @onclick=@(()=>setActiveButton("add_dpthead"))>
+														<div data-i18n="Bölüm Sorumlusu Ekle">Bölüm Sorumlusu Ekle</div>
+													</a>
+												</li>
+											}
+											<li class="menu-item @isActive["diger"]">
+												<a href="/diger" class="menu-link" @onclick=@(()=>setActiveButton("diger"))>
+													<div data-i18n="Diğer">Diğer</div>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li class="menu-item @isActive["add_role"]">
+										<a href="/add_role" class="menu-link" @onclick=@(()=>setActiveButton("add_role"))>
+											<i class="menu-icon tf-icons bx bx-dock-top"></i>
+											<div data-i18n="Yeni Rol Ekle">Yeni Rol Ekle</div>
+										</a>
+									</li>
+									@if (User.user.authorities.Contains("a"))
+									{
+										<li class="menu-item @isActive["staj_1_acd"]">
+											<a href="/staj_1_acd" class="menu-link" @onclick=@(()=>setActiveButton("staj_1_acd"))>
+												<i class="menu-icon tf-icons bx bx-file"></i>
+												<div data-i18n="Staj-I">Staj-I</div>
+											</a>
+										</li>
+									}
+									@if (User.user.authorities.Contains("b"))
+									{
+										<li class="menu-item @isActive["staj_2_acd"]">
+											<a href=/staj_2_acd class="menu-link" @onclick=@(()=>setActiveButton("staj_2_acd"))>
+												<i class="menu-icon tf-icons bx bx-file"></i>
+												<div data-i18n="Staj-II">Staj-II</div>
+											</a>
+										</li>
+									}
+									@if (User.user.authorities.Contains("c"))
+									{
+										<li class="menu-item @isActive["ime_acd"]">
+											<a href=/ime_acd class="menu-link" @onclick=@(()=>setActiveButton("ime_acd"))>
+												<i class="menu-icon tf-icons bx bx-file"></i>
+												<div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
+											</a>
+										</li>
+									}
+								}
+								@if (User.user.roleID == (int)rolesDefault.Öğrenci)
+								{
+									<li class="menu-item @isActive["staj_1"]">
+										<a href="/staj_1" class="menu-link" @onclick=@(()=>setActiveButton("staj_1"))>
+											<i class="menu-icon tf-icons bx bx-detail"></i>
+											<div data-i18n="Staj-I">Staj-I</div>
+										</a>
+									</li>
+
+									<li class="menu-item @isActive["staj_2"]">
+										<a href="/staj_2" class="menu-link" @onclick=@(()=>setActiveButton("staj_2"))>
+											<i class="menu-icon tf-icons bx bx-detail"></i>
+											<div data-i18n="Staj-II">Staj-II</div>
+										</a>
+									</li>
+
+									<li class="menu-item @isActive["ime"]">
+										<a href=/ime class="menu-link" @onclick=@(()=>setActiveButton("ime"))>
+											<i class="menu-icon tf-icons bx bx-detail"></i>
+											<div data-i18n="IME">IME - İşletmede Mesleki Eğitim</div>
+										</a>
+									</li>
+								}
+							}
+
+						</ul>
+					</aside>
+					<!-- / Menu -->
+					<!-- Layout container -->
+					<div class="layout-page">
+						<!-- Navbar -->
+						<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-atached align-items-center bg-navbar-theme"
+							 id="layout-navbar">
+							<div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+								<a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+									<i class="bx bx-menu bx-sm"></i>
+								</a>
+							</div>
+
+							<div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+								<!-- Search -->
+								<div class="navbar-nav align-items-center">
+									<div class="nav-item d-flex align-items-center">
+										<i class="bx bx-search fs-4 lh-0"></i>
+										<input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
+											   aria-label="Search..." />
+									</div>
+								</div>
+								<!-- /Search -->
+								<ul class="navbar-nav flex-row align-items-center ms-auto">
+									<!-- Place this tag where you want the button to render. -->
+									<li class="nav-item lh-1 me-3">
+										<h5>@session</h5>
+									</li>
+									<!-- User -->
+									<li class="nav-item navbar-dropdown dropdown-user dropdown">
+										<a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
+										   data-bs-toggle="dropdown">
+											<div class="avatar avatar-online">
+												<img src="../dash/assets/img/avatars/1.png" alt
+													 class="w-px-40 h-auto rounded-circle" />
+											</div>
+										</a>
+										<ul class="dropdown-menu dropdown-menu-end">
+											<li>
+												<a class="dropdown-item" href="#">
+													<div class="d-flex">
+														<div class="flex-shrink-0 me-3">
+															<div class="avatar avatar-online">
+																<img src="../dash/assets/img/avatars/1.png" alt
+																	 class="w-px-40 h-auto rounded-circle" />
+															</div>
+														</div>
+														<div class="flex-grow-1">
+															<span class="fw-semibold d-block">John Doe</span>
+															<small class="text-muted">Admin</small>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<div class="dropdown-divider"></div>
+											</li>
+											<li>
+												<a class="dropdown-item" href="#">
+													<i class="bx bx-user me-2"></i>
+													<span class="align-middle">My Profile</span>
+												</a>
+											</li>
+											<li>
+												<a class="dropdown-item" href="#">
+													<i class="bx bx-cog me-2"></i>
+													<span class="align-middle">Settings</span>
+												</a>
+											</li>
+											<li>
+												<a class="dropdown-item" href="#">
+													<span class="d-flex align-items-center align-middle">
+														<i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+														<span class="flex-grow-1 align-middle">Billing</span>
+														<span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+													</span>
+												</a>
+											</li>
+											<li>
+												<div class="dropdown-divider"></div>
+											</li>
+											<li>
+												<a class="dropdown-item" href="auth-login-basic.html">
+													<i class="bx bx-power-off me-2"></i>
+													<span class="align-middle">Log Out</span>
+												</a>
+											</li>
+										</ul>
+									</li>
+									<!--/ User -->
+								</ul>
+							</div>
+						</nav>
+						<!-- / Navbar -->
+						<div class="container-xxl flex-grow-1 container-p-y">
+							@Body
+						</div>
+						<!-- / Layout page -->
+					</div>
+
+					<!-- Overlay -->
+					<div class="layout-overlay layout-menu-toggle"></div>
+				</div>
+			</div>
+			<!-- / Layout wrapper -->
+		</div>
+	</div>
+</div>
+
+@inject ILocalStorageService localStore
+@code {
+	[Parameter]
+	public UserWToken User { get; set; }
+	public static Dictionary<string, UserWToken> userDc { get; set; } = new Dictionary<string, UserWToken>();
+	public string session { get; set; } = "";
+	public Dictionary<string, string> isActive = new Dictionary<string, string>()
+	{
+		 {"dashboard","active"},
+		 {"users"," "},
+		 {"add_std"," "},
+		 {"add_academic"," "},
+		 {"add_councilor"," "},
+		 {"add_dpthead"," "},
+		 {"diger"," "},
+		 {"add_role"," "},
+		 {"staj_1"," "},
+		 {"staj_1_acd"," "},
+		 {"staj_2",""},
+		 {"staj_2_acd"," "},
+		 {"ime"," "},
+		 {"ime_acd"," "},
+	};
+
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		if (User == null)
+		{
+			User = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		}
+		string userJWT = await UserController.tokenizeUserWToken(User);
+		await localStore.SetItemAsStringAsync("user", userJWT);
+		//await localStore.SetItemAsync("user", await UserController.tokenizeUserWToken(User));
+		changeState();
+		//await InvokeAsync(StateHasChanged);
+		base.OnAfterRender(firstRender);
+		return base.OnAfterRenderAsync(firstRender);
+	}
+	public async Task changeState()
+	{
+		do
+		{
+			var y = User.tokenExpiresOn - DateTime.Now;
+			session = y.Hours + ":" + y.Minutes + ":" + y.Seconds;
+			//await InvokeAsync(StateHasChanged);
+			await Task.Delay(100);
+		} while (true);
+	}
+	protected void setActiveButton(string keyword)
+	{
+		//isActive["dashboard"] = "";
+		//isActive["users"] = "";
+		//isActive["add_std"] = "";
+		//isActive["add_academic"] = "";
+		//isActive["add_councilor"] = "";
+		//isActive["add_dpthead"] = "";
+		//isActive["diger"] = "";
+		//isActive["add_role"] = "";
+		//isActive["staj_1"] = "";
+		//isActive["staj_1_acd"] = "";
+		//isActive["staj_2"] = "";
+		//isActive["staj_2_acd"] = "";
+		//isActive["ime"] = "";
+		//isActive["ime_acd"] = "";
+		isActive.Values.ForEach(e => e = "");
+		isActive[keyword] = "active";
+	}
+
+
+}

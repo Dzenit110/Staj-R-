@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using staj_r_backend.Helper;
 using System.Threading.Tasks;
-using Neo4j.Driver;
-using System.Text.Json;
-using staj_r_backend.Helper;
 
 namespace staj_r_backend.Models.QueryHandlers
 {
@@ -28,6 +22,7 @@ namespace staj_r_backend.Models.QueryHandlers
 
         //Birden fazla string değişkenin tek tek istendiği durumlar için kullanılır.
         //Listede gönderilen değişkenleri sırasıyla yeni bir listede döndürür.
+        /*
         public async Task<List<string>> singleValueString(string query, List<string> variables)
         {
             try
@@ -47,7 +42,9 @@ namespace staj_r_backend.Models.QueryHandlers
                 throw;
             }
         }
+        */
 
+        /*
         public async Task<string> singleValueString(string query, string variable)
         {
             try
@@ -62,5 +59,6 @@ namespace staj_r_backend.Models.QueryHandlers
                 throw;
             }
         }
+        */
     }
 }

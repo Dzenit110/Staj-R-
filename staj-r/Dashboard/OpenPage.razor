@@ -1,6 +1,18 @@
-﻿
+﻿@page "/karadenizliUsak"
+@layout Dashboard
+@if(uwt != null)
+{
+	<h1>GELDİ @uwt.user.roleID</h1>
+}
 
 @code {
+	ILocalStorageService localStore;
 	[Parameter]
-	public string token { get; set; }
+	public UserWToken uwt { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		await InvokeAsync(StateHasChanged);
+		return base.OnAfterRenderAsync(firstRender);
+	}
 }

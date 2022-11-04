@@ -1,0 +1,138 @@
+﻿@page "/rating_ime"
+
+<style>
+    #loop-text {
+        height: 30px;
+        overflow: hidden;
+    }
+
+        #loop-text ul {
+            height: 100%;
+            width: 100%;
+            -webkit-animation: scroll 8s infinite;
+        }
+
+        #loop-text li {
+            line-height: 30px;
+            height: 30px;
+        }
+
+    @@keyframes scroll {
+        0% {
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        20% {
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        25% {
+            -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+        }
+
+        45% {
+            -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+        }
+
+        50% {
+            -webkit-transform: translateY(-60px);
+            transform: translateY(-60px);
+        }
+
+        70% {
+            -webkit-transform: translateY(-60px);
+            transform: translateY(-60px);
+        }
+
+        75% {
+            -webkit-transform: translateY(-90px);
+            transform: translateY(-90px);
+        }
+
+        95% {
+            -webkit-transform: translateY(-90px);
+            transform: translateY(-90px);
+        }
+
+        100% {
+            -webkit-transform: translateY(-120px);
+            transform: translateY(-120px);
+        }
+    }
+</style>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <!-- ALTTAKI DIV -->
+                <div class="card-body">
+                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+
+                            <div class="mb-3 col-md-6">
+                                <label for="name" class="form-label">Adı ve Soyadı:</label>
+                                <input class="form-control" type="text" name="name" id="name" placeholder="Ad ve Soyadı yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="no" class="form-label">Numarası:</label>
+                                <input class="form-control" type="number" name="no" id="no" placeholder="Numara yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="baslama_tarih" class="form-label">İŞLETMEDE MESLEKİ EĞİTİMİ BAŞLAMA TARİHİ: </label>
+                                <input class="form-control" type="date" value="2021-06-18" id="baslama_tarih">
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="bitis_tarih" class="form-label">İŞLETMEDE MESLEKİ EĞİTİM BİTİŞ TARİHİ: </label>
+                                <input class="form-control" type="date" value="2021-06-18" id="bitis_tarih">
+                            </div>
+
+                            <!-- KAYDET BUTTON -->
+                            <div style="text-align:center" class="mt-2">
+                                <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public UserWToken User { get; set; }
+    void OnSingleCompleted(UploadInfo fileinfo)
+
+    {
+
+        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
+        {
+            var result = fileinfo.File.GetResponse<ResponseModel>();
+            fileinfo.File.Url = result.url;
+        }
+
+    }
+
+
+
+
+
+    public class ResponseModel
+    {
+        public string name { get; set; }
+
+        public string status { get; set; }
+
+        public string url { get; set; }
+
+        public string thumbUrl { get; set; }
+    }
+}

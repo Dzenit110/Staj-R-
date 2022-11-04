@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "staj-r", "staj-r\staj-r.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "staj-r-backend", "staj-r-backend\staj-r-backend.csproj", "{57EE6C70-DDA4-457F-9B6B-86325B567B57}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "staj-r-backend-test", "staj-r-backend-test\staj-r-backend-test.csproj", "{C5EF4A9E-4306-46DF-BB29-C06DA634BF85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{57EE6C70-DDA4-457F-9B6B-86325B567B57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57EE6C70-DDA4-457F-9B6B-86325B567B57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57EE6C70-DDA4-457F-9B6B-86325B567B57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5EF4A9E-4306-46DF-BB29-C06DA634BF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5EF4A9E-4306-46DF-BB29-C06DA634BF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5EF4A9E-4306-46DF-BB29-C06DA634BF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5EF4A9E-4306-46DF-BB29-C06DA634BF85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

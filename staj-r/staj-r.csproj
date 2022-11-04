@@ -3,9 +3,11 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>staj_r</RootNamespace>
+    <UserSecretsId>b3101a8d-00c4-4404-aeab-e36a0327933f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AntDesign" Version="0.12.4" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
     <PackageReference Include="Neo4j.Driver" Version="5.0.0" />
     <PackageReference Include="Neo4j.Driver.Reactive" Version="5.0.0" />
@@ -14,6 +16,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\staj-r-backend\staj-r-backend.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="SpassByMyurga">
+      <HintPath>..\staj-r-backend\Helper\SpassByMyurga.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

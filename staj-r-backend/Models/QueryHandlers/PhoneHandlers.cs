@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Neo4j.Driver;
-using System.Text.Json;
-using staj_r_backend.Helper;
-using staj_r_backend.Models.Entities;
-
-namespace staj_r_backend.Models.QueryHandlers
+﻿namespace staj_r_backend.Models.QueryHandlers
 {
     public class PhoneHandlers
     {
-        
 
+        /*
         public async Task<List<Phone>> getPhonesHandler(string query, string variable)
         {
             try
@@ -33,5 +23,6 @@ namespace staj_r_backend.Models.QueryHandlers
                 throw new Exception("Hata: ", ex);
             }
         }
+        */
     }
 }

@@ -1,0 +1,15 @@
+﻿@*@page "/DevLogin"
+@using staj_r_backend.Models
+<Button @onclick=@(async()=>await registerStd())>Öğrenci Token</Button>
+<Button @onclick=@(async()=>await())>Öğretim Üyesi Token</Button>
+<Button @onclick=@(async()=>await())>Kurul Üyesi Token</Button>
+<Button @onclick=@(async()=>await())>Bölüm Yöneticis Token</Button>
+<Button @onclick=@(async()=>await())>Kurum Yetkilisi Token</Button>
+
+@code {
+	LoginModel lm = new LoginModel();
+	async Task registerStd()
+	{
+		lm.login()
+	}
+}*@

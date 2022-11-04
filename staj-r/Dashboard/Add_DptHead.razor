@@ -1,0 +1,191 @@
+﻿@page "/add_dpthead"
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <style>
+                        #loop-text {
+                            height: 30px;
+                            overflow: hidden;
+                        }
+
+                            #loop-text ul {
+                                height: 100%;
+                                width: 100%;
+                                -webkit-animation: scroll 8s infinite;
+                            }
+
+                            #loop-text li {
+                                line-height: 30px;
+                                height: 30px;
+                            }
+
+                        @@keyframes scroll {
+                            0% {
+                                -webkit-transform: translateY(0px);
+                                transform: translateY(0px);
+                            }
+
+                            20% {
+                                -webkit-transform: translateY(0px);
+                                transform: translateY(0px);
+                            }
+
+                            25% {
+                                -webkit-transform: translateY(-30px);
+                                transform: translateY(-30px);
+                            }
+
+                            45% {
+                                -webkit-transform: translateY(-30px);
+                                transform: translateY(-30px);
+                            }
+
+                            50% {
+                                -webkit-transform: translateY(-60px);
+                                transform: translateY(-60px);
+                            }
+
+                            70% {
+                                -webkit-transform: translateY(-60px);
+                                transform: translateY(-60px);
+                            }
+
+                            75% {
+                                -webkit-transform: translateY(-90px);
+                                transform: translateY(-90px);
+                            }
+
+                            95% {
+                                -webkit-transform: translateY(-90px);
+                                transform: translateY(-90px);
+                            }
+
+                            100% {
+                                -webkit-transform: translateY(-120px);
+                                transform: translateY(-120px);
+                            }
+                        }
+                    </style>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href=/add_std><i class="bx bx-user me-1"></i>Öğrenci Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href=/add_academic><i class="bx bx-user me-1"></i>Öğretim Görevlisi Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href=/add_councilor><i class="bx bx-user me-1"></i>Kurul Üyesi Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href=/add_dpthead><i class="bx bx-user me-1"></i>Bölüm Sorumlusu Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link " href=/diger><i class="bx bx-user me-1"></i>Diğer</a>
+                                </li>
+
+                            </ul>
+                            
+                            <div class="card mb-4">
+                                <!-- ALTTAKI DIV -->
+                                <div class="card-body">
+                                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                        <div class="row">
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="name" class="form-label">Adı</label>
+                                                <input class="form-control" type="text" name="name" id="name" placeholder="Bölüm sorumlusunun adını giriniz" />
+                                            </div>
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="lastName" class="form-label">Soyadı</label>
+                                                <input class="form-control" type="text" name="lastName" id="lastName" placeholder="Bölüm sorumlusunun soyadını giriniz" />
+
+
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="email" class="form-label">E-mail</label>
+                                                <input placholder="E-mail" class="form-control"
+                                                       type="text"
+                                                       id="email"
+                                                       name="email"
+                                                       placeholder="Bölüm sorumlusunun E-Mail adresini yazınız" />
+
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="Number" class="form-label">Numarası</label>
+                                                <div class="input-group input-group-merge">
+                                                    <input type="number"
+                                                           name="phoneNumber"
+                                                           class="form-control"
+                                                           placeholder="Bölüm sorumlusunun numarasını yazınız" />
+                                                </div>
+
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="DepNumber" class="form-label">Bölüm Numarası</label>
+                                                <div class="input-group input-group-merge">
+                                                    <input type="number"
+                                                           name="depNumber"
+                                                           class="form-control"
+                                                           placeholder="Bölüm sorumlusunun bölüm numarasını yazınız" />
+                                                </div>
+
+                                            </div>
+
+                                            <!-- KAYDET BUTTON -->
+                                            <div class="mt-2">
+                                                <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+
+                                            </div>
+
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+@code {
+    ILocalStorageService localStore;
+	[Parameter]
+	public UserWToken uwt { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		await InvokeAsync(StateHasChanged);
+		return base.OnAfterRenderAsync(firstRender);
+	}
+    void OnSingleCompleted(UploadInfo fileinfo)
+
+    {
+
+        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
+        {
+            var result = fileinfo.File.GetResponse<ResponseModel>();
+            fileinfo.File.Url = result.url;
+        }
+
+    }
+
+
+
+
+
+    public class ResponseModel
+    {
+        public string name { get; set; }
+
+        public string status { get; set; }
+
+        public string url { get; set; }
+
+        public string thumbUrl { get; set; }
+    }
+}

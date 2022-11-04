@@ -1,0 +1,517 @@
+﻿@page "/add_role"
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                         <style>
+                #loop-text {
+                    height: 30px;
+                    overflow: hidden;
+                }
+
+                    #loop-text ul {
+                        height: 100%;
+                        width: 100%;
+                        -webkit-animation: scroll 8s infinite;
+                    }
+
+                    #loop-text li {
+                        line-height: 30px;
+                        height: 30px;
+                    }
+
+                @@keyframes scroll {
+                    0% {
+                        -webkit-transform: translateY(0px);
+                        transform: translateY(0px);
+                    }
+
+                    20% {
+                        -webkit-transform: translateY(0px);
+                        transform: translateY(0px);
+                    }
+
+                    25% {
+                        -webkit-transform: translateY(-30px);
+                        transform: translateY(-30px);
+                    }
+
+                    45% {
+                        -webkit-transform: translateY(-30px);
+                        transform: translateY(-30px);
+                    }
+
+                    50% {
+                        -webkit-transform: translateY(-60px);
+                        transform: translateY(-60px);
+                    }
+
+                    70% {
+                        -webkit-transform: translateY(-60px);
+                        transform: translateY(-60px);
+                    }
+
+                    75% {
+                        -webkit-transform: translateY(-90px);
+                        transform: translateY(-90px);
+                    }
+
+                    95% {
+                        -webkit-transform: translateY(-90px);
+                        transform: translateY(-90px);
+                    }
+
+                    100% {
+                        -webkit-transform: translateY(-120px);
+                        transform: translateY(-120px);
+                    }
+                }
+            </style>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            
+                            <div style="text-align:left" class="card mb-4">
+                                <!-- ALTTAKI DIV -->
+                                <div class="card-body">
+                                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                                        <div class="row">
+
+
+                                            <div class="mb-3 col-md-6">
+                                                <label for="name" class="form-label">Rol Adı (LÜTFEN İSTEDİĞİNİZ ROLÜ YAZINIZ)</label>
+                                                <input class="form-control"
+                                                       type="text" name="name"
+                                                       id="name" />
+                                            </div>
+
+                                            <!--SOLDAKİ DIV-->
+                                            <div class="mb-3 col-md-6" style="padding-top:10px; text-align:left">
+                                                <br>
+                                                <div id="area">
+
+                                                </div>
+                                                <br />
+                                            </div>
+
+                                            <div class="mb-3 col-md-6">
+                                                <br />
+                                                <label>Lütfen bu rol için istediğiniz yetkileri seçiniz </label>
+                                            </div>
+
+                                            <div>
+                                               
+                                                <CheckboxGroup Style="width:100%">
+
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg1(e))" Label="A">Staj 1 yetkisi</Checkbox>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox  OnChange="@(e => onchg2(e))" Label="B">Staj 2 yetkisi</Checkbox>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg3(e))" Label="C">IME yetkisi</Checkbox>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg4(e))" Label="D">Öğrencileri düzenleme</Checkbox>
+                                                        </Col>
+
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg5(e))" Label="E">Öğrenci ekleme</Checkbox>
+                                                        </Col>
+
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg6(e))" Label="F">Öğretim üyelerini düzenleme</Checkbox>
+                                                        </Col>
+
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg7(e))" Label="G">Öğretim üyesi ekleme</Checkbox>
+                                                        </Col>
+
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg8(e))" Label="H">Kurul üyelerini düzenleme</Checkbox>
+                                                        </Col>
+
+                                                    </Row>
+
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg9(e))" Label="I">Kurul üyesi ekleme</Checkbox>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg10(e))" Label="J">Bölüm yöneticilerini düzenleme</Checkbox>
+                                                        </Col>
+                                                    </Row>
+                                                    <Row>
+                                                        <Col Span="8">
+                                                        <Checkbox OnChange="@(e => onchg11(e))" Label="K">Bölüm yöneticisi ekleme</Checkbox>
+                                                        </Col>
+                                                    </Row>
+                                                </CheckboxGroup>
+                                                <br /><br />
+
+                                            </div>
+
+
+
+                                            <!-- KAYDET BUTTON -->
+                                            <div style="text-align:left" class="mt-2">
+                                                <button type="submit" class="btn btn-primary me-2">Rolü Ekle</button>
+
+                                            </div>
+
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+      
+@inject ILocalStorageService localStore                
+@code{
+	[Parameter]
+	public UserWToken uwt { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		await InvokeAsync(StateHasChanged);
+		return base.OnAfterRenderAsync(firstRender);
+	}
+
+    List<string> selectedRoles = new List<string>();
+    string liststr = "";
+
+    void onchg1(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("a");
+        }
+        else
+        {
+            if (selectedRoles.Contains("a"))
+            {
+                selectedRoles.Remove("a");
+            }
+        }
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+    }
+
+
+    void onchg2(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("b");
+        }
+        else
+        {
+            if (selectedRoles.Contains("b"))
+            {
+                selectedRoles.Remove("b");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+
+    void onchg3(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("c");
+        }
+        else
+        {
+            if (selectedRoles.Contains("c"))
+            {
+                selectedRoles.Remove("c");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+    void onchg4(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("d");
+        }
+        else
+        {
+            if (selectedRoles.Contains("d"))
+            {
+                selectedRoles.Remove("d");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+
+    void onchg5(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("e");
+        }
+        else
+        {
+            if (selectedRoles.Contains("e"))
+            {
+                selectedRoles.Remove("e");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+
+    void onchg6(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("f");
+        }
+        else
+        {
+            if (selectedRoles.Contains("f"))
+            {
+                selectedRoles.Remove("f");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+
+
+    void onchg7(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("g");
+        }
+        else
+        {
+            if (selectedRoles.Contains("g"))
+            {
+                selectedRoles.Remove("g");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+    void onchg8(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("h");
+        }
+        else
+        {
+            if (selectedRoles.Contains("h"))
+            {
+                selectedRoles.Remove("h");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+    void onchg9(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("i");
+        }
+        else
+        {
+            if (selectedRoles.Contains("i"))
+            {
+                selectedRoles.Remove("i");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+    void onchg10(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("j");
+        }
+        else
+        {
+            if (selectedRoles.Contains("j"))
+            {
+                selectedRoles.Remove("j");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+
+    void onchg11(bool o)
+    {
+        if (o)
+        {
+            selectedRoles.Add("k");
+        }
+        else
+        {
+            if (selectedRoles.Contains("k"))
+            {
+                selectedRoles.Remove("k");
+            }
+        }
+
+
+
+
+        liststr = "";
+        if (selectedRoles.Count != 0)
+        {
+            foreach (var j in selectedRoles)
+            {
+                liststr += j;
+            }
+        }
+
+    }
+
+
+
+}
+

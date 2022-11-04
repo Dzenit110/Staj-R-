@@ -1,0 +1,112 @@
+﻿@page "/diger"
+
+                <div class="container-xxl flex-grow-1 container-p-y">
+                    <style>
+                        #loop-text {
+                            height: 30px;
+                            overflow: hidden;
+                        }
+
+                            #loop-text ul {
+                                height: 100%;
+                                width: 100%;
+                                -webkit-animation: scroll 8s infinite;
+                            }
+
+                            #loop-text li {
+                                line-height: 30px;
+                                height: 30px;
+                            }
+
+                        @@keyframes scroll {
+                            0% {
+                                -webkit-transform: translateY(0px);
+                                transform: translateY(0px);
+                            }
+
+                            20% {
+                                -webkit-transform: translateY(0px);
+                                transform: translateY(0px);
+                            }
+
+                            25% {
+                                -webkit-transform: translateY(-30px);
+                                transform: translateY(-30px);
+                            }
+
+                            45% {
+                                -webkit-transform: translateY(-30px);
+                                transform: translateY(-30px);
+                            }
+
+                            50% {
+                                -webkit-transform: translateY(-60px);
+                                transform: translateY(-60px);
+                            }
+
+                            70% {
+                                -webkit-transform: translateY(-60px);
+                                transform: translateY(-60px);
+                            }
+
+                            75% {
+                                -webkit-transform: translateY(-90px);
+                                transform: translateY(-90px);
+                            }
+
+                            95% {
+                                -webkit-transform: translateY(-90px);
+                                transform: translateY(-90px);
+                            }
+
+                            100% {
+                                -webkit-transform: translateY(-120px);
+                                transform: translateY(-120px);
+                            }
+                        }
+                    </style>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                                <li class="nav-item">
+                                    <a class="nav-link" href=/add_std><i class="bx bx-user me-1"></i>Öğrenci Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href=/add_academic><i class="bx bx-user me-1"></i>Öğretim Görevlisi Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href=/add_councilor><i class="bx bx-user me-1"></i>Kurul Üyesi Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href=/add_dpthead><i class="bx bx-user me-1"></i>Bölüm Sorumlusu Ekle</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href=/diger><i class="bx bx-user me-1"></i>Diğer</a>
+                                </li>
+                            </ul>
+
+                            <div class="card mb-4">
+                                <div style="card-body">
+                                    <h5 class="card-header">Yeni Rol Eklemek İçin Lütfen Tıklanıyız</h5>
+                                    <div style="text-align:left" class="mt-2">
+                                      <a class="btn btn-primary me-2" href=/Add_Role>Yeni Rol Ekle</a>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+@code {
+    ILocalStorageService localStore;
+	[Parameter]
+	public UserWToken uwt { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		await InvokeAsync(StateHasChanged);
+		return base.OnAfterRenderAsync(firstRender);
+	}
+}

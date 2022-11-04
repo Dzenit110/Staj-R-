@@ -224,8 +224,8 @@ sup {
 }
 
 a {
-  color: #696cff;
-  text-decoration: none;
+    color: #000000;
+    text-decoration: none;
 }
 a:hover {
   color: #5f61e6;
@@ -4664,13 +4664,13 @@ textarea.form-control-lg {
 }
 
 .modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1089;
-  width: 100vw;
-  height: 100vh;
-  background-color: #435971;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1089;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 .modal-backdrop.fade {
   opacity: 0;

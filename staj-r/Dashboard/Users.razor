@@ -1,0 +1,213 @@
+﻿@page "/users"
+@layout Dashboard
+
+    <div class="card table-responsive text-nowrap">
+        <br>
+        <div class="demo-inline-spacing" style="text-align:center">
+        @if(uwt!= null)
+        {
+            @if(uwt.user != null)
+            {
+             <button type="button" class="btn rounded-pill btn-outline-primary" @onclick=@(async()=>await selectionChanged(userList))>Tümü</button>
+            @if (uwt.user.authorities.Contains("d"))
+            {
+                <button type="button" class="btn rounded-pill btn-outline-success" @onclick=@(async()=>await selectionChanged(studentsList))>Öğrenci</button>
+            }
+            @if (uwt.user.authorities.Contains("f"))
+            {
+                <button type="button" class="btn rounded-pill btn-outline-danger" @onclick=@(async()=>await selectionChanged(academicList))>Öğretim Üyesi</button>
+            }
+            @if (uwt.user.authorities.Contains("h"))
+            {
+                 <button type="button" class="btn rounded-pill btn-outline-warning" @onclick=@(async()=>await selectionChanged(counciList))>Kurul Üyesi</button>
+            }
+            @if (uwt.user.authorities.Contains("j"))
+            {
+                 <button type="button" class="btn rounded-pill btn-outline-info" @onclick=@(async()=>await selectionChanged(depManagerList))>Bölüm Sorumlusu</button>
+            }
+            <button type="button" class="btn rounded-pill btn-outline-secondary" @onclick=@(async()=>await selectionChanged(otherList))>Diğer</button>   
+            }
+        }            
+        </div>
+
+        <Modal Title="@title"
+               Visible="@_visible"
+               OnOk="@HandleOk"
+               OnCancel="@HandleCancel" Style="width:780px">
+
+            <div style="float:left; ">
+
+                <form action="" method="post">
+                    <label for="number">Öğrenci No:</label>
+                    <input class="inp1" type="number" name="number" required="">
+                    <label for="ilet,">Soyadınız:</label>
+                    <input class="inp1" type="text" name="ileti" required="">
+                    <label for="eposta">E-mail:</label>
+                    <input class="inp1" type="email" name="eposta" required="">
+
+                    <br /><br />
+
+                    <Alert Type="@AlertType.Info"
+                           Message="Bilgileri belirtilen öğrencimiz staj başvuru belgelerini göndermiştir."
+                           Description="Additional description and information about copywriting."
+                           ShowIcon="true" />
+
+                    <br /><br />
+                    <input type="submit" value="Gönder ">
+
+                </form>
+            </div>
+
+        </Modal>
+
+        <br> <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Rol</th>
+                    <th>Numara</th>
+                    <th>İSİM</th>
+                    <th>SOYİSİM</th>
+                    <th>E-posta</th>
+                    <th>Detay</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+            @for(int j = 0; j<selectedList.Count; j++)
+            {
+                <tr class="table-default">
+                    <td>
+                        @if(selectedList[j].roleID == (int)rolesDefault.Öğrenci)
+                        {
+                            <span class="badge bg-label-success me-1"><strong>@selectedList[j].roleName</strong></span>
+                        }
+                        else if(selectedList[j].roleID == (int)rolesDefault.Öğretim_Üyesi)
+                        {
+                            <span class="badge bg-label-danger me-1"><strong>@selectedList[j].roleName</strong></span>
+                        }
+                        else if(selectedList[j].roleID == (int)rolesDefault.Kurul_Üyesi)
+                        {
+                            <span class="badge bg-label-warning me-1"><strong>@selectedList[j].roleName</strong></span>
+                        }
+                        else if(selectedList[j].roleID == (int)rolesDefault.Bölüm_Yöneticisi)
+                        {
+                            <span class="badge bg-label-info me-1"><strong>@selectedList[j].roleName</strong></span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-label-secondary me-1"><strong>@selectedList[j].roleName</strong></span>
+                        }
+                    </td>
+                    <td><strong>@selectedList[j].number</strong></td>
+                    <td>
+                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <p><strong>@selectedList[j].name</strong></p>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <p><strong>@selectedList[j].surname</strong></p>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                            <p>@selectedList[j].email</p>
+                        </ul>
+                    </td>
+                    <td>
+                        <!--Burada ilk satırın son sütünü  başlıyor -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalToggle">Detay</button>
+                        <div class="mt-3">
+                            <UsersPopup DDRoles="DropDownRoles"/>
+                        </div>
+                    </td>
+
+                    <!--Burada bitiyor-->
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+@inject ILocalStorageService localStore;
+@code {
+    [Parameter]
+    public UserWToken uwt { get; set; }
+    private List<userList> userList { get; set; } = new List<userList>();
+    private List<userList> studentsList { get; set; } = new List<userList>();
+    private List<userList> academicList { get; set; } = new List<userList>();
+    private List<userList> counciList { get; set; } = new List<userList>();
+    private List<userList> depManagerList { get; set; } = new List<userList>();
+    private List<userList> otherList { get; set; } = new List<userList>();
+    private List<userList> selectedList { get; set; } = new List<userList>();
+    public Dictionary<int, string> DropDownRoles { get; set; } = new Dictionary<int, string>();
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+        var res = await uc.getUsers(uwt.token);
+        if (res.isSuccess)
+        {
+            userList = res.value;
+            studentsList = new List<userList>();
+            academicList = new List<userList>();
+            counciList = new List<userList>();
+            depManagerList = new List<userList>();
+            otherList = new List<userList>();
+            selectedList = new List<userList>();
+            foreach(var user in userList)
+            {
+                switch (user.roleID)
+                {
+                    case (int)rolesDefault.Öğrenci:
+                        studentsList.Add(user); 
+                        break;
+                    case (int)rolesDefault.Öğretim_Üyesi:
+                        academicList.Add(user); 
+                        break;
+                    case (int)rolesDefault.Kurul_Üyesi:
+                        counciList.Add(user); 
+                        break;
+                    case (int)rolesDefault.Bölüm_Yöneticisi:
+                        depManagerList.Add(user); 
+                        break;
+                    default:
+                        otherList.Add(user);
+                        break;
+                }
+            }
+            selectedList = userList;
+        }
+        var dropRolesRes = await uc.getRolesForDropdown(uwt.token);
+        if (dropRolesRes.isSuccess)
+        {
+            DropDownRoles = dropRolesRes.value;
+        }
+        if (firstRender) StateHasChanged();
+    }
+    UserController uc = new UserController();
+    async Task selectionChanged(List<userList> selection)
+    {
+        selectedList = selection;
+        //await InvokeAsync(StateHasChanged);
+    }
+
+
+    string title = "BasicModal";
+    bool _visible = false;
+    private void HandleOk(MouseEventArgs e)
+    {
+        Console.WriteLine(e);
+        _visible = false;
+    }
+
+    private void HandleCancel(MouseEventArgs e)
+    {
+        Console.WriteLine(e);
+        _visible = false;
+    }
+
+
+    void OnChange(string[] checkedValues)
+    {
+        Console.WriteLine($"checked = {JsonSerializer.Serialize(checkedValues)}");
+    }
+}

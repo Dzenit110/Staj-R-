@@ -1,20 +1,24 @@
 ﻿@page "/stajR"
 @inject ILocalStorageService localStore
+@using staj_r.Dashboard
+@namespace staj_r.Pages
 
 
 
 @*Token kontrolleri yapılacak*@
-@if(isTokenValid == true)
-{
-	@*Dashboard'a yönlendiriliyor*@
-	<Dashboard user="@user"/>
-}
-else if(isTokenValid == false)
+@if (isTokenValid == false)
 {
 	@*Login'e yönlendiriliyor*@
 	<Login/>
 }
-else
+@if (isTokenValid == true)
+{
+	@*Dashboard'a yönlendiriliyor*@
+	<h1>Dash gelmesi gerekiyor</h1>
+	<Dashboard User=uwt/>
+
+}
+@if (isTokenValid == null)
 {
 	<h1>Loading...</h1>
 }
@@ -24,27 +28,36 @@ else
 @code {
 	public bool? isTokenValid = null;
 
-	public User user;
+	public UserWToken uwt { get; set; }
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		try
 		{
-			LoginViewData lvd = new LoginViewData();
-			user = await lvd.tokenControl(await localStore.GetItemAsync<string>("token"));
-			isTokenValid = true;
+			Result<UserWToken> result = await new LoginContoller().checkTokenController(await localStore.GetItemAsStringAsync("token"));
+			if (result.isSuccess)
+			{
+				uwt = result.value;
+				isTokenValid = true;
+			}
+			else
+			{
+				isTokenValid = false;
+			}
+			//user = await lvd.tokenControl(await localStore.GetItemAsync<string>("token"));
 		}
 		catch
 		{
 			isTokenValid = false;
 		}
-		if(firstRender) this.StateHasChanged();
+		//await InvokeAsync(StateHasChanged);
+		if (firstRender) this.StateHasChanged();
 	}
 
 	//////////////   TOKEN OLUŞTURMA    ////////////////////
 	/*
 	async Task butcli()
-	{
+		{
 		await localStore.SetItemAsync("token","frankfurt");
 	}
 	*/

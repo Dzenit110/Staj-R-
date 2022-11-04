@@ -1,0 +1,45 @@
+﻿@page "/staj_1"
+@namespace staj_r.Staj_IME
+@layout Dashboard.Dashboard
+@if (status != null)
+{
+	<staj_r.Staj_IME.Empty message="@status.message" />
+	<br />
+	<br />
+	<br />
+	<br />
+	<br />
+	@switch (status.pageContent)
+	{
+		case pages.apply:
+		<Apply/>
+			break;
+		case pages.rating:
+		<Rating_Staj/>
+			break;
+		case pages.report:
+		<Report/>
+			break;
+	}
+}
+
+
+@inject ILocalStorageService localStore
+@code {
+
+	[Parameter]
+	public UserWToken uwt { get; set; }
+	private InternStdPagesController ispc = new InternStdPagesController();
+	private Status status { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		var resultOfMessage = await ispc.getStatus(uwt.token, internships.StajI);
+		if (resultOfMessage.isSuccess)
+		{
+			status = resultOfMessage.value;
+		}
+		return base.OnAfterRenderAsync(firstRender);
+	}
+}
+

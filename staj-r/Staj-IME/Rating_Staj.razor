@@ -1,0 +1,185 @@
+﻿@page "/rating_staj"
+
+<style>
+    #loop-text {
+        height: 30px;
+        overflow: hidden;
+    }
+
+        #loop-text ul {
+            height: 100%;
+            width: 100%;
+            -webkit-animation: scroll 8s infinite;
+        }
+
+        #loop-text li {
+            line-height: 30px;
+            height: 30px;
+        }
+
+    @@keyframes scroll {
+        0% {
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        20% {
+            -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+        }
+
+        25% {
+            -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+        }
+
+        45% {
+            -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+        }
+
+        50% {
+            -webkit-transform: translateY(-60px);
+            transform: translateY(-60px);
+        }
+
+        70% {
+            -webkit-transform: translateY(-60px);
+            transform: translateY(-60px);
+        }
+
+        75% {
+            -webkit-transform: translateY(-90px);
+            transform: translateY(-90px);
+        }
+
+        95% {
+            -webkit-transform: translateY(-90px);
+            transform: translateY(-90px);
+        }
+
+        100% {
+            -webkit-transform: translateY(-120px);
+            transform: translateY(-120px);
+        }
+    }
+</style>
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <!-- ALTTAKI DIV -->
+                <div class="card-body">
+                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                        <div class="row">
+
+                            <div class="mb-3 col-md-6">
+                                <label for="bolum" class="form-label">Bölüm</label>
+                                <input class="form-control" type="text" name="bolum" id="bolum" placeholder="Bölümü yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="isim" class="form-label">Adı Soyadı</label>
+                                <input class="form-control" type="text" name="isim" id="isim" placeholder="Ad ve Soyadı yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="dogum" class="form-label">Doğum Yeri ve Tarih</label>
+                                <input class="form-control" type="text" name="dogum" id="dogum" placeholder="Doğum Yeri ve Tarihi yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="tcno" class="form-label">TC NO:</label>
+                                <input class="form-control" type="number" name="tcno" id="tcno" placeholder="T.C. Numarasını yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="no" class="form-label">Numarası:</label>
+                                <input class="form-control" type="no" name="no" id="no" placeholder="Numarasını yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="basla_tarih" class="form-label">İşe Başlama Tarihi</label>
+                                <input class="form-control" type="date" value="2021-06-18" id="basla_tarih">
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="bitis_tarih" class="form-label">İşten Ayrılma Tarihi</label>
+                                <input class="form-control" type="date" value="2021-06-18" id="bitis_tarih">
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="calis_gun" class="form-label">Çalıştığı Gün Adedi:</label>
+                                <input class="form-control" type="number" name="calis_gun" id="calis_gun" placeholder="Çalıştığı gün adedi yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="calisma_gun" class="form-label">Çalışmadığı Gün Adedi:</label>
+                                <input class="form-control" type="number" name="calisma_gun" id="calisma_gun" placeholder="Çalışmadığı gün adedi yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="is_isim" class="form-label">İş Yerinin Adı:</label>
+                                <input class="form-control" type="text" name="is_isim" id="is_isim" placeholder="İş yerinin adını yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="kurum_il" class="form-label">Bulunduğu İl:</label>
+                                <input class="form-control" type="text" name="kurum_il" id="kurum_il" placeholder="İş yerinin bulunduğu ili yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="isci" class="form-label">İşçi Sayısı:</label>
+                                <input class="form-control" type="number" name="isci" id="isci" placeholder="İşçi sayısını yazınız" />
+                            </div>
+
+                            <div class="mb-3 col-md-6">
+                                <label for="muh" class="form-label">Mühendis Sayısı:</label>
+                                <input class="form-control" type="number" name="muh" id="muh" placeholder="Mühendis sayısı yazınız" />
+                            </div>
+
+                        </div>
+
+                        <!-- KAYDET BUTTON -->
+                        <div style="text-align:center" class="mt-2">
+                            <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+            </div> <!--İLK DIV BITIYOR-->
+        </div>
+        <!--3 ALTTAKI DIV-->
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public UserWToken User { get; set; }
+    void OnSingleCompleted(UploadInfo fileinfo)
+
+    {
+
+        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
+        {
+            var result = fileinfo.File.GetResponse<ResponseModel>();
+            fileinfo.File.Url = result.url;
+        }
+
+    }
+
+
+
+
+
+    public class ResponseModel
+    {
+        public string name { get; set; }
+
+        public string status { get; set; }
+
+        public string url { get; set; }
+
+        public string thumbUrl { get; set; }
+    }
+}
