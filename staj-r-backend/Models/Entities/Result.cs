@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace staj_r_backend.Models.Entities
+﻿namespace staj_r_backend.Models.Entities
 {
     public struct Result<T>
     {

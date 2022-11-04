@@ -224,8 +224,15 @@
     <div class="layout-overlay layout-menu-toggle"></div>
 </div>
 <!-- / Layout wrapper -->
+@inject ILocalStorageService localStore
 @code {
-    [Parameter]
-    public UserWToken User { get; set; }
+	[Parameter]
+	public UserWToken uwt { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		await InvokeAsync(StateHasChanged);
+		return base.OnAfterRenderAsync(firstRender);
+	}
 
 }

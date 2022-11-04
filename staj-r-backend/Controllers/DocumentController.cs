@@ -1,12 +1,11 @@
-﻿using staj_r_backend.Models.Entities;
+﻿using ConvertApiDotNet;
+using staj_r_backend.Controllers.Documents;
+using staj_r_backend.Models.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using staj_r_backend.Controllers.Documents;
-using System.Threading.Tasks;
 using System.IO;
-using ConvertApiDotNet;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers
 {
@@ -46,7 +45,7 @@ namespace staj_r_backend.Controllers
         public async Task<byte[]> getDailyReportBin(DailyReport dr)
         {
             DailyReportXML drx = new DailyReportXML(dr);
-           var stream=  await xmlToDocx(drx);
+            var stream = await xmlToDocx(drx);
             var memoryStream = new MemoryStream();
             await memoryStream.CopyToAsync(stream);
             return memoryStream.ToArray();

@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using Jose;
+﻿using Jose;
 using Newtonsoft.Json;
-using System.Text.Json;
 using staj_r_backend.Models.Entities;
+using System;
+using System.Collections.Generic;
 
 namespace staj_r_backend.Helper.Token
 {
     public class Token
     {
 
-        private readonly byte[] secretKey = new byte[] { 3, 234, 131, 182, 25, 29, 145, 80, 73, 196, 31, 218, 82, 59, 105, 110, 3, 2, 90, 147, 100, 103, 156, 208, 86, 236, 187, 141, 94, 98, 59, 190};
+        private readonly byte[] secretKey = new byte[] { 3, 234, 131, 182, 25, 29, 145, 80, 73, 196, 31, 218, 82, 59, 105, 110, 3, 2, 90, 147, 100, 103, 156, 208, 86, 236, 187, 141, 94, 98, 59, 190 };
         public TokenResult encrypt(TokenEntity user)
         {
             DateTime expire = DateTime.Now.AddHours(2);

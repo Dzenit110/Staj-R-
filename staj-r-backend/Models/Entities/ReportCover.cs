@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace staj_r_backend.Models.Entities
 {
@@ -34,7 +30,7 @@ namespace staj_r_backend.Models.Entities
         public string kurum_tel_uz9Ftuc { get; set; }
         public string kurum_faks_no_memvyxR { get; set; }
         public string eposta_T4Bz7MQ { get; set; }
-        public string web_QpcjFYe {get; set;}
+        public string web_QpcjFYe { get; set; }
         public string gun_kqDgmFU { get; set; }
         public string kurum_web_adres_QPcjFYe { get; set; }
 

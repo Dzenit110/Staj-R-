@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace staj_r.Pages
 {
-    public class DownClass:PageModel
+    public class DownClass : PageModel
     {
         public async Task<IActionResult> OnGet(string filename)
         {

@@ -4,13 +4,14 @@
 {
 	<h1>GELDİ @uwt.user.roleID</h1>
 }
-@inject ILocalStorageService localStore
+
 @code {
+	ILocalStorageService localStore;
 	[Parameter]
 	public UserWToken uwt { get; set; }
 	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
 	{
-		uwt = UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
 		await InvokeAsync(StateHasChanged);
 		return base.OnAfterRenderAsync(firstRender);
 	}

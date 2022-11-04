@@ -1,11 +1,10 @@
-﻿using System;
+﻿using staj_r_backend.Helper;
+using staj_r_backend.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using staj_r_backend.Models.Entities;
-using staj_r_backend.Helper;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace staj_r_backend.Models
 {
@@ -22,12 +21,12 @@ namespace staj_r_backend.Models
             {
                 string query = "";
                 bool isDepMan = false;
-                if(department == null)
-                { 
+                if (department == null)
+                {
                     query = $"MATCH(q:User) WHERE q.number='{uNumber}' WITH q.department AS q CREATE(u:User{{number:'{number}', name:'{name}', surname: '{surname}', email:'{email}',password:'{password}', department: q}}) " +
                     $"WITH u MATCH(r:Role) WHERE ID(r)={roleID} CREATE(u)-[:MEMBER]->(r)";
                 }
-                if(uNumber == null)
+                if (uNumber == null)
                 {
                     query = $"CREATE(u:User{{number:'{number}', name:'{name}', surname: '{surname}', email:'{email}',password:'{password}', department:'{department}'}}) " +
                     $"WITH u MATCH(r:Role) WHERE ID(r)={roleID} CREATE(u)-[:MEMBER]->(r)";
@@ -38,7 +37,7 @@ namespace staj_r_backend.Models
                 if (isDepMan)
                 {
                     string depQuery = $"MATCH(d:Department) WHERE d.number='{department}' RETURN COUNT(d) AS c";
-                    if((long)(await ex.executeOneNode(depQuery))["c"] == 0)
+                    if ((long)(await ex.executeOneNode(depQuery))["c"] == 0)
                     {
                         string addDepQuery = $"CREATE(d:Department{{number:'{department}', IlastApply: date(), IinternStart: date(), " +
                             $"IinternFinish: date(), IlastDocument:date(), IIlastApply: date(), IIinternStart: date(), " +
@@ -112,12 +111,12 @@ namespace staj_r_backend.Models
         //int: RoleID,   string:Role Name  //Number parametresi siteye giriş yapmış olan kullanıcının numarasıdır.
         public async Task<Dictionary<int, string>> getRolesForDropDown(string number)
         {
-            Dictionary<int,string> result = new Dictionary<int,string>();
+            Dictionary<int, string> result = new Dictionary<int, string>();
             string query = $"MATCH(u:User)-[:MEMBER]->(r:Role) WHERE u.number = '{number}' WITH r.authorities AS a " +
                 $"MATCH(r:Role) WHERE apoc.coll.containsAll(a,r.authorities)=true AND size(a)>size(r.authorities) RETURN r.name AS n, ID(r) AS i";
             Executor ex = new Executor();
             var queryResult = await ex.execute(query);
-            for(int j=0; j < queryResult["n"].Count; j++)
+            for (int j = 0; j < queryResult["n"].Count; j++)
             {
                 result.Add((int)queryResult["n"][j], (string)queryResult["i"][j]);
             }
@@ -156,14 +155,14 @@ namespace staj_r_backend.Models
             Executor ex = new Executor();
             var searcher = await ex.executeOneNode($"MATCH(u:User) WHERE u.number = '{number}' " +
                 $"MATCH(u)-[:MEMBER]->(r:Role) RETURN r.authorities AS a, u.department AS d");
-            var q = ((List<object>)searcher["a"]).Select(e=>(string)e).ToList();
-            string authList= JsonSerializer.Serialize(q);
+            var q = ((List<object>)searcher["a"]).Select(e => (string)e).ToList();
+            string authList = JsonSerializer.Serialize(q);
             string dep = (string)searcher["d"];
             string query = $"MATCH(u:User)-[:MEMBER]-(r:Role) WHERE apoc.coll.containsAll({authList},r.authorities)=true AND size({authList})>size(r.authorities) " +
                 $"RETURN DISTINCT(u.number) AS number, u.name AS name, u.surname AS surname, u.email AS email, r.name AS roleName, ID(r) AS roleID";
-            var QueryResult= await ex.execute(query);
+            var QueryResult = await ex.execute(query);
             List<userList> ul = new List<userList>();
-            for(int j = 0; j < QueryResult["number"].Count; j++)
+            for (int j = 0; j < QueryResult["number"].Count; j++)
             {
                 ul.Add(new userList
                 {
@@ -171,8 +170,8 @@ namespace staj_r_backend.Models
                     roleID = Convert.ToInt32((long)QueryResult["roleID"][j]),
                     number = (string)QueryResult["number"][j],
                     name = (string)QueryResult["name"][j],
-                    surname=(string)QueryResult["surname"][j],
-                    email=(string)QueryResult["email"][j]
+                    surname = (string)QueryResult["surname"][j],
+                    email = (string)QueryResult["email"][j]
                 });
             }
             return ul;
@@ -197,7 +196,7 @@ namespace staj_r_backend.Models
             //            });
             //        }
             //    }
-                
+
             //}
             ////f içeriyorsa öğretim üyeleri gelebilir
             //if (q.Contains((object)"f"))
@@ -218,7 +217,7 @@ namespace staj_r_backend.Models
             //            });
             //        }
             //    }
-                
+
             //}
             ////h içeriyorsa kurul gelebilir
             //if (q.Contains((object)"h"))
@@ -239,7 +238,7 @@ namespace staj_r_backend.Models
             //            });
             //        }
             //    }
-                
+
             //}
             ////j içeriyorsa bölüm yöneticileri gelebilir
             //if (q.Contains((object)"j"))

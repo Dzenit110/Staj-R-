@@ -1,20 +1,15 @@
 ﻿using staj_r_backend.Models.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers.Documents
 {
-    public class RepotCoverXML:IDocument
+    public class RepotCoverXML : IDocument
     {
-		public string xml { get; set; }
-		public ReportCover rc { get; set; }
-		public RepotCoverXML(ReportCover _rc)
-		{
-			rc = _rc;
-			xml = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+        public string xml { get; set; }
+        public ReportCover rc { get; set; }
+        public RepotCoverXML(ReportCover _rc)
+        {
+            rc = _rc;
+            xml = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <?mso-application progid='Word.Document'?>
 <w:wordDocument
 	xmlns:aml='http://schemas.microsoft.com/aml/2001/core'
@@ -10356,6 +10351,6 @@ BgDAGAMAYAwBgDAGAMAYAwBgDAGAMAYAwBgDAGAMAYB//9l=
 		</wx:sect>
 	</w:body>
 </w:wordDocument>";
-		}
+        }
     }
 }

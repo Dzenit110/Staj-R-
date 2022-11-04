@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using staj_r_backend.Helper;
 using System.Threading.Tasks;
-using Neo4j.Driver;
-using System.Text.Json;
-using staj_r_backend.Helper;
 
 namespace staj_r_backend.Models.QueryHandlers
 {

@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using staj_r_backend.Models.Entities;
+﻿using staj_r_backend.Models.Entities;
 
 namespace staj_r_backend.Controllers.Documents
 {
-	public class DailyReportXML:IDocument
-	{
-		public DailyReport dr { get; set; }
+    public class DailyReportXML : IDocument
+    {
+        public DailyReport dr { get; set; }
         public string xml { get; set; }
         public DailyReportXML(DailyReport _dr)
         {
@@ -713,7 +708,7 @@ namespace staj_r_backend.Controllers.Documents
 									<w:rFonts w:ascii='Times New Roman' w:h-ansi='Times New Roman'/>
 									<wx:font wx:val='Times New Roman'/>
 								</w:rPr>
-								<w:t> {dr.tarih_Rvt9hVm.Day+"."+ dr.tarih_Rvt9hVm.Month+"."+ dr.tarih_Rvt9hVm.Year}</w:t>
+								<w:t> {dr.tarih_Rvt9hVm.Day + "." + dr.tarih_Rvt9hVm.Month + "." + dr.tarih_Rvt9hVm.Year}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -975,6 +970,6 @@ namespace staj_r_backend.Controllers.Documents
 	</w:body>
 </w:wordDocument>";
         }
-        
+
     }
 }

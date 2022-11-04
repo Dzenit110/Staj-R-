@@ -1,9 +1,7 @@
 ﻿using staj_r_backend.Helper;
 using staj_r_backend.Models.Entities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace staj_r_backend.Models

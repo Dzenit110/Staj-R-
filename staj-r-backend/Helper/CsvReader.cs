@@ -1,9 +1,6 @@
-﻿using System;
+﻿using staj_r_backend.Models.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using staj_r_backend.Models.Entities;
 using System.IO;
 
 namespace staj_r_backend.Helper

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace staj_r_backend.Helper
 {
@@ -11,7 +7,7 @@ namespace staj_r_backend.Helper
         public List<string> ConvertToStringList(List<object> list)
         {
             List<string> res = new List<string>();
-            foreach(object obj in list)
+            foreach (object obj in list)
             {
                 res.Add((string)obj);
             }

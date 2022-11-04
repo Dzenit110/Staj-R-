@@ -184,10 +184,17 @@
                         </div>
                     </div>
                 </div>
-                
+      
+@inject ILocalStorageService localStore                
 @code{
-    [Parameter]
-    public UserWToken User { get; set; }
+	[Parameter]
+	public UserWToken uwt { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		await InvokeAsync(StateHasChanged);
+		return base.OnAfterRenderAsync(firstRender);
+	}
 
     List<string> selectedRoles = new List<string>();
     string liststr = "";

@@ -1,9 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using staj_r_backend.Controllers;
-using staj_r_backend.Models.Entities;
-using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;

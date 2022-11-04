@@ -2,22 +2,24 @@
 using staj_r_backend.Helper.Token;
 using staj_r_backend.Models;
 using staj_r_backend.Models.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers
 {
     public class UserController
     {
-        public static string tokenizeUserWToken(UserWToken uwt)
+        public TokenEntity parseToken(string token)
+        {
+            Token tk = new Token();
+            return tk.decrypt(token);
+        }
+        public async static Task<string> tokenizeUserWToken(UserWToken uwt)
         {
             Token tk = new Token();
             return tk.encryptUserWToken(uwt);
         }
-        public static UserWToken detokenizeUserWToken(string uwtStr)
+        public async static Task<UserWToken> detokenizeUserWToken(string uwtStr)
         {
             Token tk = new Token();
             return tk.decryptUserWToken(uwtStr);
@@ -58,7 +60,7 @@ namespace staj_r_backend.Controllers
             {
                 password = ph.generatePass();
                 encrypted = ph.encrypt(password);
-            } while(encrypted.Contains('\'') || encrypted.Contains('"'));            
+            } while (encrypted.Contains('\'') || encrypted.Contains('"'));
             string message = $"Merhaba {name}!<br>Staj-R kullanıcı kaydınız başarılı bir şekilde yapılmıştır. Sisteme okul numaranız ve bu e-postada yer alan " +
                 "parolanız ile giriş yapabilirsiniz.<br>" +
                 $"<br><br><b>PAROLANIZI KİMSEYLE PAYLAŞMAYINIZ!</b><br><br><br>Parolanız: {password}<br><br>" +
@@ -74,7 +76,7 @@ namespace staj_r_backend.Controllers
             {
                 UserModel um = new UserModel();
                 var res = await um.getRoles();
-                if(res == null)
+                if (res == null)
                 {
                     return new Result<List<role_auth>>(false);
                 }
@@ -89,7 +91,7 @@ namespace staj_r_backend.Controllers
                 return new Result<List<role_auth>>();
             }
         }
-        public async Task<bool> createRole(string name, List<string> authorities) 
+        public async Task<bool> createRole(string name, List<string> authorities)
         {
             try
             {
@@ -101,13 +103,14 @@ namespace staj_r_backend.Controllers
                 return false;
             }
         }
-        public async Task<Result<List<userList>>> getUsers(string number)
+        public async Task<Result<List<userList>>> getUsers(string token)
         {
             try
             {
+                string number = parseToken(token).number;
                 UserModel um = new UserModel();
                 var qres = await um.getUsers(number);
-                if(qres == null)
+                if (qres == null)
                 {
                     return new Result<List<userList>>(false);
                 }
@@ -126,10 +129,11 @@ namespace staj_r_backend.Controllers
             }
         }
         #region Kullanıcılar sayfası popup
-        public async Task<Result<Dictionary<int,string>>> getRolesForDropdown(string number)
+        public async Task<Result<Dictionary<int, string>>> getRolesForDropdown(string token)
         {
             try
             {
+                string number = parseToken(token).number;
                 UserModel um = new UserModel();
                 var res = await um.getRolesForDropDown(number);
                 if (res == null)
@@ -144,13 +148,13 @@ namespace staj_r_backend.Controllers
                         value = res,
                     };
 
-                }                
+                }
             }
             catch
             {
                 return new Result<Dictionary<int, string>>(false);
             }
-        }  
+        }
         public async Task<bool> updateRole(string number, int roleID)
         {
             try

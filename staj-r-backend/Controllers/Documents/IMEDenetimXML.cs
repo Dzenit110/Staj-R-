@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using staj_r_backend.Models.Entities;
+﻿using staj_r_backend.Models.Entities;
 
 namespace staj_r_backend.Controllers.Documents
 {
-    public class IMEDenetimXML:IDocument
+    public class IMEDenetimXML : IDocument
     {
-		public IMEDenetim imd { get; set; }
+        public IMEDenetim imd { get; set; }
         public string xml { get; set; }
 
         public IMEDenetimXML(IMEDenetim _imd)
-		{
-			this.imd = _imd;
-			xml = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+        {
+            this.imd = _imd;
+            xml = $@"<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
 <?mso-application progid='Word.Document'?>
 <w:wordDocument
 	xmlns:aml='http://schemas.microsoft.com/aml/2001/core'
@@ -12434,6 +12429,6 @@ BgDAGAMAYAwBgDAGAMAYAwBgDAGAMAYAwBgDAGAMAYB//9l=
 		</wx:sect>
 	</w:body>
 </w:wordDocument>";
-		}
+        }
     }
 }

@@ -1,13 +1,10 @@
-﻿using staj_r_backend.Helper;
+﻿using Neo4j.Driver;
+using staj_r_backend.Helper;
+using staj_r_backend.Models.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using staj_r_backend.Models.Entities;
-using System.Reflection;
 using System.Text.Json;
-using Neo4j.Driver;
+using System.Threading.Tasks;
 
 namespace staj_r_backend.Models
 {
@@ -88,7 +85,7 @@ namespace staj_r_backend.Models
 
         public async Task<Status> getStatus(string number, internships type)
         {
-            int year = DateTime.Now.Year-Convert.ToInt32("20" + number.Substring(0, 2));
+            int year = DateTime.Now.Year - Convert.ToInt32("20" + number.Substring(0, 2));
             if (type == internships.StajI && year < 2)
             {
                 return new Status()
@@ -155,21 +152,25 @@ namespace staj_r_backend.Models
                 string orgStatus = status;
                 string message = (string)props["message"];
                 DateTime interview = (DateTime)props["interview"];
-                if(interview.Year != 2000)
+                if (interview.Year != 2000)
                 {
                     status += " \n\rMülakat tarihiniz ve saatiniz: " + interview.ToString();
                 }
-                status += " \n\rKuruldan son mesajınız: "+message;
+                status += " \n\rKuruldan son mesajınız: " + message;
                 pages pg = pages.empty;
                 switch (code)
                 {
-                    case "b": pg = pages.apply; 
+                    case "b":
+                        pg = pages.apply;
                         break;
-                    case "d": pg = pages.report;
+                    case "d":
+                        pg = pages.report;
                         break;
-                    case "e": pg = pages.rating;
+                    case "e":
+                        pg = pages.rating;
                         break;
-                    default: pg = pages.empty; 
+                    default:
+                        pg = pages.empty;
                         break;
                 }
                 return new Status()
@@ -210,7 +211,7 @@ namespace staj_r_backend.Models
                 $"d.lastUpdate AS lu";
             var qres = await ex.execute(query);
             List<ReportPages> res = new List<ReportPages>();
-            for(int j = 0; j< qres["dc"].Count; j++)
+            for (int j = 0; j < qres["dc"].Count; j++)
             {
                 DateTime dt = (DateTime)qres["lu"][j];
                 res.Add(new ReportPages
@@ -218,11 +219,11 @@ namespace staj_r_backend.Models
                     pageCode = (string)qres["dc"][j],
                     page = (string)qres["doc"][j],
                     pageNumber = Convert.ToInt32((long)qres["pn"][j]),
-                    lastUpdate = dt.Day+"."+dt.Month+"."+dt.Year,
+                    lastUpdate = dt.Day + "." + dt.Month + "." + dt.Year,
                 });
             }
             return res;
-        } 
+        }
         public async Task<bool> addNewReport(string number, internships intern, ReportCover rc)
         {
             string formstr = JsonSerializer.Serialize(rc);
@@ -232,11 +233,11 @@ namespace staj_r_backend.Models
                 $"MATCH(s)-[:DOC]->(r:Document) WHERE ct = 0 AND r.documentCode = 'c' " +
                 $"SET r.document = 'Staj Raporu Kapak - Bilgiler', r.lastUpdate = date(), r.form = '{formstr}', r.pageNumber = 2 RETURN COUNT(r) AS c";
             long res = (long)(await ex.executeOneNode(query))["c"];
-            if(res == 0)
+            if (res == 0)
             {
                 return false;
             }
-            else if(res == 1)
+            else if (res == 1)
             {
                 return true;
             }
@@ -303,7 +304,7 @@ namespace staj_r_backend.Models
                 $"SET d.lastUpdate()=date(), d.form = '{form}'";
             return await ex.executeReturnless(query);
         }
-        public async Task<DailyReport> getDailyReport(string number, internships intern, int pageNumber) 
+        public async Task<DailyReport> getDailyReport(string number, internships intern, int pageNumber)
         {
             string query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
                 $"MATCH(s)-[:DOC]->(d:Document) WHERE d.documentCode = 'e' AND d.pageNumber = {pageNumber} " +
@@ -333,7 +334,7 @@ namespace staj_r_backend.Models
         public async Task<bool> changeOrderOnReport(string number, internships intern, int currentPageNumber, int newPageNumber)
         {
             string query = "";
-            if(currentPageNumber > newPageNumber)
+            if (currentPageNumber > newPageNumber)
             {
                 query = $"MATCH(u:User)-[:DOES]->(s:{intern.ToString()}) WHERE u.number = '{number}' " +
                     $"WITH {currentPageNumber} AS cpn, {newPageNumber} AS npn, s " +

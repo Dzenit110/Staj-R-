@@ -100,5 +100,13 @@
                 </div>
                 
 @code {
-
+    ILocalStorageService localStore;
+	[Parameter]
+	public UserWToken uwt { get; set; }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		await InvokeAsync(StateHasChanged);
+		return base.OnAfterRenderAsync(firstRender);
+	}
 }

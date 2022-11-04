@@ -1,17 +1,14 @@
-﻿using staj_r_backend.Models;
-using staj_r_backend.Models.QueryHandlers;
-using staj_r_backend.Models.Queries;
-using staj_r_backend.Models.Entities;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿using staj_r_backend.Helper;
 using staj_r_backend.Helper.Token;
+using staj_r_backend.Models;
+using staj_r_backend.Models.Entities;
 using System;
-using staj_r_backend.Helper;
+using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers
 {
     public class LoginContoller
-    {       
+    {
         public async Task<Result<UserWToken>> checkTokenController(string token)
         {
             try
@@ -25,7 +22,8 @@ namespace staj_r_backend.Controllers
                 LoginModel lm = new LoginModel();
                 string encrypted = new PasswordHelper().encrypt(decrypted.password);
                 User us = await lm.login(decrypted.number, encrypted);
-                if(us == null){
+                if (us == null)
+                {
                     return new Result<UserWToken>();
                 }
                 else
@@ -54,7 +52,7 @@ namespace staj_r_backend.Controllers
                 string encrypted = new PasswordHelper().encrypt(password);
                 LoginModel lm = new LoginModel();
                 User us = await lm.login(number, encrypted);
-                if(us != null)
+                if (us != null)
                 {
                     TokenResult tokenres = new Token().encrypt(new TokenEntity
                     {
@@ -83,9 +81,9 @@ namespace staj_r_backend.Controllers
             catch
             {
                 return new Result<UserWToken>();
-            }            
+            }
         }
-        
+
     }
 }
 

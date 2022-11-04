@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Neo4j.Driver;
+﻿using Neo4j.Driver;
 using staj_r_backend.Helper;
 using staj_r_backend.Models.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace staj_r_backend.Models
 {
@@ -73,7 +71,7 @@ namespace staj_r_backend.Models
             string type = "";
             switch (en)
             {
-                case internships.StajI: 
+                case internships.StajI:
                     type = "I";
                     break;
                 case internships.STAJII:
@@ -123,7 +121,7 @@ namespace staj_r_backend.Models
             return students;
         }
         #region studentDetails________POPUP
-        
+
         //public record Apply
         //{
         //    public string applyStatusMessage { get; set; }
@@ -150,15 +148,15 @@ namespace staj_r_backend.Models
             string code = (string)qres["code"];
             DateTime applyDate = (DateTime)qres["apl"];
             string applyStatusMessage = "";
-            if(code == "a")
+            if (code == "a")
             {
                 applyStatusMessage = "Öğrenci başvuru yapmıştır, onay beklenmektedir.";
             }
-            else if(code == "b")
+            else if (code == "b")
             {
                 applyStatusMessage = "Öğrencinin başvurusu onaylanmamıştır";
             }
-            else if(code == "c")
+            else if (code == "c")
             {
                 applyStatusMessage = "Öğrencinin başvurusu onaylanmıştır.";
             }
@@ -168,7 +166,7 @@ namespace staj_r_backend.Models
             //IMERating IMERating = null;
             string internDate = "";
             string firm = "";
-            if(code == "c" || code == "d" || code == "e" || code == "f" || code == "g" || code == "h")
+            if (code == "c" || code == "d" || code == "e" || code == "f" || code == "g" || code == "h")
             {
                 firm = (string)qres["firm"];
                 DateTime startingDate = (DateTime)qres["strDt"];
@@ -202,7 +200,7 @@ namespace staj_r_backend.Models
             };
             return p;
         }
-        
+
         //public record InternRating
         //{
         //    public string documentStatusMessage { get; set; }
@@ -222,7 +220,7 @@ namespace staj_r_backend.Models
         //    return new InternRating
         //    {
         //        //documentStatusMessage = ,
-   
+
         //    };
         //}
         //private async Task<IMERating> getIMERatingDetails(long id)
@@ -260,7 +258,7 @@ namespace staj_r_backend.Models
                 status = "Staj Başvurusu Onaylanmadı";
             }
             string query = $"MATCH(n) WHERE ID(n)={doesInternID} SET n.statusCode = '{code}', n.status = '{status}'";
-            if(!await ex.executeReturnless(query))
+            if (!await ex.executeReturnless(query))
             {
                 throw new Exception();
             }

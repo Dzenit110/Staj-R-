@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpassByMyurga;
+using System;
 using System.Security.Cryptography;
-using SpassByMyurga;
+using System.Text;
 
 namespace staj_r_backend.Helper
 {

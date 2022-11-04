@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace staj_r_backend.Models.Entities
 {
@@ -10,7 +7,7 @@ namespace staj_r_backend.Models.Entities
     {
         public string token { get; set; }
         public DateTime tokenExpiresOn { get; set; }
-        public User user { get; set;}
+        public User user { get; set; }
     }
     public enum internships
     {

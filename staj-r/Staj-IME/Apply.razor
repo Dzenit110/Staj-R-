@@ -345,17 +345,23 @@
 @code {
     [Parameter]
     public UserWToken User { get; set; }
-    void OnSingleCompleted(UploadInfo fileinfo)
+    private staj_r_backend.Models
+    
 
-    {
+    
 
-        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
-        {
-            var result = fileinfo.File.GetResponse<ResponseModel>();
-            fileinfo.File.Url = result.url;
-        }
 
-    }
+
+    //void OnSingleCompleted(UploadInfo fileinfo)
+    //{
+
+    //    if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
+    //    {
+    //        var result = fileinfo.File.GetResponse<ResponseModel>();
+    //        fileinfo.File.Url = result.url;
+    //    }
+
+    //}
 
 
 

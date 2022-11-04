@@ -9,7 +9,7 @@
 //    public class UserViewData
 //    {
 //        #region Testte
-        
+
 
 //        #endregion
 //        #region Bitenler
@@ -25,7 +25,7 @@
 //            string number = getFromToken(token).number;
 //            return await uc.getUsers(number);
 //        }
-        
+
 //        public async Task<List<role_auth>> getRoles()
 //        {
 //            return await uc.getRoles();

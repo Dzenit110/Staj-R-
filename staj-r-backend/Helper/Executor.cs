@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Neo4j.Driver;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Neo4j.Driver;
 using System.Text.Json;
-using staj_r_backend.Models.Entities;
+using System.Threading.Tasks;
 
 namespace staj_r_backend.Helper
 {
@@ -53,7 +51,7 @@ namespace staj_r_backend.Helper
                             int day = ((LocalDate)node.Value).Day;
                             dictionary[node.Key].Add(new DateTime(year, month, day));
                         }
-                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
                         {
                             int year = ((ZonedDateTime)node.Value).Year;
                             int month = ((ZonedDateTime)node.Value).Month;
@@ -63,14 +61,14 @@ namespace staj_r_backend.Helper
                             int second = ((ZonedDateTime)node.Value).Second;
                             dictionary[node.Key].Add(new DateTime(year, month, day, hour, minute, second));
                         }
-                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime")
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime")
                         {
                             int hour = ((LocalTime)node.Value).Hour;
                             int minute = ((LocalTime)node.Value).Minute;
                             int second = ((LocalTime)node.Value).Second;
                             dictionary[node.Key].Add(new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hour, minute, second));
                         }
-                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime")
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime")
                         {
                             int year = ((LocalDateTime)node.Value).Year;
                             int month = ((LocalDateTime)node.Value).Month;
@@ -126,7 +124,7 @@ namespace staj_r_backend.Helper
                             int day = ((LocalDate)node.Value).Day;
                             dictionary[node.Key] = new DateTime(year, month, day);
                         }
-                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.ZonedDateTime")
                         {
                             int year = ((ZonedDateTime)node.Value).Year;
                             int month = ((ZonedDateTime)node.Value).Month;
@@ -134,16 +132,16 @@ namespace staj_r_backend.Helper
                             int hour = ((ZonedDateTime)node.Value).Hour;
                             int minute = ((ZonedDateTime)node.Value).Minute;
                             int second = ((ZonedDateTime)node.Value).Second;
-                            dictionary[node.Key]=new DateTime(year, month, day, hour, minute, second);
+                            dictionary[node.Key] = new DateTime(year, month, day, hour, minute, second);
                         }
-                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime")
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalTime")
                         {
                             int hour = ((LocalTime)node.Value).Hour;
                             int minute = ((LocalTime)node.Value).Minute;
                             int second = ((LocalTime)node.Value).Second;
-                            dictionary[node.Key]=new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hour, minute, second);
+                            dictionary[node.Key] = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, hour, minute, second);
                         }
-                        else if(node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime")
+                        else if (node.Value.GetType().ToString() == "Neo4j.Driver.LocalDateTime")
                         {
                             int year = ((LocalDateTime)node.Value).Year;
                             int month = ((LocalDateTime)node.Value).Month;
@@ -151,7 +149,7 @@ namespace staj_r_backend.Helper
                             int hour = ((LocalDateTime)node.Value).Hour;
                             int minute = ((LocalDateTime)node.Value).Minute;
                             int second = ((LocalDateTime)node.Value).Second;
-                            dictionary[node.Key]=new DateTime(year, month, day, hour, minute, second);
+                            dictionary[node.Key] = new DateTime(year, month, day, hour, minute, second);
                         }
 
                         else
@@ -186,7 +184,7 @@ namespace staj_r_backend.Helper
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////       
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#region denemeler
+        #region denemeler
 
 
 
@@ -196,7 +194,7 @@ namespace staj_r_backend.Helper
             try
             {
                 IResultCursor cursor = await session.RunAsync(query);
-                List<string> jsonsList = await cursor.ToListAsync(x =>JsonSerializer.Serialize(x.Values.Values.ToList()[0]));
+                List<string> jsonsList = await cursor.ToListAsync(x => JsonSerializer.Serialize(x.Values.Values.ToList()[0]));
                 return JsonSerializer.Serialize(jsonsList);
             }
             catch (Exception ex)
@@ -211,16 +209,16 @@ namespace staj_r_backend.Helper
                 IResultCursor cursor = await session.RunAsync(query);
                 List<IRecord> jsonsList1 = await cursor.ToListAsync();
                 IDictionary<string, List<string>> dictionary = new Dictionary<string, List<string>>();
-                foreach(IRecord item in jsonsList1)
+                foreach (IRecord item in jsonsList1)
                 {
-                    foreach(string key in item.Keys)
+                    foreach (string key in item.Keys)
                     {
                         if (!dictionary.ContainsKey(key))
                         {
                             dictionary.Add(key, new List<string>());
                         }
                     }
-                    foreach(var node in item.Values)
+                    foreach (var node in item.Values)
                     {
                         dictionary[node.Key].Add(JsonSerializer.Serialize(node.Value));
                     }

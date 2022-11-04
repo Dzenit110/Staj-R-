@@ -1,11 +1,7 @@
-﻿using staj_r_backend.Controllers.Documents;
-using staj_r_backend.Helper.Token;
+﻿using staj_r_backend.Helper.Token;
 using staj_r_backend.Models;
 using staj_r_backend.Models.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers
@@ -57,9 +53,9 @@ namespace staj_r_backend.Controllers
                 var res = await ism.getCompanies();
                 if (res == null)
                 {
-                    return new Result<List<string>> (false);
+                    return new Result<List<string>>(false);
                 }
-                return new Result<List<string>> ()
+                return new Result<List<string>>()
                 {
                     isSuccess = true,
                     value = res,
@@ -67,7 +63,7 @@ namespace staj_r_backend.Controllers
             }
             catch
             {
-                return new Result<List<string>> (false);
+                return new Result<List<string>>(false);
             }
         }
 
@@ -148,7 +144,7 @@ namespace staj_r_backend.Controllers
             {
                 return new Result<List<ReportPages>>(false);
             }
-        } 
+        }
         public async Task<bool> addNewReport(string token, internships intern, ReportCover rc)
         {
             try
@@ -221,7 +217,7 @@ namespace staj_r_backend.Controllers
         {
             try
             {
-                var res = await ism.getWeekReport(getToken(token).number, intern,  pageNumber);
+                var res = await ism.getWeekReport(getToken(token).number, intern, pageNumber);
                 if (res == null)
                 {
                     return new Result<WeekReport>(false);
@@ -261,7 +257,7 @@ namespace staj_r_backend.Controllers
                 return false;
             }
         }
-        public async Task<Result<DailyReport>> getDailyReport(string token, internships intern, int pageNumber) 
+        public async Task<Result<DailyReport>> getDailyReport(string token, internships intern, int pageNumber)
         {
             try
             {

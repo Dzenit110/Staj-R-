@@ -3,8 +3,6 @@ using staj_r_backend.Models;
 using staj_r_backend.Models.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers
@@ -85,7 +83,7 @@ namespace staj_r_backend.Controllers
         {
             try
             {
-                var res = await ipm.getStudentDetails(stdnumber,type);
+                var res = await ipm.getStudentDetails(stdnumber, type);
                 if (res == null)
                 {
                     return new Result<Popup>(false);
