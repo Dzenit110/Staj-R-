@@ -77,13 +77,13 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="tcno" class="form-label">TC NO:</label>
-                                <input class="form-control" type="number" name="tcno" id="tcno" placeholder="T.C. Numarasını yazınız" />
+                                <input class="form-control" type="number" name="tcno" id="tcno" placeholder="T.C. Numarasını yazınız" @onchange=@((e)=>ApplyForm.tcno_BsN9229 = Convert.ToInt64(e.Value))/>
                             </div>
 
 
                             <div class="mb-3 col-md-6">
                                 <label for="uyruk" class="form-label">Uyruk</label>
-                                <input class="form-control" type="text" name="uyruk" id="uyruk" placeholder="Uyruk giriniz" />
+                                <input class="form-control" type="text" name="uyruk" id="uyruk" placeholder="Uyruk giriniz" @bind="ApplyForm.uyruk_HfeeKNS"/>
 
 
                             </div>
@@ -94,7 +94,7 @@
                                        type="text"
                                        id="adres"
                                        name="adres"
-                                       placeholder="Adres yazınız" />
+                                       placeholder="Adres yazınız" @bind="ApplyForm.adres_9KJCw7Y" />
 
                             </div>
                             <div class="mb-3 col-md-6">
@@ -104,50 +104,50 @@
                                            name="telno"
                                            id="telno"
                                            class="form-control"
-                                           placeholder="Ev telefonu yazınız" />
+                                           placeholder="Ev telefonu yazınız" @bind="ApplyForm.ev_tel_gsm_89RPAT8"/>
                                 </div>
 
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="il" class="form-label">İl:</label>
-                                <input class="form-control" type="text" name="il" id="il" placeholder="Yaşadığınız ili yazınız" />
+                                <input class="form-control" type="text" name="il" id="il" placeholder="Yaşadığınız ili yazınız" @bind="ApplyForm.il_rDXGFfR"/>
                             </div>
 
 
                             <div class="mb-3 col-md-6">
                                 <label for="ilçe" class="form-label">İlçe</label>
-                                <input class="form-control" type="text" name="ilçe" id="ilçe" placeholder="Yaşadığınız ilçeyi yazınız" />
+                                <input class="form-control" type="text" name="ilçe" id="ilçe" placeholder="Yaşadığınız ilçeyi yazınız" @bind="ApplyForm.ilce_Gw2FDa6"/>
 
 
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="baslama_tarih" class="form-label">Başlama Tarihi</label>
-                                <input class="form-control" type="date" value="2021-06-18" id="baslama_tarih">
+                                <input class="form-control" type="date" id="baslama_tarih" @bind="ApplyForm.baslama_tarihi_WAT4WzP"/>
                             </div>
 
 
                             <div class="mb-3 col-md-6">
                                 <label for="bitis_tarih" class="form-label">Bitiş Tarihi</label>
-                                <input class="form-control" type="date" value="2021-06-18" id="bitis_tarih">
+                                <input class="form-control" type="date" id="bitis_tarih" @bind="ApplyForm.bitis_tarihi_3B2FDZD"/>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="is_gun" class="form-label">İş Günü:</label>
-                                <input class="form-control" type="number" name="is_gun" id="is_gun" placeholder="Çalışacağınız iş günü sayınız" />
+                                <input class="form-control" type="number" name="is_gun" id="is_gun" placeholder="Çalışacağınız iş günü sayınız" @bind="ApplyForm.is_gunu_SNyzfMq" />
                             </div>
 
                             <div class="mb-3 col-md-6">
-                                <label for="default-radio-1" class="form-label">Cumartesi Çalışacak Mısınız ?</label>
+                                <label for="default-radio-1" class="form-label">Cumartesi Çalışacak Mısınız?</label>
                                 <div class="form-check mt-3">
-                                    <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio1">
+                                    <input name="default-radio-1" class="form-check-input" type="radio" id="defaultRadio1" @bind="ApplyForm.cumartesi_rWYx6kA">
                                     <label class="form-check-label" for="defaultRadio1">
                                         Evet
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2" checked="">
+                                    <input name="default-radio-1" class="form-check-input" type="radio" id="defaultRadio2" checked="" @bind="ApplyForm.cumartesi_rWYx6kA" >
                                     <label class="form-check-label" for="defaultRadio2">
                                         Hayır
                                     </label>
@@ -158,7 +158,7 @@
                             <div class="mb-3 col-md-6">
                                 <label for="default-radio-2" class="form-label">Ailemden,  Kendimden veya  Anne-Baba Üzarinden Genel Sağlık Sigortası Kapsamında Sağlık Hizmeti Alıyorum</label>
                                 <div class="form-check mt-3">
-                                    <input name="default-radio-2" class="form-check-input" type="radio" value="" id="defaultRadio3">
+                                    <input name="default-radio-2" class="form-check-input" type="radio" id="defaultRadio3" @bind="ApplyForm.saglik_VC4cCt4">
                                     <label class="form-check-label" for="defaultRadio3">
                                         Evet
                                     </label>
@@ -345,8 +345,11 @@
 @code {
     [Parameter]
     public UserWToken User { get; set; }
-    private staj_r_backend.Models
-    
+    private staj_r_backend.Models.Entities.BasvuruFormu ApplyForm = new BasvuruFormu();
+    private void fillApply()
+    {
+        
+    }
 
     
 
