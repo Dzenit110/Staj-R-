@@ -1,71 +1,4 @@
-﻿@page "/report_daily"
-
-<style>
-    #loop-text {
-        height: 30px;
-        overflow: hidden;
-    }
-
-        #loop-text ul {
-            height: 100%;
-            width: 100%;
-            -webkit-animation: scroll 8s infinite;
-        }
-
-        #loop-text li {
-            line-height: 30px;
-            height: 30px;
-        }
-
-    @@keyframes scroll {
-        0% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        20% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        25% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        45% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        50% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        70% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        75% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        95% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        100% {
-            -webkit-transform: translateY(-120px);
-            transform: translateY(-120px);
-        }
-    }
-</style>
-
-<div class="container-xxl flex-grow-1 container-p-y">
+﻿<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
@@ -76,21 +9,21 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="name" class="form-label">Yapılan İş:</label>
-                                <input class="form-control" type="text" name="name" id="name" placeholder="Yapılan iş yazınız" />
+                                <input class="form-control" type="text" name="name" id="name" placeholder="Yapılan işi yazınız" @bind="dr.yapilan_is_QHt6wvC"/>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="html5-date-input" class="form-label">Tarih: </label>
-                                <input class="form-control" type="date" value="2021-06-18" id="html5-date-input">
+                                <input class="form-control" type="date" id="html5-date-input" @bind="dr.tarih_Rvt9hVm">
                             </div>
 
                             <div>
                                 <label for="exampleFormControlTextarea1" class="form-label">Açıklama:</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="dr.aciklama_GT6ExY2"/>
                             </div>
                             <!-- KAYDET BUTTON -->
                             <div style="text-align:center" class="mt-2">
-                                <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+                                <input type="submit" @onclick=@(async()=>await submit()) value="Kaydet" />
                             </div>
                         </div>
                     </form>
@@ -99,10 +32,50 @@
         </div>
     </div>
 </div>
-
+@inject NavigationManager navman
 @code {
     [Parameter]
     public UserWToken User { get; set; }
+    [Parameter]
+    public internships internType { get; set; }
+    [Parameter]
+    public int pageNumber { get; set; } = -1;
+    DailyReport dr = new DailyReport();
+    InternStdPagesController ispc = new InternStdPagesController();
+    protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+    {
+        if (pageNumber != -1)
+        {
+            var res = await ispc.getDailyReport(User.token, internType, pageNumber);
+            if (res.isSuccess)
+            {
+                dr=res.value;
+            }
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    private async Task submit()
+    {
+        if(pageNumber == -1)
+        {
+            await ispc.addDailyToReport(User.token, internType, dr);
+        }
+        else
+        {
+            await ispc.updateDailyReport(User.token, internType, dr, pageNumber);
+        }
+        if (internType == internships.StajI)
+        {
+            navman.NavigateTo("/staj_1", true);
+        }
+        else if (internType == internships.STAJII)
+        {
+            navman.NavigateTo("/staj_2", true);
+        }
+    }
+
+
     void OnSingleCompleted(UploadInfo fileinfo)
 
     {

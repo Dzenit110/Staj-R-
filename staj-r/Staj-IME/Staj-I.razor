@@ -6,19 +6,16 @@
 	<staj_r.Staj_IME.Empty message="@status.message" />
 	<br />
 	<br />
-	<br />
-	<br />
-	<br />
 	@switch (status.pageContent)
 	{
 		case pages.apply:
-		<Apply/>
+		<Apply User="uwt" internType="internships.StajI"/>
 			break;
 		case pages.rating:
-		<Rating_Staj/>
+		<Rating_Staj User="uwt" internType="internships.StajI"/>
 			break;
 		case pages.report:
-		<Report/>
+		<Report User="uwt" internType="internships.StajI"/>
 			break;
 	}
 }
