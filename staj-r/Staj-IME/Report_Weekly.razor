@@ -1,156 +1,281 @@
-﻿@page "/report_weekly"
+﻿<div class="container-xxl flex-grow-1 container-p-y">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card mb-4">
+				<!-- ALTTAKI DIV -->
+				<div class="card-body">
+					<form id="formAccountSettings" method="POST" onsubmit="return false">
+						<div class="row">
 
-<style>
-    #loop-text {
-        height: 30px;
-        overflow: hidden;
-    }
-
-        #loop-text ul {
-            height: 100%;
-            width: 100%;
-            -webkit-animation: scroll 8s infinite;
-        }
-
-        #loop-text li {
-            line-height: 30px;
-            height: 30px;
-        }
-
-    @@keyframes scroll {
-        0% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        20% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        25% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        45% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        50% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        70% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        75% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        95% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        100% {
-            -webkit-transform: translateY(-120px);
-            transform: translateY(-120px);
-        }
-    }
-</style>
-
-<div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row">
-    <div class="col-md-12">
-        <div class="card mb-4">
-            <!-- ALTTAKI DIV -->
-            <div class="card-body">
-                <form id="formAccountSettings" method="POST" onsubmit="return false">
-                    <div class="row">
-
-                        <div class="mb-3 col-md-6">
-                            <label for="baslama_tarih" class="form-label">Başlama Tarihi: </label>
-                            <input class="form-control" type="date" value="2021-06-18" id="baslama_tarih">
-                        </div>
-
-                        <div class="mb-3 col-md-6">
-                            <label for="bitis_tarih" class="form-label">Bitiş Tarihi: </label>
-                            <input class="form-control" type="date" value="2021-06-18" id="bitis_tarih">
-                        </div>
-
-                        <div class="mb-3 col-md-6">
-                            <label for="tarih" class="form-label">Tarih</label>
-                            <select id="tarih" class="form-select">
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3 col-md-6">
-                            <label for="is" class="form-label">Yapılan İŞLER:</label>
-                            <input class="form-control" type="text" name="is" id="is" placeholder="Yapılan işleri yazınız" />
-                        </div>
-
-                        <div class="mb-3 col-md-6">
-                            <label for="sayfa" class="form-label">Sayfa No:</label>
-                            <input class="form-control" type="number" name="sayfa" id="sayfa" placeholder="Sayfa numarasını yazınız" />
-                        </div>
-
-                        <div class="mb-3 col-md-6">
-                            <label for="sure" class="form-label">Çalışılan SÜRE:</label>
-                            <input class="form-control" type="number" name="sure" id="sure" placeholder="Çalışılan süreyi yazınız" />
-                        </div>
-
-                        <!-- KAYDET BUTTON -->
-                        <div style="text-align:center" class="mt-2">
-                            <button type="submit" class="btn btn-primary me-2">Kaydet</button>
-                        </div>
-
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+							<div class="mb-3 col-md-6">
+								<label for="baslama_tarih" class="form-label">Başlama Tarihi: </label>
+								<input class="form-control" type="date" id="baslama_tarih" @bind="wr.baslama_t7Fuk3g">
+							</div>
 
 
+							@if (wr.baslama_t7Fuk3g == new DateTime())
+							{
+								@(wr.bitis_RnSgjzC = wr.baslama_t7Fuk3g.AddDays(5))
+								<div class="mb-3 col-md-6">
+									<label for="bitis_tarih" class="form-label">Bitiş Tarihi: @convDateToStr(wr.bitis_RnSgjzC)</label>
+								</div>
+
+
+								@(wr.tar1_auQ6bKg = wr.baslama_t7Fuk3g.AddDays(1))
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Gün 1</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="tarih" class="form-label">Tarih: @convDateToStr(wr.tar1_auQ6bKg)</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Yapılan İşler:</label>
+									<input class="form-control" type="text" name="is" id="is" placeholder="Yapılan işleri yazınız" @bind="wr.is1_SDBD8X6"/>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sayfa" class="form-label">Sayfa No:</label>
+									<input class="form-control" type="number" name="sayfa" id="sayfa" placeholder="Sayfa numarasını yazınız" @bind = "wr.sf1_QRyFDU9"/>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sure" class="form-label">Çalışılan Süre:</label>
+									<input class="form-control" type="number" name="sure" id="sure" placeholder="Çalışılan süreyi yazınız" @bind = "wr.sure1_A4DnJ5d"/>
+								</div>
+								<br />
+
+
+								@(
+									wr.tar2_jCe2Wzy = wr.baslama_t7Fuk3g.AddDays(2)
+								)
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Gün 2</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="tarih" class="form-label">Tarih: @convDateToStr(wr.tar2_jCe2Wzy)</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Yapılan İşler:</label>
+									<input class="form-control" type="text" name="is" id="is" placeholder="Yapılan işleri yazınız" @bind="wr.is2_PR6cDTA" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sayfa" class="form-label">Sayfa No:</label>
+									<input class="form-control" type="number" name="sayfa" id="sayfa" placeholder="Sayfa numarasını yazınız" @bind="wr.sf2_yySZTcW" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sure" class="form-label">Çalışılan Süre:</label>
+									<input class="form-control" type="number" name="sure" id="sure" placeholder="Çalışılan süreyi yazınız" @bind="wr.sure2_2YUbWh7" />
+								</div>
+								<br />
+
+								@(
+									wr.tar3_sncpC5e = wr.baslama_t7Fuk3g.AddDays(3)
+								)
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Gün 3</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="tarih" class="form-label">Tarih: @convDateToStr(wr.tar3_sncpC5e)</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Yapılan İşler:</label>
+									<input class="form-control" type="text" name="is" id="is" placeholder="Yapılan işleri yazınız" @bind="wr.is3_4FkWDKP" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sayfa" class="form-label">Sayfa No:</label>
+									<input class="form-control" type="number" name="sayfa" id="sayfa" placeholder="Sayfa numarasını yazınız" @bind="wr.sf3_hvThLzn" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sure" class="form-label">Çalışılan Süre:</label>
+									<input class="form-control" type="number" name="sure" id="sure" placeholder="Çalışılan süreyi yazınız" @bind="wr.sure3_z92fEFx" />
+								</div>
+								<br />
+
+								@(
+									wr.tar4_NmxjVUK = wr.baslama_t7Fuk3g.AddDays(4)
+								)
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Gün 4</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="tarih" class="form-label">Tarih: @convDateToStr(wr.tar4_NmxjVUK)</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Yapılan İşler:</label>
+									<input class="form-control" type="text" name="is" id="is" placeholder="Yapılan işleri yazınız" @bind="wr.is4_6PWLeAm" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sayfa" class="form-label">Sayfa No:</label>
+									<input class="form-control" type="number" name="sayfa" id="sayfa" placeholder="Sayfa numarasını yazınız" @bind="wr.sf4_nytjrRs" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sure" class="form-label">Çalışılan Süre:</label>
+									<input class="form-control" type="number" name="sure" id="sure" placeholder="Çalışılan süreyi yazınız" @bind="wr.sure4_QmNnUXK" />
+								</div>
+								<br />
+
+
+								@(
+									wr.tar5_qw65fZp = wr.baslama_t7Fuk3g.AddDays(5)
+								)
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Gün 5</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="tarih" class="form-label">Tarih: @convDateToStr(wr.tar5_qw65fZp)</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Yapılan İşler:</label>
+									<input class="form-control" type="text" name="is" id="is" placeholder="Yapılan işleri yazınız" @bind="wr.is5_jbcXK8E" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sayfa" class="form-label">Sayfa No:</label>
+									<input class="form-control" type="number" name="sayfa" id="sayfa" placeholder="Sayfa numarasını yazınız" @bind="wr.sf5_zV5pthA" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sure" class="form-label">Çalışılan Süre:</label>
+									<input class="form-control" type="number" name="sure" id="sure" placeholder="Çalışılan süreyi yazınız" @bind="wr.sure5_qXwRcJM" />
+								</div>
+								<br />
+
+
+								@(
+									wr.tar6_7BULqG4 = wr.baslama_t7Fuk3g.AddDays(6)
+								)
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Gün 6</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="tarih" class="form-label">Tarih: @convDateToStr(wr.tar6_7BULqG4)</label>
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="is" class="form-label">Yapılan İşler:</label>
+									<input class="form-control" type="text" name="is" id="is" placeholder="Yapılan işleri yazınız" @bind="wr.is4_6PWLeAm" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sayfa" class="form-label">Sayfa No:</label>
+									<input class="form-control" type="number" name="sayfa" id="sayfa" placeholder="Sayfa numarasını yazınız" @bind="wr.sf6_PdGt2CS" />
+								</div>
+
+								<div class="mb-3 col-md-6">
+									<label for="sure" class="form-label">Çalışılan Süre:</label>
+									<input class="form-control" type="number" name="sure" id="sure" placeholder="Çalışılan süreyi yazınız" @bind="wr.sure6_e6HYS9j" />
+								</div>
+								<br />
+							}
+
+						<br />
+							<div class="mb-3 col-md-6">
+								<label for="sure" class="form-label">Çalışılan Toplam Süre:</label>
+								<input class="form-control" type="number" placeholder="Çalışılan toplam süreyi yazınız" @bind="wr.top_sure_2dckAwC" />
+							</div>
+							<!-- KAYDET BUTTON -->
+							<div style="text-align:center" class="mt-2">
+								<button type="submit"  @onclick=@(async()=>await submit()) class="btn btn-primary me-2">Kaydet</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
 </div>
-</div>
 
+@inject NavigationManager navman
 @code {
-    [Parameter]
-    public UserWToken User { get; set; }
-    void OnSingleCompleted(UploadInfo fileinfo)
+	[Parameter]
+	public UserWToken User { get; set; }
+	[Parameter]
+	public internships internType { get; set; }
+	[Parameter]
+	public int pageNumber { get; set; } = -1;
+	WeekReport wr = new WeekReport();
+	InternStdPagesController ispc = new InternStdPagesController();
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		if (pageNumber != -1)
+		{
+			var res = await ispc.getWeekReport(User.token, internType, pageNumber);
+			if (res.isSuccess)
+			{
+				wr = res.value;
+			}
+		}
 
-    {
+		return base.OnAfterRenderAsync(firstRender);
+	}
 
-        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
-        {
-            var result = fileinfo.File.GetResponse<ResponseModel>();
-            fileinfo.File.Url = result.url;
-        }
+	public async Task submit()
+	{
+		if(pageNumber == -1)
+		{
+			await ispc.addWeekToReport(User.token, internType, wr);
+		}
+		else
+		{
+			await ispc.updateWeekReport(User.token, internType, wr, pageNumber);
+		}
+		if(internType == internships.StajI)
+		{
+			navman.NavigateTo("/staj_1", true);
+		}
+		else if(internType == internships.STAJII)
+		{
+			navman.NavigateTo("/staj_2", true);
+		}
+	}
 
-    }
+	protected string convDateToStr(DateTime dt)
+	{
+		string year = dt.Year.ToString();
+		string month = dt.Month.ToString();
+		string day = dt.Day.ToString();
+		if (month.Length == 1)
+		{
+			month = "0" + month;
+		}
+		if (day.Length == 1)
+		{
+			day = "0" + day;
+		}
+		return day + "." + month + "." + year;
+	}
 
 
 
+	public class ResponseModel
+	{
+		public string name { get; set; }
 
+		public string status { get; set; }
 
-    public class ResponseModel
-    {
-        public string name { get; set; }
+		public string url { get; set; }
 
-        public string status { get; set; }
-
-        public string url { get; set; }
-
-        public string thumbUrl { get; set; }
-    }
+		public string thumbUrl { get; set; }
+	}
 }
 

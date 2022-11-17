@@ -1,145 +1,206 @@
-﻿@page "/report"
-@using staj_r.Staj_IME
-<style>
-    #loop-text {
-        height: 30px;
-        overflow: hidden;
-    }
-
-        #loop-text ul {
-            height: 100%;
-            width: 100%;
-            -webkit-animation: scroll 8s infinite;
-        }
-
-        #loop-text li {
-            line-height: 30px;
-            height: 30px;
-        }
-
-    @@keyframes scroll {
-        0% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        20% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        25% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        45% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        50% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        70% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        75% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        95% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        100% {
-            -webkit-transform: translateY(-120px);
-            transform: translateY(-120px);
-        }
-    }
-</style>
-
+﻿@using staj_r.Staj_IME
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <!-- ALTTAKI DIV -->
-                <div style="float:left; text-align:center" class="card-body">
-                    <button type="submit" class="btn btn-primary me-2" @onclick="RepDailyMethod">Gün Ekle</button>
-                    <button type="submit" class="btn btn-primary me-2" @onclick="RepWeeklyMethod">Hafta Ekle</button>
-                    @if (RepDaily)
-                    {
-                          <Report_Daily/>
-                    }
-                    @if (RepWeekly)
-                    {
-                        <Report_Weekly/>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card mb-4">
+				<!-- ALTTAKI DIV -->
+				<div style="float:left; text-align:center" class="card-body">
+
+					@if (pages != null)
+					{
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Sayfa Tipi</th>
+									<th>Sayfa Numarası</th>
+									<th>Son Güncelleme</th>
+									<th>İndir</th>
+									<th>Düzenle</th>
+									<th>Sil</th>
+								</tr>
+							</thead>
+							<tbody class="table-border-bottom-0">
+								@for (int j = 0; j < pages.Count; j++)
+								{
+									<tr class="table-default">
+										<td>
+											<span class="badge bg-label-success me-1">@pages[j].page</span>
+										</td>
+										<td>
+											<strong>
+												@pages[j].pageNumber
+											</strong>
+										</td>
+										<td>
+											<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+												@pages[j].lastUpdate;
+											</ul>
+										</td>
+										<td>
+											<button type="button" class="btn btn-success me-2" @onclick=@(async()=>
+											await download(pages[j].pageCode,pages[j].pageNumber))>
+												İndir
+											</button>
+										</td>
+										<td>
+											<button type="button" class="btn btn-warning me-2" @onclick="@(()=>
+												{
+													editingPageNum = pages[j].pageNumber; editingPageCode = pages[j].pageCode;
+												})">
+												Düzenle
+											</button>
+										</td>
+										<td>
+											<button type="submit" class="btn btn-danger me-2" @onclick="@(async()=>
+												{
+													await ispc.deletePageOnReport(User.token,internType,pages[j].pageNumber);
+													pages.Remove(pages[j]);
+												})">
+												Sil
+											</button>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+						@if (editingPageNum != -1 && editingPageCode != "")
+						{
+							switch (editingPageCode)
+							{
+								case "c":
+									@*BURAYA REPORT COVER GELECEK*@
+									break;
+								case "d":
+									<Report_Weekly User="User" internType="internType" pageNumber="editingPageNum" />
+									break;
+								case "e":
+									<Report_Daily User="User" internType="internType" pageNumber="editingPageNum" />
+									break;
+							}
+						}
+						@if (pages.Count < 1)
+						{
+							@*BURAYA REPORT COVER GELECEK*@
+						}
+						else
+						{
+							<button type="button" class="btn btn-primary me-2" @onclick="RepDailyMethod">Gün Ekle</button>
+							<button type="button" class="btn btn-primary me-2" @onclick="RepWeeklyMethod">Hafta Ekle</button>
+							@if (RepDaily)
+							{
+								<Report_Daily User="User" internType="internType" pageNumber=-1 />
+							}
+							@if (RepWeekly)
+							{
+								<Report_Weekly User="User" internType="internType" pageNumber=-1 />
+							}
+						}
+					}
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 @code {
-    [Parameter]
-    public UserWToken User { get; set; }
-    bool RepDaily = false;
-    public void RepDailyMethod()
-    {
-        if (RepDaily)
-        {
-            RepDaily = false;
-        }
-        else{
-            RepDaily = true;
-        }
-        
-    }
-    bool RepWeekly = false;
-    public void RepWeeklyMethod()
-    {
-        if (RepWeekly)
-        {
-            RepWeekly = false;
-        }
-        else
-        {
-            RepWeekly = true;
-        }
+	[Parameter]
+	public UserWToken User { get; set; }
+	[Parameter]
+	public internships internType { get; set; }
+	protected List<ReportPages> pages { get; set; }
+	InternStdPagesController ispc = new InternStdPagesController();
+	int editingPageNum = -1;
+	string editingPageCode = "";
 
-    }
+	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+	{
+		var res = await new InternStdPagesController().getReportList(User.token, internType);
+		if (res.isSuccess)
+		{
+			pages = res.value;
+		}
+		else
+		{
+			pages = new List<ReportPages>();
+		}
+		return base.OnAfterRenderAsync(firstRender);
+	}
+	protected async Task download(string pageCode = "", int pageNumber = 0, bool fullReport = false)
+	{
+		DocumentController doccon = new DocumentController();
+		if (fullReport)
+		{
+			//await doccon. Tüm raporuı indirmeyi sağlayacak metod
+		}
+		else
+		{
+			switch (pageCode)
+			{
+				case "c":
+					//await doccon. kapak ve bilgiler sayfası indirme metodu
+					break;
+				case "d":
+					//await doccon. haftalık rapor sayfası indirme metodu
+					break;
+				case "e":
+					//await doccon. günlük indirme metodu
+					break;
+			}
+		}
+	}
 
-    void OnSingleCompleted(UploadInfo fileinfo)
+	bool RepDaily = false;
+	public void RepDailyMethod()
+	{
+		if (RepDaily)
+		{
+			RepDaily = false;
+		}
+		else
+		{
+			RepDaily = true;
+		}
 
-    {
+	}
+	bool RepWeekly = false;
+	public void RepWeeklyMethod()
+	{
+		if (RepWeekly)
+		{
+			RepWeekly = false;
+		}
+		else
+		{
+			RepWeekly = true;
+		}
 
-        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
-        {
-            var result = fileinfo.File.GetResponse<ResponseModel>();
-            fileinfo.File.Url = result.url;
-        }
+	}
 
-    }
+	void OnSingleCompleted(UploadInfo fileinfo)
+
+	{
+
+		if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
+		{
+			var result = fileinfo.File.GetResponse<ResponseModel>();
+			fileinfo.File.Url = result.url;
+		}
+
+	}
 
 
 
 
 
-    public class ResponseModel
-    {
-        public string name { get; set; }
+	public class ResponseModel
+	{
+		public string name { get; set; }
 
-        public string status { get; set; }
+		public string status { get; set; }
 
-        public string url { get; set; }
+		public string url { get; set; }
 
-        public string thumbUrl { get; set; }
-    }
+		public string thumbUrl { get; set; }
+	}
 }

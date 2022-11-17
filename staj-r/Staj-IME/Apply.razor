@@ -1,71 +1,4 @@
-﻿@page "/apply"
-
-<style>
-    #loop-text {
-        height: 30px;
-        overflow: hidden;
-    }
-
-        #loop-text ul {
-            height: 100%;
-            width: 100%;
-            -webkit-animation: scroll 8s infinite;
-        }
-
-        #loop-text li {
-            line-height: 30px;
-            height: 30px;
-        }
-
-    @@keyframes scroll {
-        0% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        20% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        25% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        45% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        50% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        70% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        75% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        95% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        100% {
-            -webkit-transform: translateY(-120px);
-            transform: translateY(-120px);
-        }
-    }
-</style>
-
-<div class="container-xxl flex-grow-1 container-p-y">
+﻿<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
@@ -77,7 +10,7 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="tcno" class="form-label">TC NO:</label>
-                                <input class="form-control" type="number" name="tcno" id="tcno" placeholder="T.C. Numarasını yazınız" @onchange=@((e)=>ApplyForm.tcno_BsN9229 = Convert.ToInt64(e.Value))/>
+                                <input class="form-control" type="number" name="tcno" id="tcno" placeholder="T.C. Numarasını yazınız" @bind="ApplyForm.tcno_BsN9229"/>
                             </div>
 
 
@@ -141,13 +74,13 @@
                             <div class="mb-3 col-md-6">
                                 <label for="default-radio-1" class="form-label">Cumartesi Çalışacak Mısınız?</label>
                                 <div class="form-check mt-3">
-                                    <input name="default-radio-1" class="form-check-input" type="radio" id="defaultRadio1" @bind="ApplyForm.cumartesi_rWYx6kA">
+                                    <input name="default-radio-1" class="form-check-input" type="radio" id="defaultRadio1" @onchange="@(()=>ApplyForm.cumartesi_rWYx6kA=true)">
                                     <label class="form-check-label" for="defaultRadio1">
                                         Evet
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="default-radio-1" class="form-check-input" type="radio" id="defaultRadio2" checked="" @bind="ApplyForm.cumartesi_rWYx6kA" >
+                                    <input name="default-radio-1" class="form-check-input" type="radio" id="defaultRadio2" @onchange="@(()=>ApplyForm.cumartesi_rWYx6kA=false)">
                                     <label class="form-check-label" for="defaultRadio2">
                                         Hayır
                                     </label>
@@ -158,13 +91,13 @@
                             <div class="mb-3 col-md-6">
                                 <label for="default-radio-2" class="form-label">Ailemden,  Kendimden veya  Anne-Baba Üzarinden Genel Sağlık Sigortası Kapsamında Sağlık Hizmeti Alıyorum</label>
                                 <div class="form-check mt-3">
-                                    <input name="default-radio-2" class="form-check-input" type="radio" id="defaultRadio3" @bind="ApplyForm.saglik_VC4cCt4">
+                                    <input name="default-radio-2" class="form-check-input" type="radio" id="defaultRadio3" @onchange="@(()=>ApplyForm.saglik_VC4cCt4=true)">
                                     <label class="form-check-label" for="defaultRadio3">
                                         Evet
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="default-radio-2" class="form-check-input" type="radio" value="" id="defaultRadio4" checked="">
+                                    <input name="default-radio-2" class="form-check-input" type="radio" value="" id="defaultRadio4" @onchange="@(()=>ApplyForm.saglik_VC4cCt4=false)">
                                     <label class="form-check-label" for="defaultRadio4">
                                         Hayır
                                     </label>
@@ -174,13 +107,13 @@
 
                                 <label for="default-radio-3" class="form-label">Genel Sağlık Sigortası (GSS) (Gelir Testi Yaptırdım Pirim Ödüyorum)</label>
                                 <div class="form-check mt-3">
-                                    <input name="default-radio-3" class="form-check-input" type="radio" value="" id="defaultRadio5">
+                                    <input name="default-radio-3" class="form-check-input" type="radio" value="" id="defaultRadio5" @onchange="@(()=>ApplyForm.genel_saglik_TxR6wEE=true)">
                                     <label class="form-check-label" for="defaultRadio5">
                                         Evet
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="default-radio-3" class="form-check-input" type="radio" value="" id="defaultRadio6" checked="">
+                                    <input name="default-radio-3" class="form-check-input" type="radio" value="" id="defaultRadio6" @onchange="@(()=>ApplyForm.genel_saglik_TxR6wEE=false)">
                                     <label class="form-check-label" for="defaultRadio6">
                                         Hayır
                                     </label>
@@ -192,13 +125,13 @@
 
                                 <label for="default-radio-4" class="form-label">25 Yaşını Doldurdum</label>
                                 <div class="form-check mt-3">
-                                    <input name="default-radio-4" class="form-check-input" type="radio" value="" id="defaultRadio7">
+                                    <input name="default-radio-4" class="form-check-input" type="radio" value="" id="defaultRadio7" @onchange="@(()=>ApplyForm.yas_dol_MUHJMLa=true)">
                                     <label class="form-check-label" for="defaultRadio7">
                                         Evet
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="default-radio-4" class="form-check-input" type="radio" value="" id="defaultRadio8" checked="">
+                                    <input name="default-radio-4" class="form-check-input" type="radio" value="" id="defaultRadio8" @onchange="@(()=>ApplyForm.yas_dol_MUHJMLa=false)">
                                     <label class="form-check-label" for="defaultRadio8">
                                         Hayır
                                     </label>
@@ -219,12 +152,12 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="resmi_name" class="form-label">RESMİ ADI</label>
-                                <input class="form-control" type="text" name="resmi_name" id="resmi_name" placeholder="Resmi adı yazınız" />
+                                <input class="form-control" type="text" name="resmi_name" id="resmi_name" placeholder="Resmi adı yazınız" @bind="ApplyForm.resmi_ad_Y2Rr3rQ"/>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="faaliyet" class="form-label">Faaliyet Alanı</label>
-                                <input class="form-control" type="text" name="faaliyet" id="faaliyet" placeholder="Faaliyet alanı yazınız" />
+                                <input class="form-control" type="text" name="faaliyet" id="faaliyet" placeholder="Faaliyet alanı yazınız" @bind="ApplyForm.faaliyet_NvNYneU" />
                             </div>
 
 
@@ -234,7 +167,7 @@
                                        type="text"
                                        id="kurum_adres"
                                        name="kurum_adres"
-                                       placeholder="Adres yazınız" />
+                                       placeholder="Adres yazınız" @bind="ApplyForm.is_adres_jrNshg3" />
 
                             </div>
                             <div class="mb-3 col-md-6">
@@ -243,7 +176,7 @@
                                        type="text"
                                        id="kurum_mail"
                                        name="kurum_mail"
-                                       placeholder="E-posta yazınız" />
+                                       placeholder="E-posta yazınız" @bind="ApplyForm.is_eposta_tFf5ETr"/>
 
                             </div>
                             <div class="mb-3 col-md-6">
@@ -253,39 +186,39 @@
                                            name="kurum_tel"
                                            id="kurum_tel"
                                            class="form-control"
-                                           placeholder="Kurum telefonunu yazınız" />
+                                           placeholder="Kurum telefonunu yazınız" @bind="ApplyForm.is_tel_sLRyyEr"/>
                                 </div>
 
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="kurum_il" class="form-label">İl:</label>
-                                <input class="form-control" type="text" name="kurum_il" id="kurum_il" placeholder="Kurumun bulunduğu ili yazınız" />
+                                <input class="form-control" type="text" name="kurum_il" id="kurum_il" placeholder="Kurumun bulunduğu ili yazınız" @bind="ApplyForm.il_rDXGFfR"/>
                             </div>
 
 
                             <div class="mb-3 col-md-6">
                                 <label for="kurum_ilce" class="form-label">İlçe</label>
-                                <input class="form-control" type="text" name="kurum_ilce" id="kurum_ilce" placeholder="Kurumun bulunduğu ilçeyi yazınız" />
+                                <input class="form-control" type="text" name="kurum_ilce" id="kurum_ilce" placeholder="Kurumun bulunduğu ilçeyi yazınız" @bind="ApplyForm.ilce_Gw2FDa6" />
 
 
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="kurum_posta" class="form-label">Posta Kodu</label>
-                                <input class="form-control" type="number" name="kurum_posta" id="kurum_posta" placeholder="Posta kodunu yazınız" />
+                                <input class="form-control" type="number" name="kurum_posta" id="kurum_posta" placeholder="Posta kodunu yazınız" @bind="ApplyForm.is_posta_c86RzPQ" />
 
 
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="fax" class="form-label">Fax</label>
-                                <input class="form-control" type="number" name="fax" id="fax" placeholder="Fax No giriniz" />
+                                <input class="form-control" type="number" name="fax" id="fax" placeholder="Fax No giriniz" @bind="ApplyForm.is_fax_Gt6gWVg" />
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="unvan" class="form-label">Staj Sorumlusunun Unvanı</label>
-                                <input class="form-control" type="text" name="unvan" id="unvan" placeholder="Staj sorumlusunun unvanını yazınız" />
+                                <input class="form-control" type="text" name="unvan" id="unvan" placeholder="Staj sorumlusunun unvanını yazınız" @bind="ApplyForm.unvan_x43qM2Y" />
 
                             </div>
 
@@ -293,13 +226,13 @@
 
                                 <label for="default-radio-5" class="form-label">Kurum olarak 3308 sayılı kanundaki devlet katkısından yararlanmak istiyor musunuz?</label>
                                 <div class="form-check mt-3">
-                                    <input name="default-radio-5" class="form-check-input" type="radio" value="" id="defaultRadio9">
+                                    <input name="default-radio-5" class="form-check-input" type="radio" value="" id="defaultRadio9" @onchange="@(()=>ApplyForm.kanun_ZUz7CGu=true)">
                                     <label class="form-check-label" for="defaultRadio9">
                                         Evet
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input name="default-radio-5" class="form-check-input" type="radio" value="" id="defaultRadio10" checked="">
+                                    <input name="default-radio-5" class="form-check-input" type="radio" value="" id="defaultRadio10"@onchange="@(()=>ApplyForm.kanun_ZUz7CGu=false)">
                                     <label class="form-check-label" for="defaultRadio10">
                                         Hayır
                                     </label>
@@ -322,36 +255,64 @@
 
                         <div class="mb-3 col-md-6">
                             <label for="yetkili_isim" class="form-label">Adı Soyadı:</label>
-                            <input class="form-control" type="text" name="yetkili_isim" id="yetkili_isim" placeholder="Adı ve Soyadı yazınız" />
+                            <input class="form-control" type="text" name="yetkili_isim" id="yetkili_isim" placeholder="Adı ve Soyadı yazınız" @bind="ApplyForm.yetkili_Y8QWfKb" />
                         </div>
 
                         <div class="mb-3 col-md-6">
                             <label for="yetkili_unvan" class="form-label">FİRMA YETKİLİSİNİN UNVANI</label>
-                            <input class="form-control" type="text" name="yetkili_unvan" id="yetkili_unvan" placeholder="Firma yetkilisinin unvanını yazınız" />
+                            <input class="form-control" type="text" name="yetkili_unvan" id="yetkili_unvan" placeholder="Firma yetkilisinin unvanını yazınız" @bind="ApplyForm.yetkili_unvan_6qKbMW9"/>
                         </div>
                     </div>
 
                     <!-- KAYDET BUTTON -->
                     <div style="text-align:center" class="mt-2">
-                        <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+                        <button type="submit" class="btn btn-primary me-2" @onclick=@(async()=>await submit())>Kaydet</button>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 </div>
 
+@inject NavigationManager navman
 @code {
     [Parameter]
     public UserWToken User { get; set; }
+    [Parameter]
+    public staj_r_backend.Models.Entities.internships internType { get; set; }
+
     private staj_r_backend.Models.Entities.BasvuruFormu ApplyForm = new BasvuruFormu();
-    private void fillApply()
+
+    protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
     {
-        
+        InternStdPagesController ispc = new InternStdPagesController();
+        var res = await ispc.getBasvuruKabul(User.token, internType);
+        if (res.isSuccess)
+        {
+            ApplyForm = res.value;
+        }
+        return base.OnAfterRenderAsync(firstRender);
     }
 
-    
+    public T GetValue<T>(ChangeEventArgs e)
+    {
+        string value = e.Value.ToString();
+        return (T)Convert.ChangeType(value, typeof(T));
+    }
+    public async Task submit()
+    {
+        InternStdPagesController ispc = new InternStdPagesController();
+        await ispc.applyInternship(User.token, internType, ApplyForm);
+        if(internType == internships.StajI)
+        {
+            navman.NavigateTo("/staj_1",true);
+        }
+        else if(internType == internships.STAJII)
+        {
+            navman.NavigateTo("/staj_2",true);            
+        }
+
+    }
 
 
 

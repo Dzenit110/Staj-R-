@@ -1,71 +1,4 @@
-﻿@page "/rating_staj"
-
-<style>
-    #loop-text {
-        height: 30px;
-        overflow: hidden;
-    }
-
-        #loop-text ul {
-            height: 100%;
-            width: 100%;
-            -webkit-animation: scroll 8s infinite;
-        }
-
-        #loop-text li {
-            line-height: 30px;
-            height: 30px;
-        }
-
-    @@keyframes scroll {
-        0% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        20% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        25% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        45% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        50% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        70% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        75% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        95% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        100% {
-            -webkit-transform: translateY(-120px);
-            transform: translateY(-120px);
-        }
-    }
-</style>
-
-<div class="container-xxl flex-grow-1 container-p-y">
+﻿<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
@@ -76,67 +9,57 @@
 
                             <div class="mb-3 col-md-6">
                                 <label for="bolum" class="form-label">Bölüm</label>
-                                <input class="form-control" type="text" name="bolum" id="bolum" placeholder="Bölümü yazınız" />
-                            </div>
-
-                            <div class="mb-3 col-md-6">
-                                <label for="isim" class="form-label">Adı Soyadı</label>
-                                <input class="form-control" type="text" name="isim" id="isim" placeholder="Ad ve Soyadı yazınız" />
+                                <input class="form-control" type="text" name="bolum" id="bolum" placeholder="Bölümünüzü yazınız" @bind="sr.bolum_MWeAx8R"/>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="dogum" class="form-label">Doğum Yeri ve Tarih</label>
-                                <input class="form-control" type="text" name="dogum" id="dogum" placeholder="Doğum Yeri ve Tarihi yazınız" />
+                                <input class="form-control" type="text" name="dogum" id="dogum" placeholder="Doğum Yeri ve Tarihi yazınız" @bind="sr.yer_tarih_Q4MRaqC"/>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="tcno" class="form-label">TC NO:</label>
-                                <input class="form-control" type="number" name="tcno" id="tcno" placeholder="T.C. Numarasını yazınız" />
-                            </div>
-
-                            <div class="mb-3 col-md-6">
-                                <label for="no" class="form-label">Numarası:</label>
-                                <input class="form-control" type="no" name="no" id="no" placeholder="Numarasını yazınız" />
+                                <input class="form-control" type="number" name="tcno" id="tcno" placeholder="T.C. Numarasını yazınız" @bind="sr.kimlik_bRrbSVz"/>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="basla_tarih" class="form-label">İşe Başlama Tarihi</label>
-                                <input class="form-control" type="date" value="2021-06-18" id="basla_tarih">
+                                <input class="form-control" type="date" id="basla_tarih" @bind="sr.baslama_tarihi_cL5Hjrh">
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="bitis_tarih" class="form-label">İşten Ayrılma Tarihi</label>
-                                <input class="form-control" type="date" value="2021-06-18" id="bitis_tarih">
+                                <input class="form-control" type="date" id="bitis_tarih" @bind="sr.ayrilma_paBzV3n">
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="calis_gun" class="form-label">Çalıştığı Gün Adedi:</label>
-                                <input class="form-control" type="number" name="calis_gun" id="calis_gun" placeholder="Çalıştığı gün adedi yazınız" />
+                                <input class="form-control" type="number" name="calis_gun" id="calis_gun" placeholder="Çalıştığı gün adedi yazınız" @bind="sr.calistigi_zmPa7Fb" />
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="calisma_gun" class="form-label">Çalışmadığı Gün Adedi:</label>
-                                <input class="form-control" type="number" name="calisma_gun" id="calisma_gun" placeholder="Çalışmadığı gün adedi yazınız" />
+                                <input class="form-control" type="number" name="calisma_gun" id="calisma_gun" placeholder="Çalışmadığı gün adedi yazınız" @bind="sr.calismadigi_54AKkZG" />
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="is_isim" class="form-label">İş Yerinin Adı:</label>
-                                <input class="form-control" type="text" name="is_isim" id="is_isim" placeholder="İş yerinin adını yazınız" />
+                                <input class="form-control" type="text" name="is_isim" id="is_isim" placeholder="İş yerinin adını yazınız" @bind="sr.is_yeri_ad_KjAcwLT" />
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="kurum_il" class="form-label">Bulunduğu İl:</label>
-                                <input class="form-control" type="text" name="kurum_il" id="kurum_il" placeholder="İş yerinin bulunduğu ili yazınız" />
+                                <input class="form-control" type="text" name="kurum_il" id="kurum_il" placeholder="İş yerinin bulunduğu ili yazınız" @bind="sr.is_il_BHX2KWf" />
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="isci" class="form-label">İşçi Sayısı:</label>
-                                <input class="form-control" type="number" name="isci" id="isci" placeholder="İşçi sayısını yazınız" />
+                                <input class="form-control" type="number" name="isci" id="isci" placeholder="İşçi sayısını yazınız" @bind="sr.isci_sayi_jQBWeWM"/>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="muh" class="form-label">Mühendis Sayısı:</label>
-                                <input class="form-control" type="number" name="muh" id="muh" placeholder="Mühendis sayısı yazınız" />
+                                <input class="form-control" type="number" name="muh" id="muh" placeholder="Mühendis sayısı yazınız" @bind="sr.muh_sayi_2b5pg5b" />
                             </div>
 
                         </div>
@@ -153,19 +76,38 @@
     </div>
 </div>
 
+@inject NavigationManager navman
 @code {
     [Parameter]
     public UserWToken User { get; set; }
-    void OnSingleCompleted(UploadInfo fileinfo)
+    [Parameter]
+    public internships internType { get; set; }
+    private StajRating sr = new StajRating();
 
+    InternStdPagesController ispc = new InternStdPagesController();
+
+    protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
     {
-
-        if (fileinfo.File.State == UploadState.Success && fileinfo.File.Type == ".csv")
+        var res = await ispc.getStajRating(User.token, internType);
+        if (res.isSuccess)
         {
-            var result = fileinfo.File.GetResponse<ResponseModel>();
-            fileinfo.File.Url = result.url;
+            sr = res.value;
         }
+        return base.OnAfterRenderAsync(firstRender);
+    }
 
+    public async Task submit()
+    {
+        InternStdPagesController ispc = new InternStdPagesController();
+        await ispc.addStajRating(User.token, internType, sr);
+        if (internType == internships.StajI)
+        {
+            navman.NavigateTo("/staj_1", true);
+        }
+        else if (internType == internships.STAJII)
+        {
+            navman.NavigateTo("/staj_2", true);
+        }
     }
 
 

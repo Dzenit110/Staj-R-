@@ -1,102 +1,29 @@
-﻿@page "/rating_ime"
-
-<style>
-    #loop-text {
-        height: 30px;
-        overflow: hidden;
-    }
-
-        #loop-text ul {
-            height: 100%;
-            width: 100%;
-            -webkit-animation: scroll 8s infinite;
-        }
-
-        #loop-text li {
-            line-height: 30px;
-            height: 30px;
-        }
-
-    @@keyframes scroll {
-        0% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        20% {
-            -webkit-transform: translateY(0px);
-            transform: translateY(0px);
-        }
-
-        25% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        45% {
-            -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
-        }
-
-        50% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        70% {
-            -webkit-transform: translateY(-60px);
-            transform: translateY(-60px);
-        }
-
-        75% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        95% {
-            -webkit-transform: translateY(-90px);
-            transform: translateY(-90px);
-        }
-
-        100% {
-            -webkit-transform: translateY(-120px);
-            transform: translateY(-120px);
-        }
-    }
-</style>
-
-<div class="container-xxl flex-grow-1 container-p-y">
+﻿<div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-md-12">
             <div class="card mb-4">
                 <!-- ALTTAKI DIV -->
                 <div class="card-body">
-                    <form id="formAccountSettings" method="POST" onsubmit="return false">
+                    <form id="formAccountSettings">
                         <div class="row">
-
-                            <div class="mb-3 col-md-6">
-                                <label for="name" class="form-label">Adı ve Soyadı:</label>
-                                <input class="form-control" type="text" name="name" id="name" placeholder="Ad ve Soyadı yazınız" />
-                            </div>
-
                             <div class="mb-3 col-md-6">
                                 <label for="no" class="form-label">Numarası:</label>
-                                <input class="form-control" type="number" name="no" id="no" placeholder="Numara yazınız" />
+                                <input class="form-control" type="text" name="bolum" id="no" placeholder="Numara yazınız" @bind="imr.bolum_LfCZkz6"/>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="baslama_tarih" class="form-label">İŞLETMEDE MESLEKİ EĞİTİMİ BAŞLAMA TARİHİ: </label>
-                                <input class="form-control" type="date" value="2021-06-18" id="baslama_tarih">
+                                <input class="form-control" type="date" id="baslama_tarih" @bind="imr.baslama_4nZcEd8">
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="bitis_tarih" class="form-label">İŞLETMEDE MESLEKİ EĞİTİM BİTİŞ TARİHİ: </label>
-                                <input class="form-control" type="date" value="2021-06-18" id="bitis_tarih">
+                                <input class="form-control" type="date" id="bitis_tarih" @bind="imr.bitis_tKLLK9M">
                             </div>
 
                             <!-- KAYDET BUTTON -->
                             <div style="text-align:center" class="mt-2">
-                                <button type="submit" class="btn btn-primary me-2">Kaydet</button>
+                                <button type="submit" class="btn btn-primary me-2" @onclick=@(async()=>await submit())>Kaydet</button>
                             </div>
                         </div>
                     </form>
@@ -106,9 +33,43 @@
     </div>
 </div>
 
+@inject NavigationManager navman
 @code {
     [Parameter]
     public UserWToken User { get; set; }
+    private bool isUpdate = false;
+    public internships inty { get; } = internships.IME;
+    private IMERating imr { get; set; } = new IMERating();
+    private InternStdPagesController ispc = new InternStdPagesController();
+
+    protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+    {
+        var res = await ispc.getIMERating(User.token);
+        if (res.isSuccess)
+        {
+            isUpdate = true;
+            imr = res.value;
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    async Task submit()
+    {
+        imr.numara_krHPVVF = User.user.number;
+        imr.adsoyad_VJ2M2Nd = User.user.name + " " + User.user.surname;
+        if (isUpdate)
+        {
+            await ispc.updateIMERating(User.token, imr);
+        }
+        else
+        {
+            await ispc.addIMERating(User.token, imr);
+        }
+        navman.NavigateTo("/ime", true);
+    }
+
+
+
     void OnSingleCompleted(UploadInfo fileinfo)
 
     {
@@ -120,10 +81,6 @@
         }
 
     }
-
-
-
-
 
     public class ResponseModel
     {
