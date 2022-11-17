@@ -1,5 +1,4 @@
 ﻿@namespace staj_r.Dashboard
-
 @inherits LayoutComponentBase
 @page "/dashboard"
 <div class="page">
@@ -299,11 +298,23 @@
 		string userJWT = await UserController.tokenizeUserWToken(User);
 		await localStore.SetItemAsStringAsync("user", userJWT);
 		//await localStore.SetItemAsync("user", await UserController.tokenizeUserWToken(User));
-		changeState();
+		//changeState();
 		//await InvokeAsync(StateHasChanged);
-		base.OnAfterRender(firstRender);
-		return base.OnAfterRenderAsync(firstRender);
+		//return base.OnAfterRenderAsync(firstRender);
+		return base.OnAfterRenderAsync(true);
 	}
+
+	protected override async Task<Task> OnInitializedAsync()
+	{
+		if (User == null)
+		{
+			User = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		}
+		string userJWT = await UserController.tokenizeUserWToken(User);
+		await localStore.SetItemAsStringAsync("user", userJWT);
+		return base.OnInitializedAsync();
+	}
+
 	public async Task changeState()
 	{
 		do
