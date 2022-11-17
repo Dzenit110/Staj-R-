@@ -1,7 +1,4 @@
-﻿using staj_r_backend.Helper.Token;
-using staj_r_backend.Models.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -29,28 +26,28 @@ namespace staj_r_backend_test
             //});
             //StreamReader reader = new StreamReader(stree);
             //string res = reader.ReadToEnd();
-            Token tkn = new Token();
-            UserWToken uwt = new UserWToken()
-            {
-                token = "eykodfsjıdjsfjsdljdlckjlvdf",
-                tokenExpiresOn = DateTime.Now,
-                user = new User()
-                {
-                    authorities = new List<string>
-                    {
-                        "a", "b", "c", "d"
-                    },
-                    department = "dsıfdsf",
-                    email = "fdksfjdopsjfsd",
-                    surname = "sdklfdjsdf",
-                    name = "djsfhsfdfdsf",
-                    number = "547456165",
-                    role = "dlfjsdjfpsodf",
-                    roleID = 74,
-                }
-            };
-            var a = tkn.encryptUserWToken(uwt);
-            var b = tkn.decryptUserWToken(a);
+            //Token tkn = new Token();
+            //UserWToken uwt = new UserWToken()
+            //{
+            //    token = "eykodfsjıdjsfjsdljdlckjlvdf",
+            //    tokenExpiresOn = DateTime.Now,
+            //    user = new User()
+            //    {
+            //        authorities = new List<string>
+            //        {
+            //            "a", "b", "c", "d"
+            //        },
+            //        department = "dsıfdsf",
+            //        email = "fdksfjdopsjfsd",
+            //        surname = "sdklfdjsdf",
+            //        name = "djsfhsfdfdsf",
+            //        number = "547456165",
+            //        role = "dlfjsdjfpsodf",
+            //        roleID = 74,
+            //    }
+            //};
+            //var a = tkn.encryptUserWToken(uwt);
+            //var b = tkn.decryptUserWToken(a);
 
         }
 

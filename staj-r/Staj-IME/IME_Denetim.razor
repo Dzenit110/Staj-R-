@@ -1,0 +1,75 @@
+﻿
+    <div class="card-body">
+        <form id="formAccountSettings" method="POST" onsubmit="return false">
+            <div class="row">
+
+
+                <div class="mb-3 col-md-6">
+                    <label for="name" class="form-label">BÖLÜMÜNÜZ:</label>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Bölümünüzü yazınız" @bind="imd.bolum_XRk52Wc"/>
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="kurum_name" class="form-label">İŞLETMEDE MESLEKİ EĞİTİM KURUM/KURULUŞ:</label>
+                <input class="form-control" type="text" name="kurum_name" id="kurum_name" placeholder="Kurum/Kuruluş ismini yazınız" @bind="imd.kurum_QF8djLL" />
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="bolum_name" class="form-label">İŞLETMEDE MESLEKİ EĞİTİM YAPTIĞI BÖLÜM/KISIM:</label>
+                <input class="form-control" type="text" name="bolum_name" id="bolum_name" placeholder="Bölüm/Kısım ismini yazınız" @bind="imd.kisim_DdE5BVa" />
+                </div>
+
+                <div class="mb-3 col-md-6">
+                    <label for="baslama_tarih" class="form-label">İŞLETMEDE MESLEKİ EĞİTİMİ BAŞLAMA TARİHİ: </label>
+                    <input class="form-control" type="date" id="baslama_tarih" @bind="imd.baslama_bSqusaA">
+                </div>
+
+                <!-- KAYDET BUTTON -->
+                <div style="text-align:center" class="mt-2">
+                    <button type="submit" class="btn btn-primary me-2" @onclick=@(async()=>await submit())>Kaydet</button>
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+@inject NavigationManager navman
+@code {
+    [Parameter]
+    public UserWToken User { get; set; }
+    private bool Update = false;
+    public internships inty { get; } = internships.IME;
+    private IMEDenetim imd = new IMEDenetim();
+    private InternStdPagesController ispc = new InternStdPagesController();
+
+    protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
+    {
+        var res = await ispc.getIMEDenetim(User.token);
+        if (res.isSuccess)
+        {
+            Update = true;
+            imd = res.value;
+        }
+        return base.OnAfterRenderAsync(firstRender);
+    }
+
+    public async Task submit()
+    {
+        InternStdPagesController ispc = new InternStdPagesController();
+        if (Update)
+        {
+            await ispc.updateIMEDenetim(User.token, imd);
+        }
+        else
+        {
+            await ispc.addIMEDenetim(User.token, imd);
+        }
+        navman.NavigateTo("/ime", true);
+    }
+
+    public T GetValue<T>(ChangeEventArgs e)
+    {
+        string value = e.Value.ToString();
+        return (T)Convert.ChangeType(value, typeof(T));
+    }
+}
