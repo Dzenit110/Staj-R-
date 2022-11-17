@@ -1,4 +1,5 @@
 ﻿@page "/staj_2_acd"
+@inject ILocalStorageService localStore
 
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
@@ -225,7 +226,7 @@
 </div>
 <!-- / Layout wrapper -->
 @code {
-    ILocalStorageService localStore;
+    
 	[Parameter]
 	public UserWToken uwt { get; set; }
 	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)

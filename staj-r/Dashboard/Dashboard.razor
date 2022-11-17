@@ -299,10 +299,11 @@
 		string userJWT = await UserController.tokenizeUserWToken(User);
 		await localStore.SetItemAsStringAsync("user", userJWT);
 		//await localStore.SetItemAsync("user", await UserController.tokenizeUserWToken(User));
-		changeState();
+		//changeState();
 		//await InvokeAsync(StateHasChanged);
-		base.OnAfterRender(firstRender);
-		return base.OnAfterRenderAsync(firstRender);
+		//base.OnAfterRender(firstRender);
+		return base.OnAfterRenderAsync(true);
+		//return base.OnAfterRenderAsync(firstRender);
 	}
 	public async Task changeState()
 	{
@@ -333,6 +334,15 @@
 		isActive.Values.ForEach(e => e = "");
 		isActive[keyword] = "active";
 	}
-
+	protected override async Task<Task> OnInitializedAsync()
+	{
+		if (User == null)
+		{
+			User = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+		}
+		string userJWT = await UserController.tokenizeUserWToken(User);
+		await localStore.SetItemAsStringAsync("user", userJWT);
+		return base.OnInitializedAsync();
+	}
 
 }
