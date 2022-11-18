@@ -9,16 +9,14 @@
             <!--DropBox-->
             <div class="btn-group">
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">İstediğiniz rolü seçiniz</button>
-                <ul class="dropdown-menu" style="">
-                    @for(int j = 0; j < DDRoles.Count; j++)
+                <select>
+                    @for (int j = 0; j < DDRoles.Count; j++)
                     {
-                        <li><a class="dropdown-item" href="javascript:void(0);">@ddroleNames[j]</a></li>
+                        <option>
+                            @ddroleNames[j]
+                        </option>
                     }
-                    <li>
-                        <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
-                    </ul>
+                </select>
                     </div>
                     <!--DropBox bitiyor-->
                     <!--Button Yeni rolü onayla-->
@@ -75,5 +73,9 @@
     {
         DDRoles.Values.ForEach(e => ddroleNames.Add(e));
         base.OnInitialized();
+    }
+    protected async Task submit()
+    {
+        UserController uc = new UserController();
     }
 }

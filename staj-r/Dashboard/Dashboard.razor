@@ -1,5 +1,4 @@
 ﻿@namespace staj_r.Dashboard
-
 @inherits LayoutComponentBase
 @page "/dashboard"
 <div class="page">
@@ -187,13 +186,10 @@
 									</li>
 									<!-- User -->
 									<li class="nav-item navbar-dropdown dropdown-user dropdown">
-										<a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);"
-										   data-bs-toggle="dropdown">
-											<div class="avatar avatar-online">
-												<img src="../dash/assets/img/avatars/1.png" alt
-													 class="w-px-40 h-auto rounded-circle" />
-											</div>
-										</a>
+												<button @onclick=@(async()=>await logout())>
+													<img src="../dash/assets/img/avatars/1.png"
+														 class="w-px-40 h-auto rounded-circle" />
+												</button>
 										<ul class="dropdown-menu dropdown-menu-end">
 											<li>
 												<a class="dropdown-item" href="#">
@@ -266,6 +262,7 @@
 	</div>
 </div>
 
+@inject NavigationManager navman
 @inject ILocalStorageService localStore
 @code {
 	[Parameter]
@@ -294,23 +291,45 @@
 	{
 		if (User == null)
 		{
-			User = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+			string token = await localStore.GetItemAsStringAsync("user");
+			User = await UserController.detokenizeUserWToken(token);
 		}
 		string userJWT = await UserController.tokenizeUserWToken(User);
 		await localStore.SetItemAsStringAsync("user", userJWT);
 		//await localStore.SetItemAsync("user", await UserController.tokenizeUserWToken(User));
 		changeState();
 		//await InvokeAsync(StateHasChanged);
-		base.OnAfterRender(firstRender);
-		return base.OnAfterRenderAsync(firstRender);
+		//return base.OnAfterRenderAsync(firstRender);
+		return base.OnAfterRenderAsync(true);
 	}
+
+	protected override async Task<Task> OnInitializedAsync()
+	{
+		if (User == null)
+		{
+			string token = await localStore.GetItemAsStringAsync("user");
+			User = await UserController.detokenizeUserWToken(token);
+		}
+		string userJWT = await UserController.tokenizeUserWToken(User);
+		await localStore.SetItemAsStringAsync("user", userJWT);
+		return base.OnInitializedAsync();
+	}
+
+	public async Task logout()
+	{
+		await localStore.RemoveItemAsync("user");
+		await localStore.ClearAsync();
+		await InvokeAsync(StateHasChanged);
+		navman.NavigateTo("/");
+	}
+
 	public async Task changeState()
 	{
 		do
 		{
 			var y = User.tokenExpiresOn - DateTime.Now;
 			session = y.Hours + ":" + y.Minutes + ":" + y.Seconds;
-			//await InvokeAsync(StateHasChanged);
+			await InvokeAsync(StateHasChanged);
 			await Task.Delay(100);
 		} while (true);
 	}
@@ -333,6 +352,5 @@
 		isActive.Values.ForEach(e => e = "");
 		isActive[keyword] = "active";
 	}
-
 
 }

@@ -36,6 +36,7 @@
 		{
 			status = resultOfMessage.value;
 		}
+		await InvokeAsync(StateHasChanged);
 		return base.OnAfterRenderAsync(firstRender);
 	}
 }
