@@ -33,9 +33,9 @@
                         </div>
                     </div>
                 </div>
-                
+@inject ILocalStorageService localStore
 @code {
-    ILocalStorageService localStore;
+    
 	[Parameter]
 	public UserWToken uwt { get; set; }
 	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
