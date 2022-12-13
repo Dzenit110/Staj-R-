@@ -42,13 +42,13 @@
                                     </a>
                                 </div>
                                 <div class="input-group input-group-merge">
-                                    <input type="password"
+                                    <input type="@showpass"
                                            id="password"
                                            class="form-control"
                                            name="password"
                                            placeholder="Şifrenizi gireniz"
                                            aria-describedby="password" @onchange = "passwordChanged" />
-                                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                    <span @onclick="showpassbtn" class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
                             <div class="mb-3">
@@ -68,11 +68,25 @@
         </div>
     </div>
     }
+@inject NavigationManager navman
 @code {
     public string number = "";
     public string password = "";
     public UserWToken uwt { get; set; }
     public bool? isLogin = false;
+    public string showpass = "password";
+
+    private void showpassbtn()
+    {
+        if(showpass == "password")
+        {
+            showpass = "text";
+        }
+        else
+        {
+            showpass = "password";
+        }
+    }
 
     private void numberChanged(ChangeEventArgs args)
     {
@@ -107,6 +121,7 @@
                 uwt = res.value;
                 await localStore.SetItemAsStringAsync("token", res.value.token);
                 isLogin = true;
+                navman.NavigateTo("/stajR");
             }
             else
             {

@@ -303,15 +303,7 @@
     {
         InternStdPagesController ispc = new InternStdPagesController();
         await ispc.applyInternship(User.token, internType, ApplyForm);
-        if(internType == internships.StajI)
-        {
-            navman.NavigateTo("/staj_1",true);
-        }
-        else if(internType == internships.STAJII)
-        {
-            navman.NavigateTo("/staj_2",true);            
-        }
-
+        navman.NavigateTo("/stajR",true); 
     }
 
 

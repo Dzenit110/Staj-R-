@@ -1,4 +1,5 @@
-﻿using System;
+﻿using staj_r_backend.Controllers;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace staj_r_backend_test
         };
         static async Task Main(string[] args)
         {
+            UserController uc = new UserController();
+
             //Stream stree = await new DocumentController().getDailyReport(new DailyReport()
             //{
             //    aciklama_GT6ExY2 = "Önder ",
