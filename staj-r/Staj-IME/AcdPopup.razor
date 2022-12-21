@@ -1,0 +1,74 @@
+﻿@page "/basvuru/{OgrNo}/{typeParam}"
+@using Microsoft.AspNetCore.Components.Web
+@layout Dashboard.Dashboard
+
+@if (loaded)
+{
+    <h2>@info.applyStatusMessage</h2>
+    <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#modalToggle">Dosya İndir</button>
+    <button type="button" class="btn btn-primary"  @onclick=@(()=>basvuruOnayla(true)) data-bs-toggle="modal" data-bs-target="#modalToggle">Başvuruyu Onayla</button>
+    <button type="button" class="btn btn-primary"  @onclick=@(()=>basvuruOnayla(false)) data-bs-toggle="modal" data-bs-target="#modalToggle">Başvuruyu Reddet</button>
+}
+
+
+
+@inject ILocalStorageService localStore
+@inject NavigationManager navman
+@code {
+    [ParameterAttribute]
+    public string OgrNo { get; set; } = "";
+    [ParameterAttribute]
+    public string typeParam { get; set; } = "";
+
+    public UserWToken uwt { get; set; }
+
+    public internships Type { get; set; } = internships.StajI;
+
+    Popup info = new Popup();
+
+    InternPagesController ipc = new InternPagesController();
+
+    studentDetails stdDet { get; set; } = new studentDetails();
+
+    bool loaded = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender){
+            uwt = await UserController.detokenizeUserWToken(await localStore.GetItemAsStringAsync("user"));
+            switch (typeParam)
+            {
+                case "I": Type = internships.StajI; break;
+                case "II": Type = internships.STAJII; break;
+                case "IME": Type = internships.IME; break;
+            }
+            var res = await ipc.getStudentDetails(OgrNo, Type);
+            if (res.isSuccess)
+            {
+                info = res.value;
+            }
+
+            var userres = await ipc.getStudents(uwt.token, internships.StajI);
+            if (userres.isSuccess)
+            {
+                foreach(var i in userres.value)
+                {
+                    if (i.number == OgrNo)
+                    {
+                        stdDet = i;
+                        break;
+                    }
+                }
+            }
+            loaded = true;
+            await InvokeAsync(StateHasChanged);
+        }
+        //return base.OnAfterRenderAsync(firstRender);
+    }
+
+    protected async Task basvuruOnayla(bool isAccept)
+    {
+        await ipc.markApply(info.doesInternID, isAccept, stdDet.number, Type);
+        navman.NavigateTo("/staj_1_acd");
+    }
+}

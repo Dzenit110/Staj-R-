@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <Button class="btn btn-primary d-grid w-100" @onclick = "signinClicked">Giriş Yap</Button>
+                                <Button class="btn btn-primary d-grid w-100" @onclick=@(async()=>await signinClicked())>Giriş Yap</Button>
                             </div>
                         </form>
                     </div>
@@ -107,7 +107,7 @@
         catch{}
     }
 
-    private async void signinClicked()
+    private async Task signinClicked()
     {
         try
         {

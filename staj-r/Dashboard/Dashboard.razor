@@ -294,6 +294,10 @@
 			string token = await localStore.GetItemAsStringAsync("user");
 			User = await UserController.detokenizeUserWToken(token);
 		}
+		if (User.tokenExpiresOn < DateTime.Now)
+		{
+			logout();
+		}
 		string userJWT = await UserController.tokenizeUserWToken(User);
 		await localStore.SetItemAsStringAsync("user", userJWT);
 		//await localStore.SetItemAsync("user", await UserController.tokenizeUserWToken(User));
@@ -303,17 +307,17 @@
 		return base.OnAfterRenderAsync(true);
 	}
 
-	protected override async Task<Task> OnInitializedAsync()
-	{
-		if (User == null)
-		{
-			string token = await localStore.GetItemAsStringAsync("user");
-			User = await UserController.detokenizeUserWToken(token);
-		}
-		string userJWT = await UserController.tokenizeUserWToken(User);
-		await localStore.SetItemAsStringAsync("user", userJWT);
-		return base.OnInitializedAsync();
-	}
+	//protected override async Task<Task> OnInitializedAsync()
+	//{
+	//	if (User == null)
+	//	{
+	//		string token = await localStore.GetItemAsStringAsync("user");
+	//		User = await UserController.detokenizeUserWToken(token);
+	//	}
+	//	string userJWT = await UserController.tokenizeUserWToken(User);
+	//	await localStore.SetItemAsStringAsync("user", userJWT);
+	//	return base.OnInitializedAsync();
+	//}
 
 	public async Task logout()
 	{

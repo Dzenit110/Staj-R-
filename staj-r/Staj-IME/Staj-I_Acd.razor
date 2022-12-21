@@ -18,6 +18,7 @@
 	<tbody class="table-border-bottom-0">
 		@for (int j = 0; j < students.Count; j++)
 		{
+			string i = students[j].number;
 			<tr class="table-default">
 				<td><strong>@students[j].number</strong></td>
 				<td>
@@ -47,13 +48,10 @@
 				</td>
 				<td>
 					<!--Burada ilk satırın son sütünü  başlıyor -->
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalToggle">Detay</button>
-					@*                        <div class="mt-3">
-				//Buraya detay gelecek
-				</div>*@
-				</td>
-				<td>
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalToggle">ONAYLA</button>
+					<button type="button" class="btn btn-primary"  @onclick=@(()=>goPopup(i)) data-bs-toggle="modal" data-bs-target="#modalToggle">Detay</button>
+@*                        <div class="mt-3">
+						<AcdPopup OgrNo=@students[j].number Type="internships.StajI" />
+                        </div>*@
 				</td>
 
 				<!--Burada bitiyor-->
@@ -63,11 +61,14 @@
 </table>
 
 @inject ILocalStorageService localStore
+@inject NavigationManager navman
 @code {
 	[Parameter]
 	public UserWToken uwt { get; set; }
 	List<studentDetails> students = new List<studentDetails>();
 	InternPagesController ipc = new InternPagesController();
+
+	ElementReference[] buttons { get; set; }
 
 	protected override async Task<Task> OnAfterRenderAsync(bool firstRender)
 	{
@@ -76,9 +77,15 @@
 		if (res.isSuccess)
 		{
 			students = res.value;
+			buttons = new ElementReference[students.Count];
 			await InvokeAsync(StateHasChanged);
 		}
 		return base.OnAfterRenderAsync(firstRender);
+	}
+
+	protected void goPopup(string number)
+	{
+		navman.NavigateTo($"/basvuru/{number}/I", true);
 	}
 
 }
