@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace staj_r_backend.Controllers
 {
+
     public class InternPagesController
     {
         private InternPagesModel ipm = new InternPagesModel();
