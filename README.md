@@ -103,7 +103,7 @@ From here, you can perform all actions related to internships and IME, such as a
 <img src="https://github.com/user-attachments/assets/68c3dafc-786e-4545-9ec9-f1091b648f6e" width="80" height="60" alt="New Image"> &nbsp; &nbsp;
 <img src="https://github.com/user-attachments/assets/badccedd-421f-4c65-a048-48faa27c112a" width="60" height="50" alt="Description"> &nbsp; &nbsp;
 <img src="https://github.com/user-attachments/assets/96e49792-fcc0-4b83-962a-5b284a93eace" width="60" height="50" alt="BrandBlazor"> &nbsp; &nbsp;
-<img src="https://github.com/user-attachments/assets/3471ddd2-fafe-417c-a463-ef943eae6b5c" width="50" height="50" alt="Neo4j">
+<img src="https://github.com/user-attachments/assets/3471ddd2-fafe-417c-a463-ef943eae6b5c" width="80" height="60" alt="Neo4j">
 
 
 
