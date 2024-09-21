@@ -11,4 +11,13 @@
 9. Students can track their internship application status and access related forms.
 10. Faculty members can manage user roles, add new users, and oversee the internship process efficiently.
 
+<br>
+<img width="218" alt="1" src="https://github.com/user-attachments/assets/25d7ca0a-3378-4115-a4dc-6b17567078b2">
+<br>
+# Login Operations
 
+If you haven't logged in yet, you can do so using the login button above or here.
+
+Don't have login credentials? If you are a student or a faculty member, please contact your department administrator. If you are a department administrator, please consult your institution's authorized personnel.
+
+<br>
