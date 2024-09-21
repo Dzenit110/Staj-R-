@@ -92,6 +92,19 @@ On our site, you can view students who have initiated their internship process a
 From here, you can perform all actions related to internships and IME, such as approving or rejecting internship applications, sending messages to students, downloading internship documents, and scheduling interview dates!<br><br>
 
 🧰 Languages & Tools
+<img src="https://github.com/user-attachments/assets/06d94456-244c-4e4d-bf60-45d456418158" width="50" height="50" alt="C# (CSharp)"> &nbsp; &nbsp; 
+<img src="https://github.com/devicons/devicon/blob/master/icons/json/json-original.svg" width="50" height="50" alt="JSON"> &nbsp; &nbsp;
+<img src="https://github.com/devicons/devicon/blob/master/icons/figma/figma-original.svg" width="50" height="50" alt="Figma"> &nbsp; &nbsp;
+<img src="https://github.com/devicons/devicon/blob/master/icons/git/git-original.svg" width="50" height="50" alt="Git"> &nbsp; &nbsp;
+<img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-original-wordmark.svg" width="50" height="50" alt="HTML5"> &nbsp; &nbsp;
+<img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" width="50" height="50" alt="JavaScript">  &nbsp; &nbsp;
+<img src="https://github.com/devicons/devicon/blob/master/icons/bootstrap/bootstrap-original-wordmark.svg" width="50" height="50" alt="Bootstrap"> &nbsp; &nbsp;
+<img src="https://github.com/devicons/devicon/blob/master/icons/css3/css3-original-wordmark.svg" width="50" height="50" alt="CSS3"> &nbsp; &nbsp;
+<img src="https://github.com/user-attachments/assets/68c3dafc-786e-4545-9ec9-f1091b648f6e" width="70" height="60" alt="New Image"> &nbsp; &nbsp;
+<img src="https://github.com/user-attachments/assets/badccedd-421f-4c65-a048-48faa27c112a" width="50" height="50" alt="Description"> &nbsp; &nbsp;
+<img src="https://github.com/user-attachments/assets/96e49792-fcc0-4b83-962a-5b284a93eace" width="50" height="50" alt="BrandBlazor"> &nbsp; &nbsp;
+
+
 
 
 
