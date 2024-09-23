@@ -87,7 +87,7 @@ Note: You cannot define a role that has permissions above your own.
 
 <h2>Internship - IME Management</h2>
 
-On our site, you can view students who have initiated their internship process according to the desired type of internship (Stja-I, Staj-II, IME). You can filter internship status information using the buttons above, and you can edit students' internship statuses using the detail buttons on the page below.
+On our site, you can view students who have initiated their internship process according to the desired type of internship (Stja-I, Staj-II, IME). You can filter internship status information using the buttons above, and you can edit students' internship statuses using the detail buttons on the page below..
 
 From here, you can perform all actions related to internships and IME, such as approving or rejecting internship applications, sending messages to students, downloading internship documents, and scheduling interview dates!<br><br>
 
