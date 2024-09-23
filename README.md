@@ -12,7 +12,8 @@
 10. Faculty members can manage user roles, add new users, and oversee the internship process efficiently.
 
 <br>
-<img width="218" alt="1" src="https://github.com/user-attachments/assets/25d7ca0a-3378-4115-a4dc-6b17567078b2">
+![1](https://github.com/user-attachments/assets/562fef96-4c91-4ec7-9bda-1623cb44cb0e)
+
 <br>
 <h2>Login Operations</h2>
 
@@ -22,7 +23,8 @@ Don't have login credentials? If you are a student or a faculty member, please c
 
 <br>
 
-<img width="239" alt="2" src="https://github.com/user-attachments/assets/79c57ca6-d71f-4f6f-800b-64800851f1da">
+![2](https://github.com/user-attachments/assets/70c8ee26-6e0c-4d20-8a50-55ea9a71fa85)
+
 <br>
 
 <h2>Session Duration</h2>
@@ -30,7 +32,7 @@ Don't have login credentials? If you are a student or a faculty member, please c
 After logging into the site, you will find your remaining session time and logout button in the top right corner of the screen. When your session expires, you can extend it if you wish. If you do not perform any actions, you will be automatically logged out!
 <br>
 
-<img width="220" alt="3" src="https://github.com/user-attachments/assets/248dda91-ebdc-409c-9ec3-39828f798334"><br>
+![3](https://github.com/user-attachments/assets/ef5e0aa2-e3a8-4a72-8cb6-758dd09005d6)
 
 <h2>Sidebar</h2>
 
@@ -40,16 +42,16 @@ The pages on this panel depend on your permissions. The example image belongs to
 
 <br>
 
-<img width="250" alt="4" src="https://github.com/user-attachments/assets/54a8893c-2de4-41f0-b599-7082dd07ee41"> <br>
+![4](https://github.com/user-attachments/assets/56bb5751-9a85-4e50-8ae9-4e43d857ae89)
+
 
 <h2>Your Internship Status (Student)</h2>
 
 You can access your internship or IME application status by clicking on the internship page. You will first encounter your internship information on this page. Depending on your internship status, other pages will also be loaded on this page.
 <br>
 
-<img width="250" alt="5" src="https://github.com/user-attachments/assets/29bf4d1b-6cba-4773-a8ce-2d39530f8467"><br>
-<img width="240" alt="6" src="https://github.com/user-attachments/assets/fd9b664e-35a7-4671-947e-670100a91f87"><br>
-
+![5](https://github.com/user-attachments/assets/c7537ecc-be36-40cb-bc2b-a0892a403be3)
+<br>
 <h2>Example: Internship Application Acceptance Form</h2>
 If you haven't applied yet, you can fill out the internship application form through the application screen that appears. You can also download or update it whenever you want. However, please note that once you submit your document, your committee members will be able to view or download it.
 
@@ -66,14 +68,15 @@ The following information is for you!
 
 From the USERS page, accessible via the sidebar, you can view users according to your permissions and filter them by their roles. You can make necessary adjustments for each user through the detail button, which opens a popup.<br>
 
-<img width="250" alt="8" src="https://github.com/user-attachments/assets/935272b4-07e7-4b5a-bf0c-58bf66d4cef7"><br>
-
+![7](https://github.com/user-attachments/assets/a686ad85-1518-4b16-a9be-3cdfcc30b18a)
+<br>
 <h2>Add Users</h2>
 
 Our system is designed to allow registered users to perform this operation to prevent external users from registering. Users (excluding students) can add new users according to their permissions. You can access this through the "Add User" option in the sidebar. To add users, simply fill out the information and confirm. You can also upload thousands of users to the system simultaneously with just two clicks using a .csv file!
 <br>
 
-<img width="240" alt="9" src="https://github.com/user-attachments/assets/e5615cd4-4629-4fe6-85f0-4eaf45e00b48"> <br>
+![8](https://github.com/user-attachments/assets/70cb1c50-71a6-4da0-a664-70789bd8895c)
+
 
 <h2>Adding Roles</h2>
 
