@@ -59,7 +59,7 @@ Remember! When the committee member schedules your interview date and time, you 
 
 <br>
 
-<img width="240" alt="7" src="https://github.com/user-attachments/assets/b2158ba9-db9c-4fc0-b17d-2c382635a053"><br>
+![users](https://github.com/user-attachments/assets/337d1203-1d39-4f75-8af3-33560cc07e8f)
 
 <h2>Are You a Faculty Member?</h2>
 The following information is for you! 
