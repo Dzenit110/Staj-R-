@@ -12,7 +12,7 @@
 10. Faculty members can manage user roles, add new users, and oversee the internship process efficiently.
 
 <br>
-![1](https://github.com/user-attachments/assets/562fef96-4c91-4ec7-9bda-1623cb44cb0e)
+![1](https://github.com/user-attachments/assets/923db768-7d79-4601-a10f-83dfcf28978f)
 
 <br>
 <h2>Login Operations</h2>
@@ -21,7 +21,7 @@ If you haven't logged in yet, you can do so using the login button above or here
 
 Don't have login credentials? If you are a student or a faculty member, please contact your department administrator. If you are a department administrator, please consult your institution's authorized personnel.
 
-<br>
+<br><br>
 
 ![2](https://github.com/user-attachments/assets/70c8ee26-6e0c-4d20-8a50-55ea9a71fa85)
 
@@ -30,25 +30,25 @@ Don't have login credentials? If you are a student or a faculty member, please c
 <h2>Session Duration</h2>
 
 After logging into the site, you will find your remaining session time and logout button in the top right corner of the screen. When your session expires, you can extend it if you wish. If you do not perform any actions, you will be automatically logged out!
-<br>
+<br><br>
 
 ![3](https://github.com/user-attachments/assets/ef5e0aa2-e3a8-4a72-8cb6-758dd09005d6)
-
+<br>
 <h2>Sidebar</h2>
 
 We have placed all the tabs you may need on the left side of the site! This area is always available to help you easily and quickly perform all your operations.
 
 The pages on this panel depend on your permissions. The example image belongs to students.
 
-<br>
+<br><br>
 
 ![4](https://github.com/user-attachments/assets/56bb5751-9a85-4e50-8ae9-4e43d857ae89)
 
-
+<br>
 <h2>Your Internship Status (Student)</h2>
 
 You can access your internship or IME application status by clicking on the internship page. You will first encounter your internship information on this page. Depending on your internship status, other pages will also be loaded on this page.
-<br>
+<br><br>
 
 ![5](https://github.com/user-attachments/assets/c7537ecc-be36-40cb-bc2b-a0892a403be3)
 <br>
@@ -59,23 +59,24 @@ After completing your internship application and starting your internship proces
 
 Remember! When the committee member schedules your interview date and time, you will see this information in the status section mentioned above.
 
-<br>
+<br><br>
 
 ![users](https://github.com/user-attachments/assets/337d1203-1d39-4f75-8af3-33560cc07e8f)
 
 <h2>Are You a Faculty Member?</h2>
 The following information is for you! 
 
-From the USERS page, accessible via the sidebar, you can view users according to your permissions and filter them by their roles. You can make necessary adjustments for each user through the detail button, which opens a popup.<br>
+From the USERS page, accessible via the sidebar, you can view users according to your permissions and filter them by their roles. You can make necessary adjustments for each user through the detail button, which opens a popup.<br><br>
 
-![7](https://github.com/user-attachments/assets/a686ad85-1518-4b16-a9be-3cdfcc30b18a)
+![6](https://github.com/user-attachments/assets/d348ec21-2916-4758-a553-cec344aa1ae8)
+
 <br>
 <h2>Add Users</h2>
 
 Our system is designed to allow registered users to perform this operation to prevent external users from registering. Users (excluding students) can add new users according to their permissions. You can access this through the "Add User" option in the sidebar. To add users, simply fill out the information and confirm. You can also upload thousands of users to the system simultaneously with just two clicks using a .csv file!
 <br>
 
-![8](https://github.com/user-attachments/assets/70cb1c50-71a6-4da0-a664-70789bd8895c)
+![7](https://github.com/user-attachments/assets/19b7424d-03c4-4256-afcf-cd7fea89b2e5)
 
 
 <h2>Adding Roles</h2>
@@ -86,7 +87,8 @@ Note: You cannot define a role that has permissions above your own.
 
 <br>
 
-<img width="250" alt="10" src="https://github.com/user-attachments/assets/33d6c764-e389-4b19-a636-da099f0d0d28"><br>
+![8](https://github.com/user-attachments/assets/d6618848-02d5-40ec-ba0a-b17dbaa19fe4)
+
 
 <h2>Internship - IME Management</h2>
 
