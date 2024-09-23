@@ -12,7 +12,7 @@
 10. Faculty members can manage user roles, add new users, and oversee the internship process efficiently.
 
 <br>
-![1](https://github.com/user-attachments/assets/923db768-7d79-4601-a10f-83dfcf28978f)
+<img src="https://github.com/user-attachments/assets/923db768-7d79-4601-a10f-83dfcf28978f" alt="Image" />
 
 <br>
 <h2>Login Operations</h2>
