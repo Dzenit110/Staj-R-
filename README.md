@@ -40,15 +40,15 @@ The pages on this panel depend on your permissions. The example image belongs to
 
 <br>
 
-<img width="218" alt="4" src="https://github.com/user-attachments/assets/54a8893c-2de4-41f0-b599-7082dd07ee41"> <br>
+<img width="250" alt="4" src="https://github.com/user-attachments/assets/54a8893c-2de4-41f0-b599-7082dd07ee41"> <br>
 
 <h2>Your Internship Status (Student)</h2>
 
 You can access your internship or IME application status by clicking on the internship page. You will first encounter your internship information on this page. Depending on your internship status, other pages will also be loaded on this page.
 <br>
 
-<img width="225" alt="5" src="https://github.com/user-attachments/assets/29bf4d1b-6cba-4773-a8ce-2d39530f8467"><br>
-<img width="226" alt="6" src="https://github.com/user-attachments/assets/fd9b664e-35a7-4671-947e-670100a91f87"><br>
+<img width="250" alt="5" src="https://github.com/user-attachments/assets/29bf4d1b-6cba-4773-a8ce-2d39530f8467"><br>
+<img width="240" alt="6" src="https://github.com/user-attachments/assets/fd9b664e-35a7-4671-947e-670100a91f87"><br>
 
 <h2>Example: Internship Application Acceptance Form</h2>
 If you haven't applied yet, you can fill out the internship application form through the application screen that appears. You can also download or update it whenever you want. However, please note that once you submit your document, your committee members will be able to view or download it.
@@ -59,21 +59,21 @@ Remember! When the committee member schedules your interview date and time, you 
 
 <br>
 
-<img width="221" alt="7" src="https://github.com/user-attachments/assets/b2158ba9-db9c-4fc0-b17d-2c382635a053"><br>
+<img width="240" alt="7" src="https://github.com/user-attachments/assets/b2158ba9-db9c-4fc0-b17d-2c382635a053"><br>
 
 <h2>Are You a Faculty Member?</h2>
 The following information is for you! 
 
 From the USERS page, accessible via the sidebar, you can view users according to your permissions and filter them by their roles. You can make necessary adjustments for each user through the detail button, which opens a popup.<br>
 
-<img width="229" alt="8" src="https://github.com/user-attachments/assets/935272b4-07e7-4b5a-bf0c-58bf66d4cef7"><br>
+<img width="250" alt="8" src="https://github.com/user-attachments/assets/935272b4-07e7-4b5a-bf0c-58bf66d4cef7"><br>
 
 <h2>Add Users</h2>
 
 Our system is designed to allow registered users to perform this operation to prevent external users from registering. Users (excluding students) can add new users according to their permissions. You can access this through the "Add User" option in the sidebar. To add users, simply fill out the information and confirm. You can also upload thousands of users to the system simultaneously with just two clicks using a .csv file!
 <br>
 
-<img width="245" alt="9" src="https://github.com/user-attachments/assets/e5615cd4-4629-4fe6-85f0-4eaf45e00b48"> <br>
+<img width="240" alt="9" src="https://github.com/user-attachments/assets/e5615cd4-4629-4fe6-85f0-4eaf45e00b48"> <br>
 
 <h2>Adding Roles</h2>
 
@@ -83,7 +83,7 @@ Note: You cannot define a role that has permissions above your own.
 
 <br>
 
-<img width="223" alt="10" src="https://github.com/user-attachments/assets/33d6c764-e389-4b19-a636-da099f0d0d28"><br>
+<img width="250" alt="10" src="https://github.com/user-attachments/assets/33d6c764-e389-4b19-a636-da099f0d0d28"><br>
 
 <h2>Internship - IME Management</h2>
 
