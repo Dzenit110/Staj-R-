@@ -96,7 +96,7 @@ On our site, you can view students who have initiated their internship process a
 
 From here, you can perform all actions related to internships and IME, such as approving or rejecting internship applications, sending messages to students, downloading internship documents, and scheduling interview dates!<br><br>
 
-🧰 Languages & Tools <br><br>
+## 🧰 Languages & Tools <br><br>
 <img src="https://github.com/user-attachments/assets/06d94456-244c-4e4d-bf60-45d456418158" width="50" height="50" alt="C# (CSharp)"> &nbsp; &nbsp; 
 <img src="https://github.com/devicons/devicon/blob/master/icons/json/json-original.svg" width="50" height="50" alt="JSON"> &nbsp; &nbsp;
 <img src="https://github.com/devicons/devicon/blob/master/icons/figma/figma-original.svg" width="50" height="50" alt="Figma"> &nbsp; &nbsp;
