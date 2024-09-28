@@ -19,7 +19,7 @@
 
 If you haven't logged in yet, you can do so using the login button above or here.
 
-Don't have login credentials? If you are a student or a faculty member, please contact your department administrator. If you are a department administrator, please consult your institution's authorized personnel.
+Don't have login credentials? If you are a student or a faculty member, please contact your department administrator. If you are a department administrator, please consult your institution's authorized personnel..
 
 <br><br>
 
